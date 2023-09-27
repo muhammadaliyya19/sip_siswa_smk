@@ -60,7 +60,7 @@ Start Page Title Area -->
                         <div class="row">                            
                             <div class="col-lg-3 col-md-6 mix social_media">
                                 <div class="single-portfolio">
-                                    <div class="portfolio-image bg-2" style="background-image: url('<?=base_url('assets/img/youtube-logo.jpg'); ?>')">
+                                    <div class="portfolio-image bg-2" style="background-image: url('<?=base_url('assets/img/youtube-logo.png'); ?>')">
                                         <div class="price-wrap">
                                             <a href="https://youtube.com/c/ArifIbnuzainal" target="_blank">
                                                 <i class="flaticon-play"></i>
@@ -82,7 +82,7 @@ Start Page Title Area -->
                             </div>
                             <div class="col-lg-3 col-md-6 mix social_media">
                                 <div class="single-portfolio">
-                                    <div class="portfolio-image bg-2" style="background-image: url('<?=base_url('assets/img/fb_logo.jpg'); ?>')">
+                                    <div class="portfolio-image bg-2" style="background-image: url('<?=base_url('assets/img/fb_logo.png'); ?>')">
                                         <div class="price-wrap">
                                             <a href="https://www.facebook.com/profile.php?id=100004867660094" target="_blank">
                                                 <i class="flaticon-play"></i>

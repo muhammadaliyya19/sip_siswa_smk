@@ -1,5 +1,6 @@
 <!-- Start Navbar Area -->
-<div class="navbar-area navbar-area-three" style="background: #4e73df;">
+<!-- <div class="navbar-area navbar-area-three" style="background: #4e73df;"> -->
+<div class="navbar-area navbar-area-three" style="background: #43A047;">
     <!-- Menu For Mobile Device -->
     <div class="mobile-nav">
         <a href="index.html" class="logo">
@@ -36,6 +37,9 @@
                                 </li>
                                 <li class="nav-item">
                                     <a href="<?= base_url('pages/contact'); ?>" class="nav-link">Kontak</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="<?= base_url('pages/about'); ?>" class="nav-link">Tentang Kami</a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="<?= base_url('pages/struktur'); ?>" class="nav-link">Struktur Organisasi</a>

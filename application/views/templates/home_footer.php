@@ -37,7 +37,7 @@
                     <ul class="address">
                         <li>
                             <i class="flaticon-pin"></i>
-                            Jl. Trunojoyo, Dusun Krajan, Karangsuko, Kec. Gondanglegi, Malang, Jawa Timur 65174
+                            Jl. Raya Kedoya Selatan No. 50 (Depan PUSKESMAS / Kelurahan Kedoya Selatan) Kec. Kebon Jeruk Jakarta Barat
                         </li>
 
                         <li>
@@ -69,19 +69,16 @@
 
                     <ul class="additional-link">
                         <li>
-                            <a href="galeri">Galeri</a>
+                            <a href="<?=base_url('pages/visi_misi');?>">Visi Misi</a>
                         </li>
                         <li>
-                            <a href="berita">Berita</a>
+                            <a href="<?=base_url('pages/contact');?>">Kontak</a>
                         </li>
                         <li>
-                            <a href="laporan_kas">Laporan Kas</a>
+                            <a href="<?=base_url('pages/about');?>">Tentang Kami</a>
                         </li>
                         <li>
-                            <a href="pengurus">Susunan Pengurus</a>
-                        </li>
-                        <li>
-                            <a href="jadwal_jumat">Jadwal Jumatan</a>
+                            <a href="<?=base_url('pages/struktur');?>">Struktur Organisasi</a>
                         </li>
                     </ul>
                 </div>
@@ -113,7 +110,8 @@
 <!-- End Footer Area -->
 
 <!-- Start Footer Bottom Area -->
-<footer class="footer-bottom-area three" style="background: #4e73df;">
+<!-- <footer class="footer-bottom-area three" style="background: #4e73df;"> -->
+<footer class="footer-bottom-area three" style="background: #43A047;">
     <div class="container">
         <div class="copyright-wrap">
             <p>Copyright @<?=date('Y'); ?> <a href="<?=base_url(); ?>" class="text-white" target="blank">Masjid Jami' Fathul Bari</a></p>

@@ -27,7 +27,7 @@
         <div class="col-md-3"></div>
         <div class="col-md-6 mt-4 pt-4">
             <div class="login-logo">
-            <a href="<?php echo base_url('auth/registrasi') ?>"><b>REGISTRASI AKUN PPDB</b></a>
+            <a href="<?php echo base_url('') ?>"><b>REGISTRASI AKUN PPDB</b></a>
             </div>
             <!-- /.login-logo -->
             <div class="login-box-body">
