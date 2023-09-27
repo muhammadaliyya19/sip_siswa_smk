@@ -14,7 +14,7 @@ function konversiTanggal($tanggal)
                 <div class="row align-items-center">
                     <div class="col-lg-12">
                         <div class="banner-text">
-                            <h1 align="center">Selamat Datang di Website <br>Masjid Jami' Fathul Bari</h1>
+                            <h1 align="center">Selamat Datang di Website <br>SMK Al-Hamidiyah</h1>
                         </div>
                     </div>
                 </div>

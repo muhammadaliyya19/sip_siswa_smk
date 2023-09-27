@@ -29,7 +29,9 @@
     </div>
     <!-- /.login-logo -->
     <div class="login-box-body">
-      <p class="login-box-msg">Silakan input username dan password</p>
+      <p class="login-box-msg">
+        Silakan input username dan password
+      </p>
 
       <?php if ($error = $this->session->flashdata('error')): ?>
         <span class="alert-error d-error hidden"><?php echo $error ?></span>
@@ -58,6 +60,9 @@
           <!-- /.col -->
           <div class="col-xs-8">
             <!-- <a href="<?php echo base_url('auth/lupa_password') ?>">Lupa Password ?</a> -->
+            <!-- <a href="<?=base_url();?>" class="btn btn-primary btn-flat">Back to Home</a> -->
+            <span>Belum punya akun ? </span>
+            <a href="<?=base_url('auth/registration');?>">Registrasi</a>
           </div>
           <!-- /.col -->
           <div class="col-xs-4">

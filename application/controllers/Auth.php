@@ -3,7 +3,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Auth extends CI_Controller {
 
-	public function index()
+	public function index(){
+		redirect('auth/login','refresh');
+	}
+
+	public function login()
 	{
 		if ($this->session->userdata('login')) {
 			redirect('dashboard','refresh');
@@ -57,6 +61,62 @@ class Auth extends CI_Controller {
 		}
 
 		$this->load->view('auth/login');
+	}
+
+	public function registration()
+	{
+		if ($this->session->userdata('login')) {
+			redirect('dashboard','refresh');
+		}
+
+		$valid = $this->form_validation;
+
+		$valid->set_rules('username', 'username', 'required');
+		$valid->set_rules('password', 'password', 'required');
+		$valid->set_message('required', 'Kolom wajib diisi');
+
+		if ($valid->run()) {
+			$post = $this->input->post();
+
+			$user = $this->db->get_where('users', ['username' => $post['username']])->row_array();
+
+			// var_dump($user); die;
+
+			if ($user) {
+
+				// if (password_verify($post['password'], $user['password'])) {
+				if ($post['password'] == $user['password']) {
+					$gambar = $user['level'] == 0 ? 'gambar_admin' : 'gambar_siswa';
+					$session = [
+						'login' => true,
+						'id_user' => $user['id'],
+						'nama_user' => $user['nama'],
+						'gbr_user' => $gambar,
+						'level' => $user['level']
+					];
+
+					$this->session->set_userdata($session);
+					$this->session->set_userdata('user',$session);
+					if ($user['level'] != "1") {
+						echo "anda adalah admin";
+						// redirect('dashboard','refresh');
+					}else{
+						echo "anda bukan admin";
+						// redirect('pesanan','refresh');
+					}
+					
+				} else {
+					$this->session->set_flashdata('error', 'Password anda salah');
+					redirect('auth/registration','refresh');
+				}
+				
+			}else{
+				$this->session->set_flashdata('error', 'Email tidak ditemukan');
+				redirect('auth/registration','refresh');
+			}
+		}
+
+		$this->load->view('auth/registrasi');
 	}
 
 	public function logout()

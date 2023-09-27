@@ -38,7 +38,7 @@
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="<?= base_url(''); ?>assets/front_pages/img/favicon.png">
     <!-- Title -->
-    <title>Website Masjid Jami' Fathul Bari</title>
+    <title>Website SMK Al-Hamidiyah</title>
 
 </head>
 

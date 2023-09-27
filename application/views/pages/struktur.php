@@ -2,7 +2,7 @@
 <div class="page-title-area bg-21">
     <div class="container">
         <div class="page-title-content">
-            <h2>Susunan Kepengurusan Masjid Jami' Fathul Bari</h2>
+            <h2>Struktur Organisasi SMK Al - Hamidiyah</h2>
             <ul>
                 <li>
                     <a href="<?=base_url(); ?>">
@@ -10,7 +10,7 @@
                     </a>
                 </li>
 
-                <li class="active">Susunan Pengurus</li>
+                <li class="active">Struktur Organisasi</li>
             </ul>
         </div>
     </div>

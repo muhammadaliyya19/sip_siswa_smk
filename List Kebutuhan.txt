@@ -1,0 +1,64 @@
+Aktor : 
+- Guest
+- Main Admin
+- Admin / Tim Panitia
+- Calon Siswa
+
+Kebutuhan Fitur / Halaman
+--- Fitur untuk guest ---
+1. Home / Beranda
+2. Profil sekolah
+3. Informasi pengumuman pendaftaran
+4. Detail informasi pendaftaran
+5. Informasi pengumuman kelulusan
+6. Login page
+7. Registration page
+
+--- Fitur untuk main admin / admin utama (setelah login) ---
+1. Dashboard
+2. Kelola Data Pendaftaran
+- Create pendaftaran
+- Read pendaftaran
+- Update pendaftaran (verifikasi data pendaftar)
+- Delete pendaftaran
+- Export data pendaftaran
+
+3. Kelola Data Pengguna
+- Create user
+- Read user
+- Update user
+- Delete user
+- Export data user
+
+4. Kelola Informasi Pengumuman Pendaftaran
+- Create info
+- Read info
+- Update info
+- Delete info
+
+5. Kelola Informasi Kelulusan
+- Create info kelulusan (upload excel / pdf)
+- Read info kelulusan
+- Update info kelulusan
+- Delete info kelulusan
+
+--- Fitur untuk admin / panitia ---
+1. Kelola Data Pendaftaran
+- Create pendaftaran
+- Read pendaftaran
+- Update pendaftaran (verifikasi data pendaftar)
+- Delete pendaftaran
+- Export data pendaftaran
+
+2. Kelola Informasi Kelulusan
+- Create info kelulusan (upload excel / pdf)
+- Read info kelulusan
+- Update info kelulusan
+- Delete info kelulusan
+
+--- Fitur untuk calon siswa (setelah login / tanpa login) ---
+1. Lihat informasi sekolah
+2. Lihat syarat dan alur pendaftaran
+3. Melakukan pendaftaran (isi form, upload file dan lain-lain)
+4. Dapat mencetak bukti pendaftaran
+5. Dapat melihat pengumuman

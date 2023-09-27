@@ -24,55 +24,28 @@ class Pages extends CI_Controller {
         $this->load->view('templates/home_footer',$data);
 	}
 	
-	public function about()
+	public function struktur()
 	{
 		$data = [
-			'judul' => 'About',
+			'judul' => 'Struktur Organisasi',
 			'user' => $this->session->userdata('user')
 		];
-		$this->load->view('templatess/user_header', $data);		
-		$this->load->view('pages/about');		
-		$this->load->view('templatess/user_footer');		
+		$this->load->view('templates/home_header', $data);		
+        $this->load->view('templates/home_navbar');
+		$this->load->view('pages/struktur');		
+		$this->load->view('templates/home_footer');		
 	}
 
-	public function products($id=null)
+	public function visi_misi()
 	{
-		if ($id == null) {
-			$produk = $this->Produk_model->get_avail_prod();
-			$data = [
-				'judul' 	=> 'Products',
-				'produk' 	=> $produk,
-				'user' 		=> $this->session->userdata('user'),
-				'dt_filter' => isset($_GET) ? $_GET : null
-			];
-		}else{
-			$row = $this->Produk_model->get_by_id($id);
-			if ($row) {
-				$foto_detail = $this->Produk_model->get_detail_by_produk($row->id);
-				$data = array(
-					'id' => $row->id,
-					'nama' => $row->nama,
-					'harga' => $row->harga,
-					'foto' => $row->foto,
-					'stok' => $row->stok,
-					'keterangan' => $row->keterangan,
-					'created_at' => $row->created_at,
-					'modified_at' => $row->modified_at,
-					'judul' => 'Detail Produk',
-					'method' => 'read',
-					'detail' => $foto_detail,
-                	'kode_pesanan' => $this->generateTrxID(),
-					'user' => $this->session->userdata('user')
-				);
-			}
-		}
-		$this->load->view('templatess/user_header', $data);		
-		if ($id == null) {
-			$this->load->view('pages/products', $data);		
-		} else {
-			$this->load->view('pages/product_detail', $data);		
-		}
-		$this->load->view('templatess/user_footer');		
+		$data = [
+			'judul' => 'Contact',
+			'user' => $this->session->userdata('user')
+		];
+		$this->load->view('templates/home_header', $data);		
+        $this->load->view('templates/home_navbar');
+		$this->load->view('pages/visimisi');		
+		$this->load->view('templates/home_footer');				
 	}
 
 	public function contact()
@@ -81,9 +54,10 @@ class Pages extends CI_Controller {
 			'judul' => 'Contact',
 			'user' => $this->session->userdata('user')
 		];
-		$this->load->view('templatess/user_header', $data);		
+		$this->load->view('templates/home_header', $data);		
+        $this->load->view('templates/home_navbar');
 		$this->load->view('pages/contact');		
-		$this->load->view('templatess/user_footer');				
+		$this->load->view('templates/home_footer');				
 	}	
 
 	function generateTrxID($length=6) {
