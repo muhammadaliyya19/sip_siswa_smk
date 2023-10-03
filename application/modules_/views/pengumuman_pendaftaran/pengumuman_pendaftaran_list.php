@@ -10,7 +10,7 @@
                 </div>
                 <div class="pull-right">
                     <div class="box-title">
-                        <a href="<?php echo base_url('pengumuman_pendaftaran/create') ?>" class="btn btn-primary"><i class="fa fa-plus"></i> Tambah Data</a>
+                        <a href="<?php echo base_url('pengumuman_ppdb/create') ?>" class="btn btn-primary"><i class="fa fa-plus"></i> Tambah Data</a>
                     </div>
                 </div>
             </div>
@@ -34,9 +34,9 @@
 			<td><?php echo $pengumuman_pendaftaran->deskripsi ?></td>
 			<td><?php echo $pengumuman_pendaftaran->id_tahun_ajaran ?></td>
 			<td><?php echo $pengumuman_pendaftaran->tgl_update ?></td><td>
-                        <a href="<?php echo site_url('pengumuman_pendaftaran/read/' . $pengumuman_pendaftaran->id ) ?>" class="btn btn-info"><i class="fa fa-eye"></i></a>
-                        <a href="<?php echo site_url('pengumuman_pendaftaran/update/' . $pengumuman_pendaftaran->id ) ?>" class="btn btn-warning"><i class="fa fa-edit"></i></a>
-                        <a data-href="<?php echo site_url('pengumuman_pendaftaran/delete/' . $pengumuman_pendaftaran->id ) ?>" class="btn btn-danger hapus-data"><i class="fa fa-trash"></i></a>
+                        <a href="<?php echo site_url('pengumuman_ppdb/read/' . $pengumuman_pendaftaran->id ) ?>" class="btn btn-info"><i class="fa fa-eye"></i></a>
+                        <a href="<?php echo site_url('pengumuman_ppdb/update/' . $pengumuman_pendaftaran->id ) ?>" class="btn btn-warning"><i class="fa fa-edit"></i></a>
+                        <a data-href="<?php echo site_url('pengumuman_ppdb/delete/' . $pengumuman_pendaftaran->id ) ?>" class="btn btn-danger hapus-data"><i class="fa fa-trash"></i></a>
                      </td>
 		</tr>
                             <?php

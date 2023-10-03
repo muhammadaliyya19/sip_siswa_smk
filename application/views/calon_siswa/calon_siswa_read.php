@@ -10,7 +10,7 @@
                 </div>
                 <div class="pull-right">
                     <div class="box-title">
-                        <a href="<?php echo base_url('calon_siswa') ?>" class="btn btn-primary"><i class="fa fa-arrow-left"></i> Kembali</a>
+                        <a href="<?php echo base_url('pendaftaran') ?>" class="btn btn-primary"><i class="fa fa-arrow-left"></i> Kembali</a>
                     </div>
                 </div>
             </div>

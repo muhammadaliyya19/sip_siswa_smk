@@ -18,11 +18,11 @@ class Pengumuman_pendaftaran extends CI_Controller
             $start = intval($this->input->get('start'));
 
             if ($q <> '') {
-                $config['base_url'] = base_url() . 'pengumuman_pendaftaran/index.html?q=' . urlencode($q);
-                $config['first_url'] = base_url() . 'pengumuman_pendaftaran/index.html?q=' . urlencode($q);
+                $config['base_url'] = base_url() . 'pengumuman_ppdb/index.html?q=' . urlencode($q);
+                $config['first_url'] = base_url() . 'pengumuman_ppdb/index.html?q=' . urlencode($q);
                 } else {
-                    $config['base_url'] = base_url() . 'pengumuman_pendaftaran/index.html';
-                    $config['first_url'] = base_url() . 'pengumuman_pendaftaran/index.html';
+                    $config['base_url'] = base_url() . 'pengumuman_ppdb/index.html';
+                    $config['first_url'] = base_url() . 'pengumuman_ppdb/index.html';
                 }
 
                 $config['per_page'] = 10;
@@ -44,7 +44,7 @@ class Pengumuman_pendaftaran extends CI_Controller
                 $data['judul'] = 'Data Pengumuman_pendaftaran';
 
                 $this->load->view('templates/header', $data);
-                $this->load->view('pengumuman_pendaftaran/pengumuman_pendaftaran_list', $data);
+                $this->load->view('pengumuman_ppdb/pengumuman_pendaftaran_list', $data);
                 $this->load->view('templates/footer', $data);
             }
 
@@ -63,7 +63,7 @@ class Pengumuman_pendaftaran extends CI_Controller
                 $data['judul'] = 'Detail Pengumuman_pendaftaran';
 
                 $this->load->view('templates/header', $data);
-                $this->load->view('pengumuman_pendaftaran/pengumuman_pendaftaran_read', $data);
+                $this->load->view('pengumuman_ppdb/pengumuman_pendaftaran_read', $data);
                 $this->load->view('templates/footer', $data);
                 } else {
                     $this->session->set_flashdata('error', 'Data tidak ditemukan');
@@ -75,7 +75,7 @@ class Pengumuman_pendaftaran extends CI_Controller
             {
                 $data = array(
                 'button' => 'Create',
-                'action' => site_url('pengumuman_pendaftaran/create_action'),
+                'action' => site_url('pengumuman_ppdb/create_action'),
 	    'id' => set_value('id'),
 	    'judul' => set_value('judul'),
 	    'deskripsi' => set_value('deskripsi'),
@@ -86,7 +86,7 @@ class Pengumuman_pendaftaran extends CI_Controller
                 $data['judul'] = 'Tambah Pengumuman_pendaftaran';
 
                 $this->load->view('templates/header', $data);
-                $this->load->view('pengumuman_pendaftaran/pengumuman_pendaftaran_form', $data);
+                $this->load->view('pengumuman_ppdb/pengumuman_pendaftaran_form', $data);
                 $this->load->view('templates/footer', $data);
             }
 
@@ -117,7 +117,7 @@ class Pengumuman_pendaftaran extends CI_Controller
                     if ($row) {
                         $data = array(
                         'button' => 'Update',
-                        'action' => site_url('pengumuman_pendaftaran/update_action'),
+                        'action' => site_url('pengumuman_ppdb/update_action'),
 		'id' => set_value('id', $row->id),
 		'judul' => set_value('judul', $row->judul),
 		'deskripsi' => set_value('deskripsi', $row->deskripsi),
@@ -128,7 +128,7 @@ class Pengumuman_pendaftaran extends CI_Controller
                         $data['judul'] = 'Ubah Pengumuman_pendaftaran';
 
                         $this->load->view('templates/header', $data);
-                        $this->load->view('pengumuman_pendaftaran/pengumuman_pendaftaran_form', $data);
+                        $this->load->view('pengumuman_ppdb/pengumuman_pendaftaran_form', $data);
                         $this->load->view('templates/footer', $data);
 
                         } else {

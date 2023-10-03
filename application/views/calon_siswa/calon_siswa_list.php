@@ -10,8 +10,8 @@
                 </div>
                 <div class="pull-right">
                     <div class="box-title">
-                        <?php echo anchor(site_url('calon_siswa/create'), '<i class="fas fa-plus"></i> Tambah Data', 'class="btn btn-primary"'); ?>
-		<?php echo anchor(site_url('calon_siswa/excel'), '<i class="fas fa-sign-out-alt"></i> Excel', 'class="btn btn-success"'); ?>
+                        <?php echo anchor(site_url('pendaftaran/create'), '<i class="fas fa-plus"></i> Tambah Data', 'class="btn btn-primary"'); ?>
+		<?php echo anchor(site_url('pendaftaran/excel'), '<i class="fas fa-sign-out-alt"></i> Excel', 'class="btn btn-success"'); ?>
 	
                     </div>
                 </div>
@@ -87,7 +87,7 @@
                     },
                     processing: true,
                     serverSide: true,
-                    ajax: {"url": "calon_siswa/json", "type": "POST"},
+                    ajax: {"url": "pendaftaran/json", "type": "POST"},
                     columns: [
                         {
                             "data": "id",

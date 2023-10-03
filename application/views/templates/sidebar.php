@@ -10,25 +10,30 @@
             </li>
             <!-- MENU UNTUK ADMIN -->
             <?php if($user['level'] == "Administrator"): ?>
-            <li class="<?= $judul == "Pendaftaran" ? 'active' : '' ?>">
-                <a href="<?php echo base_url('calon_siswa') ?>">
-                    <i class="fas fa-list"></i> <span>&nbsp; Pendaftaran</span>
+            <li class="<?= ($judul == "Pendaftaran Saya" || $judul == "Pendaftaran" || $judul == "Data Pendaftaran" || $judul == "Tambah Pendaftaran") ? 'active' : '' ?>">
+                <a href="<?php echo base_url('pendaftaran') ?>">
+                    <i class="fas fa-laptop"></i> <span>&nbsp; Pendaftaran Calon Siswa</span>
                 </a>
             </li>
-            <li class="<?= $judul == "Kelola Berita" ? 'active' : '' ?>">
+            <li class="<?= ($judul == "Data Pengumuman PPDB" || $judul == "Tambah Pengumuman PPDB") ? 'active' : '' ?>">
+                <a href="<?php echo base_url('pengumuman_ppdb') ?>">
+                    <i class="fas fa-bullhorn"></i> <span>&nbsp; Pengumuman PPDB</span>
+                </a>
+            </li>
+            <li class="<?= ($judul == "Data Berita" || $judul == "Tambah berita" || $judul == "Update Berita") ? 'active' : '' ?>">
                 <a href="<?php echo base_url('berita') ?>">
                     <i class="fas fa-newspaper"></i> <span>&nbsp; Kelola Berita</span>
                 </a>
             </li>
-            <li class="<?= $judul == "Kelola User" ? 'active' : '' ?>">
+            <li class="<?= ($judul == "Data Users" || $judul == "Tambah Users" || $judul == "Update Users") ? 'active' : '' ?>">
                 <a href="<?php echo base_url('users') ?>">
                     <i class="fas fa-users-cog"></i> <span>&nbsp; Kelola User</span>
                 </a>
             </li>
             <!-- MENU UNTUK Calon Siswa -->
             <?php else  : ?>
-            <li class="<?= $judul == "Pendaftaran Saya" ? 'active' : '' ?>">
-                <a href="<?php echo base_url('calon_siswa') ?>">
+            <li class="<?= $judul == "Pendaftaran Saya" || "Pendaftaran" || "Tambah Pendaftaran" ? 'active' : '' ?>">
+                <a href="<?php echo base_url('pendaftaran') ?>">
                     <i class="fas fa-laptop"></i> <span>&nbsp; Pendaftaran</span>
                 </a>
             </li>

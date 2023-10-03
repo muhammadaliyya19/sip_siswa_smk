@@ -3,7 +3,7 @@
 if (!defined('BASEPATH'))
 exit('No direct script access allowed');
 
-class Calon_siswa extends CI_Controller
+class Pendaftaran extends CI_Controller
 {
     function __construct()
     {
@@ -17,7 +17,7 @@ class Calon_siswa extends CI_Controller
     public function index()
             {
 				$data = array(
-                    'judul' => 'Data Calon Siswa',
+                    'judul' => 'Data Pendaftaran',
                     'user' => $this->session->userdata('user'),                    
                 );
 
@@ -63,7 +63,7 @@ class Calon_siswa extends CI_Controller
 		'nisn' => $row->nisn,
 	    );
 
-                $data['judul'] = 'Detail Calon Siswa';
+                $data['judul'] = 'Detail Pendaftaran';
 				$data['user']   = $this->session->userdata('user');
 
                 $this->load->view('templates/header', $data);
@@ -107,7 +107,7 @@ class Calon_siswa extends CI_Controller
 	    'nisn' => set_value('nisn'),
 	);
 
-                $data['judul'] = 'Tambah Calon Siswa';
+                $data['judul'] = 'Tambah Pendaftaran';
 				$data['user']   = $this->session->userdata('user');
 
                 $this->load->view('templates/header', $data);
@@ -190,7 +190,7 @@ class Calon_siswa extends CI_Controller
 		'nisn' => set_value('nisn', $row->nisn),
 	    );
 
-                        $data['judul'] = 'Ubah Calon Siswa';
+                        $data['judul'] = 'Ubah Pendaftaran';
                         $data['user']   = $this->session->userdata('user');
 
                         $this->load->view('templates/header', $data);

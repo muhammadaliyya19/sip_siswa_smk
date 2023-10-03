@@ -10,7 +10,7 @@
                 </div>
                 <div class="pull-right">
                     <div class="box-title">
-                        <a href="<?php echo base_url('pengumuman_pendaftaran') ?>" class="btn btn-primary"><i class="fa fa-arrow-left"></i> Kembali</a>
+                        <a href="<?php echo base_url('pengumuman_ppdb') ?>" class="btn btn-primary"><i class="fa fa-arrow-left"></i> Kembali</a>
                     </div>
                 </div>
             </div>
