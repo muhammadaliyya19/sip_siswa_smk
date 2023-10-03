@@ -196,12 +196,12 @@ class Berita extends CI_Controller
 	$this->form_validation->set_rules('judul', 'judul', 'trim|required');
 	$this->form_validation->set_rules('penulis', 'penulis', 'trim|required');
 	$this->form_validation->set_rules('konten', 'konten', 'trim|required');
-	$this->form_validation->set_rules('foto_utama', 'foto utama', 'trim|required');
+	// $this->form_validation->set_rules('foto_utama', 'foto utama', 'trim|required');
 	$this->form_validation->set_rules('tag', 'tag', 'trim|required');
-	$this->form_validation->set_rules('slug', 'slug', 'trim|required');
-	$this->form_validation->set_rules('tanggal', 'tanggal', 'trim|required');
+	// $this->form_validation->set_rules('slug', 'slug', 'trim|required');
+	// $this->form_validation->set_rules('tanggal', 'tanggal', 'trim|required');
 
-	$this->form_validation->set_rules('id', 'id', 'trim');
+	// $this->form_validation->set_rules('id', 'id', 'trim');
 	$this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');
                         }
 
