@@ -3,54 +3,40 @@
         <!-- Sidebar Menu -->
         <ul class="sidebar-menu" data-widget="tree">
             <li class="header">MAIN MENU</li>
-            <?php if($user['level'] != "Customer"): ?>
-            <li class="<?= $judul == "Dashboard" ? 'active' : '' ?>"><a href="<?php echo base_url('dashboard') ?>"><i
-                        class="fa fa-tachometer-alt"></i> <span>&nbsp; Dashboard</span></a></li>
-            <?php endif; ?>
-
-            <!-- MENU UNTUK ADMIN -->
-            <?php if($user['level'] == "Admin"): ?>
-            <li class="<?= $judul == "Produk" ? 'active' : '' ?>"><a href="<?php echo base_url('produk') ?>"><i
-                        class="fas fa-boxes"></i> <span>&nbsp; Produk</span></a></li>
-            <li class="<?= $judul == "Pesanan" || $judul == "Pesanan Saya" ? 'active' : '' ?>"><a
-                    href="<?php echo base_url('pesanan') ?>"><i class="fas fa-shopping-cart"></i> <span>&nbsp;
-                        Pesanan</span></a></li>
-            <li class="treeview <?= $judul == "Data Barang Masuk" || $judul == "Data Cek Stok Gudang" ? 'menu-open active' : '' ?>">
-                <a href="#">
-                    <i class="fas fa-search"></i> <span>&nbsp;Pemeriksaan</span>
-                    <span class="pull-right-container">
-                        <i class="fa fa-angle-down pull-right"></i>
-                    </span>
+            <li class="<?= $judul == "Dashboard" ? 'active' : '' ?>">
+                <a href="<?php echo base_url('dashboard') ?>">
+                    <i class="fa fa-tachometer-alt"></i> <span>&nbsp; Dashboard</span>
                 </a>
-                <ul class="treeview-menu">
-                    <li class="<?= $judul == "Data Barang Masuk" ? 'active' : '' ?>"><a href="<?php echo base_url('barang_masuk') ?>"><i class="fa fa-circle"></i> Barang Masuk </a></li>
-                    <li class="<?= $judul == "Data Cek Stok Gudang" ? 'active' : '' ?>"><a href="<?php echo base_url('cek_stok_gudang') ?>"><i class="fa fa-circle"></i> Stok Gudang </a></li>
-                </ul>
             </li>
-            <!-- <li class="<?= $judul == "Laporan" ? 'active' : '' ?>"><a href="<?php echo base_url('pages/laporan') ?>"><i
-                        class="fas fa-file"></i> <span>&nbsp; Laporan</span></a></li> -->
-            <li class="<?= $judul == "Data User" ? 'active' : '' ?>"><a href="<?php echo base_url('users') ?>"><i
-                        class="fas fa-users-cog"></i> <span>&nbsp; Data User</span></a></li>
-
-            <!-- MENU UNTUK PRODUKSI -->
-            <?php elseif ($user['level'] == "Produksi") : ?>
-            <li><a href="<?php echo base_url('barang_masuk') ?>"><i class="fas fa-file"></i> <span>&nbsp; Lapor Barang
-                        Masuk</span></a></li>
-
-            <!-- MENU UNTUK GUDANG -->
-            <?php elseif ($user['level'] == "Gudang") : ?>
-            <li><a href="<?php echo base_url('barang_masuk') ?>"><i class="fas fa-file"></i> <span>&nbsp; Cek Barang
-                        Masuk</span></a></li>
-            <li><a href="<?php echo base_url('cek_stok_gudang') ?>"><i class="fas fa-file"></i> <span>&nbsp; Cek Stok
-                        Gudang</span></a></li>
-
-            <!-- MENU UNTUK CUSTOMER -->
+            <!-- MENU UNTUK ADMIN -->
+            <?php if($user['level'] == "Administrator"): ?>
+            <li class="<?= $judul == "Pendaftaran" ? 'active' : '' ?>">
+                <a href="<?php echo base_url('calon_siswa') ?>">
+                    <i class="fas fa-list"></i> <span>&nbsp; Pendaftaran</span>
+                </a>
+            </li>
+            <li class="<?= $judul == "Kelola Berita" ? 'active' : '' ?>">
+                <a href="<?php echo base_url('berita') ?>">
+                    <i class="fas fa-newspaper"></i> <span>&nbsp; Kelola Berita</span>
+                </a>
+            </li>
+            <li class="<?= $judul == "Kelola User" ? 'active' : '' ?>">
+                <a href="<?php echo base_url('users') ?>">
+                    <i class="fas fa-users-cog"></i> <span>&nbsp; Kelola User</span>
+                </a>
+            </li>
+            <!-- MENU UNTUK Calon Siswa -->
             <?php else  : ?>
-            <li class="<?= $judul == "Pesanan" ? 'active' : '' ?>"><a href="<?php echo base_url('pesanan') ?>"><i
-                        class="fas fa-shopping-cart"></i> <span>&nbsp;
-                        <?=$user['level'] == "Customer" ? "Pesanan Saya" : "Pesanan"?></span></a></li>
-            <!-- <li><a href="<?php echo base_url('logout') ?>"><i class="fas fa-sign-out-alt"></i> <span>CUSTOMER</span></a></li> -->
-
+            <li class="<?= $judul == "Pendaftaran Saya" ? 'active' : '' ?>">
+                <a href="<?php echo base_url('calon_siswa') ?>">
+                    <i class="fas fa-laptop"></i> <span>&nbsp; Pendaftaran</span>
+                </a>
+            </li>
+            <li class="<?= $judul == "Pendaftaran Saya" ? 'active' : '' ?>">
+                <a href="<?php echo base_url('calon_siswa') ?>">
+                    <i class="fas fa-list"></i> <span>&nbsp; Pendaftaran Saya</span>
+                </a>
+            </li>
             <?php endif; ?>
             <li class="<?= $judul == "Profil Saya" ? 'active' : '' ?>"><a href="<?php echo base_url('profil') ?>"><i
                         class="fas fa-user"></i> <span>&nbsp; Profil Saya</span></a></li>

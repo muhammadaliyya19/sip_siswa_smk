@@ -34,11 +34,12 @@ class Users extends CI_Controller
                 $this->pagination->initialize($config);
 
                 $data = array(
-                'users_data' => $users,
-                'q' => $q,
-                'pagination' => $this->pagination->create_links(),
-                'total_rows' => $config['total_rows'],
-                'start' => $start,
+                    'users_data' => $users,
+                    'q' => $q,
+                    'pagination' => $this->pagination->create_links(),
+                    'total_rows' => $config['total_rows'],
+                    'start' => $start,
+                    'user' => $this->session->userdata('user'),
                 );
 
                 $data['judul'] = 'Data Users';
@@ -60,7 +61,8 @@ class Users extends CI_Controller
 		'level' => $row->level,
 	    );
 
-                $data['judul'] = 'Detail Users';
+                $data['judul']  = 'Detail Users';
+                $data['user']   = $this->session->userdata('user');
 
                 $this->load->view('templates/header', $data);
                 $this->load->view('users/users_read', $data);
@@ -84,6 +86,7 @@ class Users extends CI_Controller
 	);
 
                 $data['judul'] = 'Tambah Users';
+                $data['user']   = $this->session->userdata('user');
 
                 $this->load->view('templates/header', $data);
                 $this->load->view('users/users_form', $data);
@@ -123,6 +126,7 @@ class Users extends CI_Controller
 		'username' => set_value('username', $row->username),
 		'password' => set_value('password', $row->password),
 		'level' => set_value('level', $row->level),
+        'user'   => $this->session->userdata('user'),
 	    );
 
                         $data['judul'] = 'Ubah Users';

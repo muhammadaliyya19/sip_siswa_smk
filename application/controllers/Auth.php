@@ -30,23 +30,23 @@ class Auth extends CI_Controller {
 
 				// if (password_verify($post['password'], $user['password'])) {
 				if ($post['password'] == $user['password']) {
-					$gambar = $user['level'] == 0 ? 'gambar_admin' : 'gambar_siswa';
+					$gambar = $user['level'] == 0 ? 'man.png' : 'student.png';
 					$session = [
 						'login' => true,
 						'id_user' => $user['id'],
 						'nama_user' => $user['nama'],
 						'gbr_user' => $gambar,
-						'level' => $user['level']
+						'level' => $user['level'] == 0 ? 'Administrator' : 'Calon Siswa'
 					];
 
 					$this->session->set_userdata($session);
 					$this->session->set_userdata('user',$session);
 					if ($user['level'] != "1") {
-						echo "anda adalah admin";
-						// redirect('dashboard','refresh');
+						// echo "anda adalah admin";
+						redirect('dashboard','refresh');
 					}else{
-						echo "anda bukan admin";
-						// redirect('pesanan','refresh');
+						// echo "anda bukan admin";
+						redirect('dashboard','refresh');
 					}
 					
 				} else {

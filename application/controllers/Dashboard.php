@@ -22,16 +22,16 @@ class Dashboard extends CI_Controller {
 
 	public function getDashboardData()
 	{
-        $sum_produks = $this->Produk_model->total_rows();
+        // $sum_produks = $this->Produk_model->total_rows();
         $sum_users = $this->Users_model->total_rows();
-        $sum_orders = $this->Pesanan_model->total_rows();
-        $sum_order_finish = $this->Pesanan_model->total_orderFinish_rows();
+        // $sum_orders = $this->Pesanan_model->total_rows();
+        // $sum_order_finish = $this->Pesanan_model->total_orderFinish_rows();
 
 		$result = [
-			'sum_admin_user' => $sum_users,
-			'sum_orders' => $sum_orders,
-			'sum_order_finished' => $sum_order_finish,
-			'products' => $sum_produks
+			'sum_admin_user' => $sum_users
+			// 'sum_orders' => $sum_orders,
+			// 'sum_order_finished' => $sum_order_finish,
+			// 'products' => $sum_produks
 		];
 		
 		echo json_encode($result);

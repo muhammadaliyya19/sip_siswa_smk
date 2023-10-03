@@ -39,9 +39,11 @@ class Berita extends CI_Controller
                 'pagination' => $this->pagination->create_links(),
                 'total_rows' => $config['total_rows'],
                 'start' => $start,
+                'user' => $this->session->userdata('user'),                    
                 );
 
                 $data['judul'] = 'Data Berita';
+                $data['user']   = $this->session->userdata('user');
 
                 $this->load->view('templates/header', $data);
                 $this->load->view('berita/berita_list', $data);
@@ -64,6 +66,7 @@ class Berita extends CI_Controller
 	    );
 
                 $data['judul'] = 'Detail Berita';
+                $data['user']   = $this->session->userdata('user');
 
                 $this->load->view('templates/header', $data);
                 $this->load->view('berita/berita_read', $data);
@@ -90,6 +93,7 @@ class Berita extends CI_Controller
 	);
 
                 $data['judul'] = 'Tambah Berita';
+                $data['user']   = $this->session->userdata('user');
 
                 $this->load->view('templates/header', $data);
                 $this->load->view('berita/berita_form', $data);
@@ -138,6 +142,7 @@ class Berita extends CI_Controller
 	    );
 
                         $data['judul'] = 'Ubah Berita';
+                        $data['user']   = $this->session->userdata('user');
 
                         $this->load->view('templates/header', $data);
                         $this->load->view('berita/berita_form', $data);

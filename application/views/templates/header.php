@@ -70,8 +70,7 @@
               <ul class="dropdown-menu">
                 <!-- The user image in the menu -->
                 <li class="user-header">
-                  <!-- <img src="<?php echo base_url('assets/img/user/') . $user['gbr_user'] ?>" class="img-circle" alt="User Image"> -->
-                  <img src="<?php echo base_url('assets/img/user/') . $user['gbr_user'] ?>" onerror="this.onerror=null; this.src='<?php echo base_url('assets/img/man.png'); ?>'" class="img-circle" alt="User Image">
+                  <img src="<?php echo base_url('assets/img/user/') . $user['gbr_user'] ?>" onerror="this.onerror=null; this.src='<?php echo base_url('assets/img/'.$user['gbr_user']); ?>'" class="img-circle" alt="User Image">
                   <p>
                     <?php echo $user['nama_user'] ?>
                     <small><?php echo $this->session->userdata('level'); ?></small>

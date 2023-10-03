@@ -14,7 +14,7 @@ class Profil extends CI_Controller {
 	{
 		$data['judul'] = "Profil Saya";
         $data['user'] = $this->session->userdata('user');
-		$data['profil'] = $this->db->get_where('user', ['id_user' => $this->session->userdata('id_user')])->row_array();
+		$data['profil'] = $this->db->get_where('users', ['id' => $this->session->userdata('id_user')])->row_array();
 
 		$this->load->view('templates/header', $data, FALSE);
 		$this->load->view('profil/index', $data, FALSE);

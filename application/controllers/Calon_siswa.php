@@ -10,12 +10,16 @@ class Calon_siswa extends CI_Controller
         parent::__construct();
         $this->load->model('Calon_siswa_model');
         $this->load->library('form_validation');        
-	$this->load->library('datatables');
+		$this->load->library('datatables');
+        $this->load->model('Users_model');
     }
 
     public function index()
             {
-                $data['judul'] = 'Data Calon_siswa';
+				$data = array(
+                    'judul' => 'Data Calon Siswa',
+                    'user' => $this->session->userdata('user'),                    
+                );
 
                 $this->load->view('templates/header', $data);
                 $this->load->view('calon_siswa/calon_siswa_list', $data);
@@ -59,7 +63,8 @@ class Calon_siswa extends CI_Controller
 		'nisn' => $row->nisn,
 	    );
 
-                $data['judul'] = 'Detail Calon_siswa';
+                $data['judul'] = 'Detail Calon Siswa';
+				$data['user']   = $this->session->userdata('user');
 
                 $this->load->view('templates/header', $data);
                 $this->load->view('calon_siswa/calon_siswa_read', $data);
@@ -102,7 +107,8 @@ class Calon_siswa extends CI_Controller
 	    'nisn' => set_value('nisn'),
 	);
 
-                $data['judul'] = 'Tambah Calon_siswa';
+                $data['judul'] = 'Tambah Calon Siswa';
+				$data['user']   = $this->session->userdata('user');
 
                 $this->load->view('templates/header', $data);
                 $this->load->view('calon_siswa/calon_siswa_form', $data);
@@ -184,7 +190,8 @@ class Calon_siswa extends CI_Controller
 		'nisn' => set_value('nisn', $row->nisn),
 	    );
 
-                        $data['judul'] = 'Ubah Calon_siswa';
+                        $data['judul'] = 'Ubah Calon Siswa';
+                        $data['user']   = $this->session->userdata('user');
 
                         $this->load->view('templates/header', $data);
                         $this->load->view('calon_siswa/calon_siswa_form', $data);

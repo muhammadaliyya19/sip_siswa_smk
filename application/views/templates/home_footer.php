@@ -114,7 +114,7 @@
 <footer class="footer-bottom-area three" style="background: #43A047;">
     <div class="container">
         <div class="copyright-wrap">
-            <p>Copyright @<?=date('Y'); ?> <a href="<?=base_url(); ?>" class="text-white" target="blank">Masjid Jami' Fathul Bari</a></p>
+            <p><b>Copyright @<?=date('Y'); ?></b> <a href="<?=base_url(); ?>" class="text-white" target="blank">SMK Al-Hamidiyah</a></p>
         </div>
     </div>
 </footer>
