@@ -42,7 +42,7 @@
                         class="fas fa-user"></i> <span>&nbsp; Profil Saya</span></a></li>
             <li><a href="<?php echo base_url() ?>" target="_blank"><i class="fas fa-globe"></i> <span>&nbsp; Lihat
                         Website</span></a></li>
-            <li><a href="<?php echo base_url('logout') ?>"><i class="fas fa-sign-out-alt"></i> <span>&nbsp;
+            <li><a href="<?php echo base_url('auth/logout') ?>"><i class="fas fa-sign-out-alt"></i> <span>&nbsp;
                         Logout</span></a></li>
 
         </ul>
