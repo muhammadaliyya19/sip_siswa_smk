@@ -22,11 +22,23 @@ class Berita_model extends CI_Model
         return $this->db->get($this->table)->result();
     }
 
+    function get_all_array()
+    {
+        $this->db->order_by($this->id, $this->order);
+        return $this->db->get($this->table)->result_array();
+    }
+
     // get data by id
     function get_by_id($id)
     {
         $this->db->where($this->id, $id);
         return $this->db->get($this->table)->row();
+    }
+
+    function get_by_id_arr($id)
+    {
+        $this->db->where($this->id, $id);
+        return $this->db->get($this->table)->row_array();
     }
     
     // get total rows
@@ -76,6 +88,28 @@ class Berita_model extends CI_Model
     {
         $this->db->where($this->id, $id);
         $this->db->delete($this->table);
+    }
+
+    public function getBeritaPrev($id)
+    {
+        return $this->db->get_where('berita' , ['id <' => $id])->row_array();
+    }
+
+    public function getBeritaNext($id)
+    {
+        return $this->db->get_where('berita' , ['id >' => $id])->row_array();
+    }
+
+    public function getBeritaRandom()
+    {
+        
+        $this->db->order_by('id', 'RANDOM');
+        $q = $this->db->get('berita', 5);
+        return $q->result_array();
+    }
+    public function getBeritaBySlug($slug)
+    {
+        return $this->db->get_where('berita' , ['slug' => $slug])->row_array();
     }
 
 }

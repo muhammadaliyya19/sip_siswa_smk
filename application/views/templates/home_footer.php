@@ -4,7 +4,8 @@
         <div class="row">
             <div class="col-lg-4 col-md-6">
                 <div class="single-widget">
-                    <img src="<?= base_url(); ?>assets/front_pages/img/footer.jpeg" alt="Image" style="max-height: 75px;">
+                    <!-- <img src="<?= base_url(); ?>assets/front_pages/img/footer.jpeg" alt="Image" style="max-height: 75px;"> -->
+                    <img src="<?= base_url(); ?>assets/front_pages/img/footer.png" alt="Image" style="max-height: 75px;">
                     <ul class="social-wrap">
                         <li>
                             <a href="https://twitter.com" target="_blank">

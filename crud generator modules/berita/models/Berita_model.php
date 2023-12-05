@@ -22,6 +22,12 @@ class Berita_model extends CI_Model
         return $this->db->get($this->table)->result();
     }
 
+    function get_all_array()
+    {
+        $this->db->order_by($this->id, $this->order);
+        return $query = $this->db->get($this->table)->result_array();
+    }
+
     // get data by id
     function get_by_id($id)
     {

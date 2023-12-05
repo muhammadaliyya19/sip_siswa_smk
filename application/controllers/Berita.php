@@ -155,6 +155,7 @@ class Berita extends CI_Controller
     public function update($id) 
     {
         $row = $this->Berita_model->get_by_id($id);
+        $row_arr = $this->Berita_model->get_by_id_arr($id);
     
         if ($row) {
             $data = array(
@@ -168,12 +169,13 @@ class Berita extends CI_Controller
                 'tag' => set_value('tag', $row->tag),
                 'slug' => set_value('slug', $row->slug),
                 'tanggal' => set_value('tanggal', $row->tanggal),
+                'this_berita' => $row_arr,
             );
             $data['judul'] = 'Ubah Berita';
             $data['user']   = $this->session->userdata('user');
     
             $this->load->view('templates/header', $data);
-            $this->load->view('berita/berita_form', $data);
+            $this->load->view('berita/berita_form_edit', $data);
             $this->load->view('templates/footer', $data);
         } else {
             $this->session->set_flashdata('error', 'Data tidak ditemukan');
@@ -186,21 +188,72 @@ class Berita extends CI_Controller
         $this->_rules();
         
         if ($this->form_validation->run() == FALSE) {
-            $this->update($this->input->post('id', TRUE));
+            $urls = 'update/'.$this->update($this->input->post('id', TRUE));
+            redirect(site_url($urls));
         } else {
-            $data = array(
-                'judul' => $this->input->post('judul',TRUE),
-                'penulis' => $this->input->post('penulis',TRUE),
-                'konten' => $this->input->post('konten',TRUE),
-                // 'foto_utama' => $this->input->post('foto_utama',TRUE),
-                'tag' => $this->input->post('tag',TRUE),
-                'slug' => $this->input->post('slug',TRUE),
-                'tanggal' => date('Y-m-d'),
-            );
+            // Pre proses, cek pratinjau atau terbitkan
+            $id = $this->input->post('id', TRUE);
             
-            $this->Berita_model->update($this->input->post('id', TRUE), $data);
-            $this->session->set_flashdata('success', 'Diubah');
-            redirect(site_url('berita'));
+            if (isset($_POST['terbitkan_update'])) {
+                $this_berita = $this->Berita_model->get_by_id_arr($id);
+                $nama_file = "";
+                if ($_FILES['foto']['name'] != '' && $_FILES['foto']['size'] > 0) {
+                    unlink('./assets/img/berita/'.$this_berita['foto_utama']);
+                    $nama_file = $this->do_upload();				
+                }
+                                
+                date_default_timezone_set("Asia/Jakarta");
+                $now = new DateTime();
+
+                $slug = "";
+                $judul = $this->input->post('judul',TRUE);
+                $pieces = explode(" ", $judul);
+                for ($i=0; $i < count($pieces); $i++) { 
+                    $slug.=strtolower($pieces[$i]);
+                    if ($i != (count($pieces)-1)) {
+                        $slug.="-";
+                    }
+                }
+
+                $data = array(
+                    'judul' => $judul,
+                    'penulis' => $this->input->post('penulis',TRUE),
+                    'konten' => $this->input->post('konten',TRUE),
+                    'foto_utama' => $nama_file,
+                    'tag' => $this->input->post('tag',TRUE),
+                    'slug' => $slug,
+                    'tanggal' => $now->format('Y-m-d H:i:s'),
+                );
+                
+                // $this->Berita_model->insert($data);
+                $this->Berita_model->update($id, $data);
+                $this->session->set_flashdata('success', 'Diubah');
+                redirect(site_url('berita'));
+            }
+            if (isset($_POST['pratinjau'])) {
+                $data = array(
+                    "judul" 		=> $this->input->post('judul', true),
+                    "konten" 		=> $this->input->post('konten', true),
+                    "foto_utama"	=> "def_berita.png",
+                    "tag" 			=> $this->input->post('tag', true)
+                );
+                $this->preview($data);
+            }   
+
+            // 
+            // $data = array(
+            //     'judul' => $this->input->post('judul',TRUE),
+            //     'penulis' => $this->input->post('penulis',TRUE),
+            //     'konten' => $this->input->post('konten',TRUE),
+            //     // 'foto_utama' => $this->input->post('foto_utama',TRUE),
+            //     'tag' => $this->input->post('tag',TRUE),
+            //     'slug' => $this->input->post('slug',TRUE),
+            //     'tanggal' => date('Y-m-d'),
+            // );
+            
+            // $this->Berita_model->update($this->input->post('id', TRUE), $data);
+            // $this->session->set_flashdata('success', 'Diubah');
+            // redirect(site_url('berita'));
         }
     }
     
@@ -253,7 +306,7 @@ class Berita extends CI_Controller
 		$config = $this->set_upload_options();
 		$config['file_name'] = time().'-'.date("Y-m-d-his").'.jpg';			
 		$this->upload->initialize($config);
-		$res = $this->upload->do_upload($files);
+		$res = $this->upload->do_upload('foto');
 		echo $res . "Foto sukses diupload<br><br>";
 		return $config['file_name'];
 	}

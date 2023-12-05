@@ -36,7 +36,10 @@
 			<td><?php echo $berita->judul ?></td>
 			<td><?php echo $berita->penulis ?></td>
 			<td><?php echo $berita->konten ?></td>
-			<td><?php echo $berita->foto_utama ?></td>
+			<td>
+                <img src="<?=base_url('assets/img/berita/').$berita->foto_utama; ?>" alt="main_image">
+                <?php echo "<br>" . $berita->foto_utama ?>
+            </td>
 			<td><?php echo $berita->tag ?></td>
 			<td><?php echo $berita->slug ?></td>
 			<td><?php echo $berita->tanggal ?></td><td>

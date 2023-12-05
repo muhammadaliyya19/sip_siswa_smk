@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-xs-12">
-        <form action="<?php echo $action; ?>" method="post">
+        <form action="<?php echo $action; ?>" method="post" target="_blank" enctype="multipart/form-data">
         <div class="box box-primary">
             <div class="box-header with-border">
                 <div class="pull-left">
