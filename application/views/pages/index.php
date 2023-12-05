@@ -34,13 +34,13 @@ function konversiTanggal($tanggal)
                           <img class="d-block w-100" src="<?= base_url(); ?>assets/img/fav_home_2.jpeg" alt="Second slide">
                         </div>
                         <div class="carousel-item">
-                          <img class="d-block w-100" src="<?= base_url(); ?>assets/img/fav_home_3.jpeg" alt="Second slide">
+                          <img class="d-block w-100" src="<?= base_url(); ?>assets/img/fav_home_3.jpeg" alt="Third slide">
                         </div>
                         <div class="carousel-item">
-                          <img class="d-block w-100" src="<?= base_url(); ?>assets/img/fav_home_4.jpeg" alt="Second slide">
+                          <img class="d-block w-100" src="<?= base_url(); ?>assets/img/fav_home_4.jpeg" alt="Fourth slide">
                         </div>
                         <div class="carousel-item">
-                          <img class="d-block w-100" src="<?= base_url(); ?>assets/img/fav_home_5.jpeg" alt="Second slide">
+                          <img class="d-block w-100" src="<?= base_url(); ?>assets/img/fav_home_5.jpeg" alt="Fifth slide">
                         </div>
                       </div>
                     </div>
@@ -49,47 +49,6 @@ function konversiTanggal($tanggal)
     </div>
 </section>
 <!-- End Banner Area -->
-
-<!-- BAGIAN VIDEO -->
-<section class="products-area three ptb-100 jarallax" data-jarallax='{"speed": 0.3}'>
-    <div class="container-fluid p-0">
-        <div class="section-title white-title">
-            <h2>Video Kegiatan Terbaru</h2>
-        </div>
-        <div align="center">
-            <iframe src="<?=$video[0]['embed']; ?>" width="75%" height="405"></iframe>
-        </div>
-    </div>
-</section>
-<!-- End Products Area -->
-
-<!-- Start Latest Trailer Area Two -->
-<section class="latest-trailer-three ptb-100 jarallax" data-jarallax='{"speed": 0.3}'>
-    <div class="container">
-        <div class="section-title white-title">
-            <h2>Foto Kegiatan Terbaru</h2>
-        </div>
-
-        <div class="latest-trailer-wrap-two owl-theme owl-carousel">
-            <?php 
-                $sum = count($foto) > 4 ? 4 : count($foto);
-                for ($i=0; $i < $sum; $i++):
-            ?>
-                <div class="latest-trailer-item">
-                    <img src="<?= base_url('assets/img/galeri/').$foto[$i]['foto']; ?>" alt="Image" style="height: 250px;">
-                    <div class="video-button">
-                        <a href="<?=base_url('pages/carousel_galeri/'.$foto[$i]['id']); ?>" class="video-btn popup-youtube">
-                            <i class="bx bx-play"></i>
-                        </a>
-                    </div>
-                </div>
-            <?php    
-                endfor;
-            ?> 
-        </div>
-    </div>
-</section>
-<!-- End Latest Trailer Area Two -->
 
 <!-- Start Blog Area -->
 <section class="blog-area-three bg-color-two pt-100 pb-70">

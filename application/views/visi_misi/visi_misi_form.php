@@ -30,7 +30,7 @@
                         </div>
 	    <div class="form-group <?php if(form_error('tgl_update')) echo 'has-error'?> ">
                             <label for="date">Tgl Update</label>
-                            <input type="text" class="form-control" name="tgl_update" id="tgl_update" placeholder="Tgl Update" value="<?php echo $tgl_update; ?>" />
+                            <input type="text" class="form-control" name="tgl_update" id="tgl_update" placeholder="Tgl Update" value="<?php echo $tgl_update; ?>" readonly />
                             <?php echo form_error('tgl_update', '<small style="color:red">','</small>') ?>
                         </div>
 	    <input type="hidden" name="id" value="<?php echo $id; ?>" /> 

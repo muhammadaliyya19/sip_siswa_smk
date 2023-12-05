@@ -8,11 +8,11 @@
                         <h4><?php echo $judul ?></h4>
                     </div>
                 </div>
-                <div class="pull-right">
+                <!-- <div class="pull-right">
                     <div class="box-title">
                         <a href="<?php echo base_url('visi_misi/create') ?>" class="btn btn-primary"><i class="fa fa-plus"></i> Tambah Data</a>
                     </div>
-                </div>
+                </div> -->
             </div>
             <div class="box-body">
                 <div class="table-responsive">
@@ -34,7 +34,7 @@
 			<td><?php echo $visi_misi->tgl_update ?></td><td>
                         <a href="<?php echo site_url('visi_misi/read/' . $visi_misi->id ) ?>" class="btn btn-info"><i class="fa fa-eye"></i></a>
                         <a href="<?php echo site_url('visi_misi/update/' . $visi_misi->id ) ?>" class="btn btn-warning"><i class="fa fa-edit"></i></a>
-                        <a data-href="<?php echo site_url('visi_misi/delete/' . $visi_misi->id ) ?>" class="btn btn-danger hapus-data"><i class="fa fa-trash"></i></a>
+                        <!-- <a data-href="<?php echo site_url('visi_misi/delete/' . $visi_misi->id ) ?>" class="btn btn-danger hapus-data"><i class="fa fa-trash"></i></a> -->
                      </td>
 		</tr>
                             <?php

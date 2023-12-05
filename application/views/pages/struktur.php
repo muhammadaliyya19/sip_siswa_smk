@@ -20,16 +20,19 @@
 <!-- Start Team Area -->
 <section class="team-page-area bg-color ptb-100">
     <div class="container">
-        <h2 class="text-center">Selayang Pandang</h2>
-        <p style="text-align: center;"><?=$pengurus[0]['nama']; ?></p>
+        <h2 class="text-center">Struktur Organisasi SMK Al-Hamidiyah</h2>
+        <!-- <h2 class="text-center">Selayang Pandang</h2> -->
+        <!-- <p style="text-align: center;">
+            AAAA 
+            BBBB
+            CCCC
+        </p> -->
         <div class="row">
-            <?php foreach ($pengurus as $p):?>
-                <div class="col-lg-12" align="center">
-                    <div class="thumbnail">
-                        <img src="<?=base_url('assets/img/pengurus_sarpras/'.$p['foto']); ?>" alt="pengurus">
-                    </div>
-                </div>        
-            <?php endforeach; ?>
+            <div class="col-lg-12 col-md-12">
+                <div class="thumbnail text-center">
+                    <img src="<?=base_url('assets/img/struktur/struktur.png'); ?>" alt="struktur1">
+                </div>
+            </div>
         </div>
     </div>
 </section>

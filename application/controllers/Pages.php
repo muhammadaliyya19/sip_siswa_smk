@@ -7,6 +7,8 @@ class Pages extends CI_Controller {
 		parent::__construct();
 		$this->load->library('session');
 		$this->load->model('Users_model');		
+		$this->load->model('Visi_misi_model');
+		$this->load->model('Berita_model');		
 	}
 
 	public function index()
@@ -39,13 +41,17 @@ class Pages extends CI_Controller {
 
 	public function visi_misi()
 	{
+		$row = $this->Visi_misi_model->get_all();
+		$visi = str_replace('\n', '<br>', $row[0]->visi);
+		$misi = str_replace('\n', '<br>', $row[0]->misi);
+		
 		$data = [
 			'judul' => 'Contact',
 			'user' => $this->session->userdata('user'),
 			'foto' => [],
 			'visimisi' => [
-				'visi' => "",
-				'misi' => "",
+				'visi' => str_replace('\n', '<br>', $visi),
+				'misi' => str_replace('\n', '<br>', $misi),
 			]
 		];
 		$this->load->view('templates/home_header', $data);		
@@ -78,7 +84,28 @@ class Pages extends CI_Controller {
         $this->load->view('templates/home_navbar');
 		$this->load->view('pages/about');		
 		$this->load->view('templates/home_footer', $data);				
-	}	
+	}
+	
+	public function berita()
+	{
+		$row = $this->Berita_model->get_all();
+		$visi = str_replace('\n', '<br>', $row[0]->visi);
+		$misi = str_replace('\n', '<br>', $row[0]->misi);
+		
+		$data = [
+			'judul' => 'Contact',
+			'user' => $this->session->userdata('user'),
+			'foto' => [],
+			'visimisi' => [
+				'visi' => str_replace('\n', '<br>', $visi),
+				'misi' => str_replace('\n', '<br>', $misi),
+			]
+		];
+		$this->load->view('templates/home_header', $data);		
+        $this->load->view('templates/home_navbar');
+		$this->load->view('pages/visimisi');		
+		$this->load->view('templates/home_footer', $data);				
+	}
 
 	function generateTrxID($length=6) {
         $result           = '';

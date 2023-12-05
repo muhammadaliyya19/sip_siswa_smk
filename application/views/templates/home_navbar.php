@@ -59,26 +59,34 @@
                                 <li class="nav-item">
                                     <a href="<?= base_url('pages/ppdb?q=announcement'); ?>" class="nav-link">Pengumuman PPDB</a>
                                 </li>
-                                <!-- <li class="nav-item">
+                                <li class="nav-item">
                                     <a href="<?= base_url('pages/berita'); ?>" class="nav-link">Berita</a>
-                                </li> -->
-                            </ul>
-                        </li>   
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                Auth
-                                <i class="bx bx-chevron-down"></i>
-                            </a>
-
-                            <ul class="dropdown-menu">
-                                <li class="nav-item">
-                                    <a href="<?= base_url('auth/login') ?>" class="nav-link">Login</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="<?= base_url('auth/registration'); ?>" class="nav-link">Registrasi</a>
                                 </li>
                             </ul>
                         </li>   
+                        <?php if($user == null):?>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    Auth
+                                    <i class="bx bx-chevron-down"></i>
+                                </a>
+    
+                                <ul class="dropdown-menu">
+                                    <li class="nav-item">
+                                        <a href="<?= base_url('auth/login') ?>" class="nav-link">Login</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="<?= base_url('auth/registration'); ?>" class="nav-link">Registrasi</a>
+                                    </li>
+                                </ul>
+                            </li>   
+                        <?php else:?>
+                            <li class="nav-item">
+                                <a href="<?=base_url('dashboard'); ?>" class="nav-link active">
+                                    Dashboard
+                                </a>
+                            </li>   
+                        <?php endif;?>
                 </div>
             </nav>
         </div>

@@ -1,11 +1,11 @@
 <div class="container-fluid">
   <div class="row mt-3">
-    <div class="col text-left">
-      <h1 class="h3 text-gray-800"><?=$title;?></h1>  
-    </div>
-    <!-- <div class="col text-right">
+    <!-- <div class="col text-left">
+      <h1 class="h3 text-gray-800"><?=$judul;?></h1>  
+    </div> -->
+    <div class="col text-right">
       <a href="<?php echo base_url(); ?>berita/" class="btn btn-primary">Kembali</a>
-    </div>     -->
+    </div>    
   </div>      
   <div class="row">
     <div class="col-12" align="center">
@@ -29,6 +29,5 @@
       ?>
     </div>
   </div>       
-</div>
 </div>
 <!-- End of Main Content -->

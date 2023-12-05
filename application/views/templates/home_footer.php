@@ -2,7 +2,7 @@
 <footer class="footer-top-area-three pt-100 pb-70" style="background: #4e73df;">
     <div class="container">
         <div class="row">
-            <div class="col-lg-3 col-md-6">
+            <div class="col-lg-4 col-md-6">
                 <div class="single-widget">
                     <img src="<?= base_url(); ?>assets/front_pages/img/footer.jpeg" alt="Image" style="max-height: 75px;">
                     <ul class="social-wrap">
@@ -30,7 +30,7 @@
                 </div>
             </div>
 
-            <div class="col-lg-3 col-md-6">
+            <div class="col-lg-4 col-md-6">
                 <div class="single-widget">
                     <h3>Contact Us</h3>
 
@@ -63,7 +63,7 @@
                 </div>
             </div>
 
-            <div class="col-lg-3 col-md-6">
+            <div class="col-lg-4 col-md-6">
                 <div class="single-widget">
                     <h3>Halaman Lainnya</h3>
 
@@ -80,27 +80,6 @@
                         <li>
                             <a href="<?=base_url('pages/struktur');?>">Struktur Organisasi</a>
                         </li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="col-lg-3 col-md-6">
-                <div class="single-widget">
-                    <h3>Foto Kegiatan Terbaru</h3>
-
-                    <ul class="instagram">
-                        <?php 
-                            $sum = count($foto) > 9 ? 9 : count($foto);
-                            for ($i=0; $i < $sum; $i++):
-                        ?>
-                            <li>
-                                <a href="<?=base_url('pages/galeri'); ?>">
-                                    <img src="<?= base_url('assets/front_pages/img/galeri/').$foto[$i]['foto']; ?>" alt="Image" style="height: 88px; width: 88px; overflow: hidden;">
-                                </a>
-                            </li>
-                        <?php    
-                            endfor;
-                        ?>                       
                     </ul>
                 </div>
             </div>

@@ -34,14 +34,14 @@ class Visi_misi extends CI_Controller
                 $this->pagination->initialize($config);
 
                 $data = array(
-                'visi_misi_data' => $visi_misi,
-                'q' => $q,
-                'pagination' => $this->pagination->create_links(),
-                'total_rows' => $config['total_rows'],
-                'start' => $start,
+                    'visi_misi_data' => $visi_misi,
+                    'q' => $q,
+                    'pagination' => $this->pagination->create_links(),
+                    'total_rows' => $config['total_rows'],
+                    'start' => $start,
+                    'judul' => 'Data Visi Misi',
+                    'user' => $this->session->userdata('user')
                 );
-
-                $data['judul'] = 'Data Visi_misi';
 
                 $this->load->view('templates/header', $data);
                 $this->load->view('visi_misi/visi_misi_list', $data);
@@ -59,7 +59,8 @@ class Visi_misi extends CI_Controller
 		'tgl_update' => $row->tgl_update,
 	    );
 
-                $data['judul'] = 'Detail Visi_misi';
+                $data['judul'] = 'Detail Visi Misi';
+                $data['user'] = $this->session->userdata('user');
 
                 $this->load->view('templates/header', $data);
                 $this->load->view('visi_misi/visi_misi_read', $data);
@@ -82,6 +83,7 @@ class Visi_misi extends CI_Controller
 	);
 
                 $data['judul'] = 'Tambah Visi_misi';
+                $data['user'] = $this->session->userdata('user');
 
                 $this->load->view('templates/header', $data);
                 $this->load->view('visi_misi/visi_misi_form', $data);
@@ -98,7 +100,7 @@ class Visi_misi extends CI_Controller
                         $data = array(
 		'visi' => $this->input->post('visi',TRUE),
 		'misi' => $this->input->post('misi',TRUE),
-		'tgl_update' => $this->input->post('tgl_update',TRUE),
+		// 'tgl_update' => $this->input->post('tgl_update',TRUE),
 	    );
 
                         $this->Visi_misi_model->insert($data);
@@ -118,10 +120,11 @@ class Visi_misi extends CI_Controller
 		'id' => set_value('id', $row->id),
 		'visi' => set_value('visi', $row->visi),
 		'misi' => set_value('misi', $row->misi),
-		'tgl_update' => set_value('tgl_update', $row->tgl_update),
+		'tgl_update' => set_value('tgl_update', date('Y-m-d')),
 	    );
 
-                        $data['judul'] = 'Ubah Visi_misi';
+                        $data['judul'] = 'Ubah Visi Misi';
+                        $data['user'] = $this->session->userdata('user');
 
                         $this->load->view('templates/header', $data);
                         $this->load->view('visi_misi/visi_misi_form', $data);
@@ -168,9 +171,9 @@ class Visi_misi extends CI_Controller
 
                             public function _rules() 
                             {
-	$this->form_validation->set_rules('visi', 'visi', 'trim|required');
-	$this->form_validation->set_rules('misi', 'misi', 'trim|required');
-	$this->form_validation->set_rules('tgl_update', 'tgl update', 'trim|required');
+	$this->form_validation->set_rules('visi', 'visi', 'required');
+	$this->form_validation->set_rules('misi', 'misi', 'required');
+	// $this->form_validation->set_rules('tgl_update', 'tgl update', 'trim|required');
 
 	$this->form_validation->set_rules('id', 'id', 'trim');
 	$this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');

@@ -79,7 +79,7 @@ class Pendaftaran extends CI_Controller
             {
                 $data = array(
                 'button' => 'Create',
-                'action' => site_url('calon_siswa/create_action'),
+                'action' => site_url('pendaftaran/create_action'),
 	    'id' => set_value('id'),
 	    'nama' => set_value('nama'),
 	    'tempat_lahir' => set_value('tempat_lahir'),
