@@ -18,8 +18,11 @@ class Pengumuman_pendaftaran_model extends CI_Model
     // get all
     function get_all()
     {
+        $this->db->select('*');
+        $this->db->from($this->table . ' pp');
         $this->db->order_by($this->id, $this->order);
-        return $this->db->get($this->table)->result();
+        $this->db->join('tahun_ajaran ta', 'ta.id=pp.id_tahun_ajaran', 'left');
+        return $this->db->get()->result();
     }
 
     // get data by id
@@ -42,14 +45,17 @@ class Pengumuman_pendaftaran_model extends CI_Model
 
     // get data with limit and search
     function get_limit_data($limit, $start = 0, $q = NULL) {
-        $this->db->order_by($this->id, $this->order);
-        $this->db->like('id', $q);
-	$this->db->or_like('judul', $q);
-	$this->db->or_like('deskripsi', $q);
-	$this->db->or_like('id_tahun_ajaran', $q);
-	$this->db->or_like('tgl_update', $q);
+        $this->db->select('pp.*, ta.id as ta_id, ta.tahun_ajaran');
+        $this->db->from($this->table . ' pp');
+        $this->db->join('tahun_ajaran ta', 'ta.id=pp.id_tahun_ajaran', 'left');
+        $this->db->order_by('pp.'.$this->id, $this->order);
+        $this->db->like('pp.id', $q);
+	$this->db->or_like('pp.judul', $q);
+	$this->db->or_like('pp.deskripsi', $q);
+	$this->db->or_like('pp.id_tahun_ajaran', $q);
+	$this->db->or_like('pp.tgl_update', $q);
 	$this->db->limit($limit, $start);
-        return $this->db->get($this->table)->result();
+        return $this->db->get()->result();
     }
 
     // insert data

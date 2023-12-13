@@ -63,7 +63,7 @@ Start Page Title Area -->
                                 <div class="single-portfolio">
                                     <div class="portfolio-image bg-2" style="background-image: url('<?=base_url('assets/img/youtube-logo.png'); ?>')">
                                         <div class="price-wrap">
-                                            <a href="https://youtube.com/c/ArifIbnuzainal" target="_blank">
+                                            <a href="https://youtube.com/" target="_blank">
                                                 <i class="flaticon-play"></i>
                                             </a>
                                         </div>
@@ -73,7 +73,7 @@ Start Page Title Area -->
                                             <span>YouTube</span>
 
                                             <h3>
-                                                <a href="https://youtube.com/c/ArifIbnuzainal" target="_blank">
+                                                <a href="https://youtube.com/" target="_blank">
                                                     YouTube
                                                 </a>
                                             </h3>
@@ -85,7 +85,7 @@ Start Page Title Area -->
                                 <div class="single-portfolio">
                                     <div class="portfolio-image bg-2" style="background-image: url('<?=base_url('assets/img/fb_logo.png'); ?>')">
                                         <div class="price-wrap">
-                                            <a href="https://www.facebook.com/profile.php?id=100004867660094" target="_blank">
+                                            <a href="https://www.facebook.com/" target="_blank">
                                                 <i class="flaticon-play"></i>
                                             </a>
                                         </div>
@@ -95,7 +95,7 @@ Start Page Title Area -->
                                             <span>Facebook</span>
 
                                             <h3>
-                                                <a href="https://www.facebook.com/profile.php?id=100004867660094" target="_blank">
+                                                <a href="https://www.facebook.com/" target="_blank">
                                                     Facebook
                                                 </a>
                                             </h3>
@@ -107,7 +107,7 @@ Start Page Title Area -->
                                 <div class="single-portfolio">
                                     <div class="portfolio-image bg-2" style="background-image: url('<?=base_url('assets/img/instagram-logo.jpg'); ?>')">
                                         <div class="price-wrap">
-                                            <a href="https://instagram.com/arif_ibnu_zainal?utm_medium=copy_link" target="_blank">
+                                            <a href="https://instagram.com/" target="_blank">
                                                 <i class="flaticon-play"></i>
                                             </a>
                                         </div>
@@ -117,7 +117,7 @@ Start Page Title Area -->
                                             <span>Instagram</span>
 
                                             <h3>
-                                                <a href="https://instagram.com/arif_ibnu_zainal?utm_medium=copy_link" target="_blank">
+                                                <a href="https://instagram.com/" target="_blank">
                                                     Instagram
                                                 </a>
                                             </h3>
@@ -129,7 +129,7 @@ Start Page Title Area -->
                                 <div class="single-portfolio">
                                     <div class="portfolio-image bg-2" style="background-image: url('<?=base_url('assets/img/whatsapp.png'); ?>')">
                                         <div class="price-wrap">
-                                            <a href="https://wa.me/+6289507996000" target="_blank">
+                                            <a href="https://wa.me/+6289654669063" target="_blank">
                                                 <i class="flaticon-play"></i>
                                             </a>
                                         </div>
@@ -139,7 +139,7 @@ Start Page Title Area -->
                                             <span>WhatsApp</span>
 
                                             <h3>
-                                                <a href="https://wa.me/+6289507996000" target="_blank">
+                                                <a href="https://wa.me/+6289654669063" target="_blank">
                                                     WhatsApp
                                                 </a>
                                             </h3>

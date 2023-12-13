@@ -9,6 +9,7 @@ class Pengumuman_ppdb extends CI_Controller
     {
         parent::__construct();
         $this->load->model('Pengumuman_pendaftaran_model');
+        $this->load->model('Tahun_ajaran_model');
         $this->load->library('form_validation');
     }
 
@@ -30,8 +31,12 @@ class Pengumuman_ppdb extends CI_Controller
                 $config['total_rows'] = $this->Pengumuman_pendaftaran_model->total_rows($q);
                 $pengumuman_pendaftaran = $this->Pengumuman_pendaftaran_model->get_limit_data($config['per_page'], $start, $q);
 
+                // var_dump($pengumuman_pendaftaran); die;
+
                 $this->load->library('pagination');
                 $this->pagination->initialize($config);
+
+                $tahun_ajarans = $this->Tahun_ajaran_model->get_all();
 
                 $data = array(
                     'pengumuman_pendaftaran_data' => $pengumuman_pendaftaran,
@@ -40,6 +45,7 @@ class Pengumuman_ppdb extends CI_Controller
                     'total_rows' => $config['total_rows'],
                     'start' => $start,
                     'user' => $this->session->userdata('user'),
+                    'tahun_ajarans' => $tahun_ajarans,
                 );
 
                 $data['judul'] = 'Data Pengumuman PPDB';
@@ -69,12 +75,13 @@ class Pengumuman_ppdb extends CI_Controller
                 $this->load->view('templates/footer', $data);
                 } else {
                     $this->session->set_flashdata('error', 'Data tidak ditemukan');
-                    redirect(site_url('pengumuman_pendaftaran'));
+                    redirect(site_url('pengumuman_ppdb'));
                 }
             }
 
             public function create() 
             {
+                $tahun_ajarans = $this->Tahun_ajaran_model->get_all();
                 $data = array(
                 'button' => 'Create',
                 'action' => site_url('pengumuman_ppdb/create_action'),
@@ -83,6 +90,7 @@ class Pengumuman_ppdb extends CI_Controller
 	    'deskripsi' => set_value('deskripsi'),
 	    'id_tahun_ajaran' => set_value('id_tahun_ajaran'),
 	    'tgl_update' => set_value('tgl_update'),
+        'tahun_ajarans' => $tahun_ajarans,
 	);
 
                 $data['judul'] = 'Tambah Pengumuman PPDB';
@@ -104,18 +112,19 @@ class Pengumuman_ppdb extends CI_Controller
 		'judul' => $this->input->post('judul',TRUE),
 		'deskripsi' => $this->input->post('deskripsi',TRUE),
 		'id_tahun_ajaran' => $this->input->post('id_tahun_ajaran',TRUE),
-		'tgl_update' => $this->input->post('tgl_update',TRUE),
+		// 'tgl_update' => $this->input->post('tgl_update',TRUE),
 	    );
 
                         $this->Pengumuman_pendaftaran_model->insert($data);
                         $this->session->set_flashdata('success', 'Ditambah');
-                        redirect(site_url('pengumuman_pendaftaran'));
+                        redirect(site_url('pengumuman_ppdb'));
                     }
                 }
 
                 public function update($id) 
                 {
                     $row = $this->Pengumuman_pendaftaran_model->get_by_id($id);
+                    $tahun_ajarans = $this->Tahun_ajaran_model->get_all();
 
                     if ($row) {
                         $data = array(
@@ -126,9 +135,11 @@ class Pengumuman_ppdb extends CI_Controller
 		'deskripsi' => set_value('deskripsi', $row->deskripsi),
 		'id_tahun_ajaran' => set_value('id_tahun_ajaran', $row->id_tahun_ajaran),
 		'tgl_update' => set_value('tgl_update', $row->tgl_update),
+        'tahun_ajarans' => $tahun_ajarans,
 	    );
 
-                        $data['judul'] = 'Ubah Pengumuman_pendaftaran';
+                        $data['judul'] = 'Ubah Pengumuman Ppdb';
+                        $data['user']   = $this->session->userdata('user');
 
                         $this->load->view('templates/header', $data);
                         $this->load->view('pengumuman_ppdb/pengumuman_pendaftaran_form', $data);
@@ -136,7 +147,7 @@ class Pengumuman_ppdb extends CI_Controller
 
                         } else {
                             $this->session->set_flashdata('error', 'Data tidak ditemukan');
-                            redirect(site_url('pengumuman_pendaftaran'));
+                            redirect(site_url('pengumuman_ppdb'));
                         }
                     }
 
@@ -156,7 +167,7 @@ class Pengumuman_ppdb extends CI_Controller
 
                                 $this->Pengumuman_pendaftaran_model->update($this->input->post('id', TRUE), $data);
                                 $this->session->set_flashdata('success', 'Diubah');
-                                redirect(site_url('pengumuman_pendaftaran'));
+                                redirect(site_url('pengumuman_ppdb'));
                             }
                         }
 
@@ -167,10 +178,10 @@ class Pengumuman_ppdb extends CI_Controller
                             if ($row) {
                                 $this->Pengumuman_pendaftaran_model->delete($id);
                                 $this->session->set_flashdata('success', 'Dihapus');
-                                redirect(site_url('pengumuman_pendaftaran'));
+                                redirect(site_url('pengumuman_ppdb'));
                                 } else {
                                     $this->session->set_flashdata('error', 'Data tidak ditemukan');
-                                    redirect(site_url('pengumuman_pendaftaran'));
+                                    redirect(site_url('pengumuman_ppdb'));
                                 }
                             }
 
@@ -179,7 +190,7 @@ class Pengumuman_ppdb extends CI_Controller
 	$this->form_validation->set_rules('judul', 'judul', 'trim|required');
 	$this->form_validation->set_rules('deskripsi', 'deskripsi', 'trim|required');
 	$this->form_validation->set_rules('id_tahun_ajaran', 'id tahun ajaran', 'trim|required|numeric');
-	$this->form_validation->set_rules('tgl_update', 'tgl update', 'trim|required');
+	$this->form_validation->set_rules('tgl_update', 'tgl update', 'trim');
 
 	$this->form_validation->set_rules('id', 'id', 'trim');
 	$this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');

@@ -13,12 +13,13 @@ class Pages extends CI_Controller {
 
 	public function index()
 	{
+		$berita = $this->Berita_model->get_all_array();
 		$data = [
 			'judul' => 'Home',
 			'user' => $this->session->userdata('user'),
 			'foto' => [],
 			'video' => [],
-			'berita' => []
+			'berita' => $berita
 		];		
 		$this->load->view('templates/home_header');
         $this->load->view('templates/home_navbar', $data);
@@ -98,7 +99,7 @@ class Pages extends CI_Controller {
 		];
 		$this->load->view('templates/home_header', $data);		
         $this->load->view('templates/home_navbar');
-		$this->load->view('pages/berita');		
+		$this->load->view('pages/berita');
 		$this->load->view('templates/home_footer', $data);				
 	}
 
@@ -115,6 +116,14 @@ class Pages extends CI_Controller {
         $this->load->view('templates/home_footer',$data);
     }
 
+	public function ppdb(){
+		$req = $this->input->get('q',TRUE);
+		if($req == "registrasi"){
+
+		} else if($req == "announcement"){
+
+		}
+	}
 
 	function generateTrxID($length=6) {
         $result           = '';
