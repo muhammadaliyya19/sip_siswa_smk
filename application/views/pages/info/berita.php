@@ -34,7 +34,7 @@ function konversiTanggal($tanggal)
 
         <div class="row">
             <?php foreach ($berita as $b):?>
-                <div class="col-lg-4 col-md-6" style="height: 450px; overflow: hidden;">
+                <div class="col-lg-3 col-md-6" style="height: 450px; overflow: hidden;">
                     <div class="single-blog">
                         <a href="<?=base_url('pages/baca/'.$b['slug']); ?>" style="height: 190px; overflow: hidden;">
                             <img src="<?=base_url('assets/img/berita/').$b['foto_utama']; ?>" alt="Image">

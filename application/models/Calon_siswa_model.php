@@ -17,14 +17,19 @@ class Calon_siswa_model extends CI_Model
 
     // datatables
         function json() {
-            $this->datatables->select('id,nama,tempat_lahir,tanggal_lahir,jenis_kelamin,agama,anak_ke,jumlah_saudara,no_hp_siswa,alamat_siswa,berat_badan,tinggi_badan,gol_darah,asal_sekolah,alamat_sekolah,nama_ayah,nama_ibu,alamat_orang_tua,no_hp_orang_tua,penghasilan_orang_tua,tanggungan_anak,id_tahun_ajaran,id_user,status_lolos,nisn');
+            $this->datatables->select(
+                'id,nama,tempat_lahir,tanggal_lahir,jenis_kelamin,agama,anak_ke,jumlah_saudara,no_hp_siswa,
+                alamat_siswa,berat_badan,tinggi_badan,gol_darah,asal_sekolah,alamat_sekolah,nama_ayah,nama_ibu,
+                alamat_orang_tua,no_hp_orang_tua,penghasilan_orang_tua,tanggungan_anak,id_tahun_ajaran,id_user,
+                status_lolos,nisn'
+            );
             $this->datatables->from('calon_siswa');
         //add this line for join
         //$this->datatables->join('table2', 'calon_siswa.field = table2.field');
             $this->datatables->add_column('action', 
-            '<a href="'  . site_url('calon_siswa/read/$1') . '" class="btn btn-info"><i class="fa fa-eye"></i></a> 
-            <a href="'  . site_url('calon_siswa/update/$1') . '" class="btn btn-warning"><i class="fa fa-edit"></i></a> 
-            <a data-href="'  . site_url('calon_siswa/delete/$1') . '" class="btn btn-danger hapus-data"><i class="fa fa-trash"></i></a>', 'id');
+            '<a href="'  . site_url('pendaftaran/read/$1') . '" class="btn btn-info"><i class="fa fa-eye"></i></a> 
+            <a href="'  . site_url('pendaftaran/update/$1') . '" class="btn btn-warning"><i class="fa fa-edit"></i></a> 
+            <a data-href="'  . site_url('pendaftaran/delete/$1') . '" class="btn btn-danger hapus-data"><i class="fa fa-trash"></i></a>', 'id');
             return $this->datatables->generate();
         }
 

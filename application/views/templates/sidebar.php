@@ -32,13 +32,13 @@
             </li>
             <!-- MENU UNTUK Calon Siswa -->
             <?php else  : ?>
-            <li class="<?= $judul == "Pendaftaran Saya" || "Pendaftaran" || "Tambah Pendaftaran" ? 'active' : '' ?>">
+            <li class="">
                 <a href="<?php echo base_url('pendaftaran') ?>">
                     <i class="fas fa-laptop"></i> <span>&nbsp; Pendaftaran</span>
                 </a>
             </li>
             <li class="<?= $judul == "Pendaftaran Saya" ? 'active' : '' ?>">
-                <a href="<?php echo base_url('calon_siswa') ?>">
+                <a href="<?php echo base_url('pendaftaran/mine') ?>">
                     <i class="fas fa-list"></i> <span>&nbsp; Pendaftaran Saya</span>
                 </a>
             </li>

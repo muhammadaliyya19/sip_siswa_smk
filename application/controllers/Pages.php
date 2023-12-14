@@ -9,6 +9,7 @@ class Pages extends CI_Controller {
 		$this->load->model('Users_model');		
 		$this->load->model('Visi_misi_model');
 		$this->load->model('Berita_model');		
+        $this->load->model('Pengumuman_pendaftaran_model');
 	}
 
 	public function index()
@@ -99,7 +100,7 @@ class Pages extends CI_Controller {
 		];
 		$this->load->view('templates/home_header', $data);		
         $this->load->view('templates/home_navbar');
-		$this->load->view('pages/berita');
+		$this->load->view('pages/info/berita');
 		$this->load->view('templates/home_footer', $data);				
 	}
 
@@ -112,16 +113,40 @@ class Pages extends CI_Controller {
 		$data['user'] 			= $this->session->userdata('user');
 		$this->load->view('templates/home_header', $data);
         $this->load->view('templates/home_navbar', $data);
-        $this->load->view('pages/baca_berita', $data);
+        $this->load->view('pages/info/baca_berita', $data);
         $this->load->view('templates/home_footer',$data);
     }
 
 	public function ppdb(){
 		$req = $this->input->get('q',TRUE);
 		if($req == "registrasi"){
-
+			$row = $this->Pengumuman_pendaftaran_model->get_all();
+			// print_r($row); die;
+			$data = [
+				'judul' => 'Pendaftaran PPDB',
+				'q' => $req,
+				'user' => $this->session->userdata('user'),
+				'foto' => [],
+				'pengumuman' => $row
+			];
+			$this->load->view('templates/home_header', $data);		
+			$this->load->view('templates/home_navbar', $data);
+			$this->load->view('pages/info/pengumuman', $data);
+			$this->load->view('templates/home_footer', $data);	
 		} else if($req == "announcement"){
-
+			$row = $this->Pengumuman_pendaftaran_model->get_all();
+			// print_r($row); die;
+			$data = [
+				'judul' => 'Pengumuman Kelolosan PPDB',
+				'q' => $req,
+				'user' => $this->session->userdata('user'),
+				'foto' => [],
+				'pengumuman' => $row
+			];
+			$this->load->view('templates/home_header', $data);		
+			$this->load->view('templates/home_navbar', $data);
+			$this->load->view('pages/info/pengumuman', $data);
+			$this->load->view('templates/home_footer', $data);	
 		}
 	}
 

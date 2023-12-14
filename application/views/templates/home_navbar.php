@@ -57,7 +57,7 @@
                                     <a href="<?= base_url('pages/ppdb?q=registrasi') ?>" class="nav-link">Pendaftaran PPDB</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="<?= base_url('pages/ppdb?q=announcement'); ?>" class="nav-link">Pengumuman PPDB</a>
+                                    <a href="<?= base_url('pages/ppdb?q=announcement'); ?>" class="nav-link">Pengumuman Kelolosan PPDB</a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="<?= base_url('pages/berita'); ?>" class="nav-link">Berita</a>

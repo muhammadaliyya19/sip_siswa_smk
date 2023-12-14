@@ -18,7 +18,7 @@ class Pengumuman_pendaftaran_model extends CI_Model
     // get all
     function get_all()
     {
-        $this->db->select('*');
+        $this->db->select('pp.*, ta.tahun_ajaran');
         $this->db->from($this->table . ' pp');
         $this->db->order_by($this->id, $this->order);
         $this->db->join('tahun_ajaran ta', 'ta.id=pp.id_tahun_ajaran', 'left');

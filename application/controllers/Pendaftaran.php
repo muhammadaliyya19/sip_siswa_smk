@@ -15,16 +15,28 @@ class Pendaftaran extends CI_Controller
     }
 
     public function index()
-            {
-				$data = array(
-                    'judul' => 'Data Pendaftaran',
-                    'user' => $this->session->userdata('user'),                    
-                );
+	{
+		$data = array(
+			'judul' => 'Data Pendaftaran',
+			'user' => $this->session->userdata('user'),                    
+		);
 
-                $this->load->view('templates/header', $data);
-                $this->load->view('calon_siswa/calon_siswa_list', $data);
-                $this->load->view('templates/footer', $data);
-            } 
+		$this->load->view('templates/header', $data);
+		$this->load->view('calon_siswa/calon_siswa_list', $data);
+		$this->load->view('templates/footer', $data);
+	}
+	
+	public function mine()
+	{
+		$data = array(
+			'judul' => 'Pendaftaran Saya',
+			'user' => $this->session->userdata('user'),                    
+		);
+
+		$this->load->view('templates/header', $data);
+		$this->load->view('calon_siswa/pendaftaran_calon_siswa_list', $data);
+		$this->load->view('templates/footer', $data);
+	}
 
             public function json() {
                 header('Content-Type: application/json');
