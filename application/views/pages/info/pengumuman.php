@@ -58,7 +58,7 @@ function konversiTanggal($tanggal)
                             <?php if ($q == "registrasi"): ?>
                                 <td>
                                     <?php if ($p->is_active == 1): ?>
-                                        <a href="<?= base_url(""); ?>" class="btn btn-primary btn-xs">Daftar</a>
+                                        <a href="<?= base_url("pendaftaran/apply/".$p->id); ?>" class="btn btn-primary btn-xs">Daftar</a>
                                     <?php else : ?>
                                         <a href="#" class="btn btn-secondary btn-xs">#</a>
                                     <?php endif; ?>                                

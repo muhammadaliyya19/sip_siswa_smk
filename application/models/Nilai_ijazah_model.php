@@ -1,7 +1,7 @@
 <?php
 
 if (!defined('BASEPATH'))
-exit('No direct script access allowed');
+    exit('No direct script access allowed');
 
 class Nilai_ijazah_model extends CI_Model
 {
@@ -28,37 +28,39 @@ class Nilai_ijazah_model extends CI_Model
         $this->db->where($this->id, $id);
         return $this->db->get($this->table)->row();
     }
-    
+
     // get total rows
-    function total_rows($q = NULL) {
+    function total_rows($q = NULL)
+    {
         $this->db->like('id', $q);
-	$this->db->or_like('id_user', $q);
-	$this->db->or_like('nisn', $q);
-	$this->db->or_like('nilai_bhs_indo', $q);
-	$this->db->or_like('nilai_bhs_inggris', $q);
-	$this->db->or_like('nilai_ipa', $q);
-	$this->db->or_like('nilai_ips', $q);
-	$this->db->or_like('nilai_mtk', $q);
-	$this->db->or_like('nilai_akhir', $q);
-	$this->db->or_like('keterangan', $q);
-	$this->db->from($this->table);
+        $this->db->or_like('id_user', $q);
+        $this->db->or_like('nisn', $q);
+        $this->db->or_like('nilai_bhs_indo', $q);
+        $this->db->or_like('nilai_bhs_inggris', $q);
+        $this->db->or_like('nilai_ipa', $q);
+        $this->db->or_like('nilai_ips', $q);
+        $this->db->or_like('nilai_mtk', $q);
+        $this->db->or_like('nilai_akhir', $q);
+        $this->db->or_like('keterangan', $q);
+        $this->db->from($this->table);
         return $this->db->count_all_results();
     }
 
     // get data with limit and search
-    function get_limit_data($limit, $start = 0, $q = NULL) {
+    function get_limit_data($limit, $start = 0, $q = NULL)
+    {
         $this->db->order_by($this->id, $this->order);
         $this->db->like('id', $q);
-	$this->db->or_like('id_user', $q);
-	$this->db->or_like('nisn', $q);
-	$this->db->or_like('nilai_bhs_indo', $q);
-	$this->db->or_like('nilai_bhs_inggris', $q);
-	$this->db->or_like('nilai_ipa', $q);
-	$this->db->or_like('nilai_ips', $q);
-	$this->db->or_like('nilai_mtk', $q);
-	$this->db->or_like('nilai_akhir', $q);
-	$this->db->or_like('keterangan', $q);
-	$this->db->limit($limit, $start);
+        $this->db->or_like('id_user', $q);
+        $this->db->or_like('nisn', $q);
+        $this->db->or_like('nilai_bhs_indo', $q);
+        $this->db->or_like('nilai_bhs_inggris', $q);
+        $this->db->or_like('nilai_ipa', $q);
+        $this->db->or_like('nilai_ips', $q);
+        $this->db->or_like('nilai_mtk', $q);
+        $this->db->or_like('nilai_akhir', $q);
+        $this->db->or_like('keterangan', $q);
+        $this->db->limit($limit, $start);
         return $this->db->get($this->table)->result();
     }
 

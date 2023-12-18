@@ -1,7 +1,7 @@
 <?php
 
 if (!defined('BASEPATH'))
-exit('No direct script access allowed');
+    exit('No direct script access allowed');
 
 class Berita extends CI_Controller
 {
@@ -9,7 +9,7 @@ class Berita extends CI_Controller
     {
         parent::__construct();
         $this->load->model('Berita_model');
-		$this->load->model('Users_model');		
+        $this->load->model('Users_model');
         $this->load->library('form_validation');
     }
 
@@ -17,7 +17,7 @@ class Berita extends CI_Controller
     {
         $q = urldecode($this->input->get('q', TRUE));
         $start = intval($this->input->get('start'));
-    
+
         if ($q <> '') {
             $config['base_url'] = base_url() . 'berita/index.html?q=' . urlencode($q);
             $config['first_url'] = base_url() . 'berita/index.html?q=' . urlencode($q);
@@ -34,24 +34,24 @@ class Berita extends CI_Controller
         $this->pagination->initialize($config);
 
         $data = array(
-        'berita_data' => $berita,
-        'q' => $q,
-        'pagination' => $this->pagination->create_links(),
-        'total_rows' => $config['total_rows'],
-        'start' => $start,
-        'user' => $this->session->userdata('user'),                    
+            'berita_data' => $berita,
+            'q' => $q,
+            'pagination' => $this->pagination->create_links(),
+            'total_rows' => $config['total_rows'],
+            'start' => $start,
+            'user' => $this->session->userdata('user'),
         );
 
         $data['judul'] = 'Data Berita';
-        $data['user']   = $this->session->userdata('user');
+        $data['user'] = $this->session->userdata('user');
 
         $this->load->view('templates/header', $data);
         $this->load->view('berita/berita_list', $data);
         $this->load->view('templates/footer', $data);
     }
-        
 
-    public function read($id) 
+
+    public function read($id)
     {
         $row = $this->Berita_model->get_by_id($id);
         if ($row) {
@@ -65,10 +65,10 @@ class Berita extends CI_Controller
                 'slug' => $row->slug,
                 'tanggal' => $row->tanggal,
             );
-    
+
             $data['judul'] = 'Detail Berita';
-            $data['user']   = $this->session->userdata('user');
-    
+            $data['user'] = $this->session->userdata('user');
+
             $this->load->view('templates/header', $data);
             $this->load->view('berita/berita_read', $data);
             $this->load->view('templates/footer', $data);
@@ -77,7 +77,7 @@ class Berita extends CI_Controller
             redirect(site_url('berita'));
         }
     }
-    public function create() 
+    public function create()
     {
         $data = array(
             'button' => 'Create',
@@ -93,14 +93,14 @@ class Berita extends CI_Controller
         );
 
         $data['judul'] = 'Tambah Berita';
-        $data['user']   = $this->session->userdata('user');
+        $data['user'] = $this->session->userdata('user');
 
         $this->load->view('templates/header', $data);
         $this->load->view('berita/berita_form', $data);
         $this->load->view('templates/footer', $data);
     }
 
-    public function create_action() 
+    public function create_action()
     {
         $this->_rules();
 
@@ -109,7 +109,7 @@ class Berita extends CI_Controller
         } else {
             // Pre proses, cek pratinjau atau terbitkan
             if (isset($_POST['terbitkan'])) {
-                $nama_file = $this->do_upload();				
+                $nama_file = $this->do_upload();
                 // $this->Berita_model->tambahDataBerita($nama_file);							
                 // $this->session->set_flashdata('message','<div class="alert alert-success alert-dismissible fade show mt-3" role="alert">Berita telah diterbitkan! <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');	
                 // redirect('berita');
@@ -117,46 +117,46 @@ class Berita extends CI_Controller
                 $now = new DateTime();
 
                 $slug = "";
-                $judul = $this->input->post('judul',TRUE);
+                $judul = $this->input->post('judul', TRUE);
                 $pieces = explode(" ", $judul);
-                for ($i=0; $i < count($pieces); $i++) { 
-                    $slug.=strtolower($pieces[$i]);
-                    if ($i != (count($pieces)-1)) {
-                        $slug.="-";
+                for ($i = 0; $i < count($pieces); $i++) {
+                    $slug .= strtolower($pieces[$i]);
+                    if ($i != (count($pieces) - 1)) {
+                        $slug .= "-";
                     }
                 }
 
                 $data = array(
                     'judul' => $judul,
-                    'penulis' => $this->input->post('penulis',TRUE),
-                    'konten' => $this->input->post('konten',TRUE),
+                    'penulis' => $this->input->post('penulis', TRUE),
+                    'konten' => $this->input->post('konten', TRUE),
                     'foto_utama' => $nama_file,
-                    'tag' => $this->input->post('tag',TRUE),
+                    'tag' => $this->input->post('tag', TRUE),
                     'slug' => $slug,
                     'tanggal' => $now->format('Y-m-d H:i:s'),
                 );
-                
+
                 $this->Berita_model->insert($data);
                 $this->session->set_flashdata('success', 'Ditambah');
                 redirect(site_url('berita'));
             }
             if (isset($_POST['pratinjau'])) {
                 $data = array(
-                    "judul" 		=> $this->input->post('judul', true),
-                    "konten" 		=> $this->input->post('konten', true),
-                    "foto_utama"	=> "def_berita.png",
-                    "tag" 			=> $this->input->post('tag', true)
+                    "judul" => $this->input->post('judul', true),
+                    "konten" => $this->input->post('konten', true),
+                    "foto_utama" => "def_berita.png",
+                    "tag" => $this->input->post('tag', true)
                 );
                 $this->preview($data);
-            }            
+            }
         }
     }
 
-    public function update($id) 
+    public function update($id)
     {
         $row = $this->Berita_model->get_by_id($id);
         $row_arr = $this->Berita_model->get_by_id_arr($id);
-    
+
         if ($row) {
             $data = array(
                 'button' => 'Update',
@@ -172,8 +172,8 @@ class Berita extends CI_Controller
                 'this_berita' => $row_arr,
             );
             $data['judul'] = 'Ubah Berita';
-            $data['user']   = $this->session->userdata('user');
-    
+            $data['user'] = $this->session->userdata('user');
+
             $this->load->view('templates/header', $data);
             $this->load->view('berita/berita_form_edit', $data);
             $this->load->view('templates/footer', $data);
@@ -183,48 +183,48 @@ class Berita extends CI_Controller
         }
     }
 
-    public function update_action() 
+    public function update_action()
     {
         $this->_rules();
-        
+
         if ($this->form_validation->run() == FALSE) {
-            $urls = 'update/'.$this->update($this->input->post('id', TRUE));
+            $urls = 'update/' . $this->update($this->input->post('id', TRUE));
             redirect(site_url($urls));
         } else {
             // Pre proses, cek pratinjau atau terbitkan
             $id = $this->input->post('id', TRUE);
-            
+
             if (isset($_POST['terbitkan_update'])) {
                 $this_berita = $this->Berita_model->get_by_id_arr($id);
                 $nama_file = "";
                 if ($_FILES['foto']['name'] != '' && $_FILES['foto']['size'] > 0) {
-                    unlink('./assets/img/berita/'.$this_berita['foto_utama']);
-                    $nama_file = $this->do_upload();				
+                    unlink('./assets/img/berita/' . $this_berita['foto_utama']);
+                    $nama_file = $this->do_upload();
                 }
-                                
+
                 date_default_timezone_set("Asia/Jakarta");
                 $now = new DateTime();
 
                 $slug = "";
-                $judul = $this->input->post('judul',TRUE);
+                $judul = $this->input->post('judul', TRUE);
                 $pieces = explode(" ", $judul);
-                for ($i=0; $i < count($pieces); $i++) { 
-                    $slug.=strtolower($pieces[$i]);
-                    if ($i != (count($pieces)-1)) {
-                        $slug.="-";
+                for ($i = 0; $i < count($pieces); $i++) {
+                    $slug .= strtolower($pieces[$i]);
+                    if ($i != (count($pieces) - 1)) {
+                        $slug .= "-";
                     }
                 }
 
                 $data = array(
                     'judul' => $judul,
-                    'penulis' => $this->input->post('penulis',TRUE),
-                    'konten' => $this->input->post('konten',TRUE),
+                    'penulis' => $this->input->post('penulis', TRUE),
+                    'konten' => $this->input->post('konten', TRUE),
                     'foto_utama' => $nama_file,
-                    'tag' => $this->input->post('tag',TRUE),
+                    'tag' => $this->input->post('tag', TRUE),
                     'slug' => $slug,
                     'tanggal' => $now->format('Y-m-d H:i:s'),
                 );
-                
+
                 // $this->Berita_model->insert($data);
                 $this->Berita_model->update($id, $data);
                 $this->session->set_flashdata('success', 'Diubah');
@@ -232,13 +232,13 @@ class Berita extends CI_Controller
             }
             if (isset($_POST['pratinjau'])) {
                 $data = array(
-                    "judul" 		=> $this->input->post('judul', true),
-                    "konten" 		=> $this->input->post('konten', true),
-                    "foto_utama"	=> "def_berita.png",
-                    "tag" 			=> $this->input->post('tag', true)
+                    "judul" => $this->input->post('judul', true),
+                    "konten" => $this->input->post('konten', true),
+                    "foto_utama" => "def_berita.png",
+                    "tag" => $this->input->post('tag', true)
                 );
                 $this->preview($data);
-            }   
+            }
 
             // 
             // $data = array(
@@ -250,14 +250,14 @@ class Berita extends CI_Controller
             //     'slug' => $this->input->post('slug',TRUE),
             //     'tanggal' => date('Y-m-d'),
             // );
-            
+
             // $this->Berita_model->update($this->input->post('id', TRUE), $data);
             // $this->session->set_flashdata('success', 'Diubah');
             // redirect(site_url('berita'));
         }
     }
-    
-    public function delete($id) 
+
+    public function delete($id)
     {
         $row = $this->Berita_model->get_by_id($id);
         if ($row) {
@@ -269,8 +269,8 @@ class Berita extends CI_Controller
             redirect(site_url('berita'));
         }
     }
-    
-    public function _rules() 
+
+    public function _rules()
     {
         $this->form_validation->set_rules('judul', 'judul', 'trim|required');
         $this->form_validation->set_rules('penulis', 'penulis', 'trim|required');
@@ -279,16 +279,16 @@ class Berita extends CI_Controller
         // $this->form_validation->set_rules('foto_utama', 'foto utama', 'trim|required');
         // $this->form_validation->set_rules('slug', 'slug', 'trim|required');
         // $this->form_validation->set_rules('tanggal', 'tanggal', 'trim|required');
-        
+
         // $this->form_validation->set_rules('id', 'id', 'trim');
         $this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');
     }
 
     public function preview($data_berita)
     {
-        $id_u 	= $_SESSION['user']['id_user'];			
+        $id_u = $_SESSION['user']['id_user'];
         $this_user = $this->Users_model->get_by_id($id_u);
-        $data		= [
+        $data = [
             'judul' => 'Preview Berita',
             'this_berita' => $data_berita,
             'this_user' => $this_user,
@@ -297,32 +297,32 @@ class Berita extends CI_Controller
         $this->load->view('templates/header', $data);
         $this->load->view('berita/preview', $data);
         $this->load->view('templates/footer', $data);
-    }	
+    }
 
     public function do_upload()
-	{       
-		$this->load->library('upload');
-		$files = $_FILES['foto'];
-		$config = $this->set_upload_options();
-		$config['file_name'] = time().'-'.date("Y-m-d-his").'.jpg';			
-		$this->upload->initialize($config);
-		$res = $this->upload->do_upload('foto');
-		echo $res . "Foto sukses diupload<br><br>";
-		return $config['file_name'];
-	}
+    {
+        $this->load->library('upload');
+        $files = $_FILES['foto'];
+        $config = $this->set_upload_options();
+        $config['file_name'] = time() . '-' . date("Y-m-d-his") . '.jpg';
+        $this->upload->initialize($config);
+        $res = $this->upload->do_upload('foto');
+        echo $res . "Foto sukses diupload<br><br>";
+        return $config['file_name'];
+    }
 
     private function set_upload_options()
-	{   
+    {
         //upload an image options
         $config = array();
-		$config['upload_path'] = './assets/img/berita/';
-		$config['allowed_types'] = 'gif|jpg|png|jpeg';
-		$config['max_size']      = '120000';
-		$config['overwrite']     = FALSE;
-		return $config;
-	}
+        $config['upload_path'] = './assets/img/berita/';
+        $config['allowed_types'] = 'gif|jpg|png|jpeg';
+        $config['max_size'] = '120000';
+        $config['overwrite'] = FALSE;
+        return $config;
+    }
 }
-    
+
 
 /* End of file Berita.php */
 /* Location: ./application/controllers/Berita.php */

@@ -1,7 +1,7 @@
 <?php
 
 if (!defined('BASEPATH'))
-exit('No direct script access allowed');
+    exit('No direct script access allowed');
 
 class Pengumuman_pendaftaran_model extends CI_Model
 {
@@ -31,30 +31,32 @@ class Pengumuman_pendaftaran_model extends CI_Model
         $this->db->where($this->id, $id);
         return $this->db->get($this->table)->row();
     }
-    
+
     // get total rows
-    function total_rows($q = NULL) {
+    function total_rows($q = NULL)
+    {
         $this->db->like('id', $q);
-	$this->db->or_like('judul', $q);
-	$this->db->or_like('deskripsi', $q);
-	$this->db->or_like('id_tahun_ajaran', $q);
-	$this->db->or_like('tgl_update', $q);
-	$this->db->from($this->table);
+        $this->db->or_like('judul', $q);
+        $this->db->or_like('deskripsi', $q);
+        $this->db->or_like('id_tahun_ajaran', $q);
+        $this->db->or_like('tgl_update', $q);
+        $this->db->from($this->table);
         return $this->db->count_all_results();
     }
 
     // get data with limit and search
-    function get_limit_data($limit, $start = 0, $q = NULL) {
+    function get_limit_data($limit, $start = 0, $q = NULL)
+    {
         $this->db->select('pp.*, ta.id as ta_id, ta.tahun_ajaran');
         $this->db->from($this->table . ' pp');
         $this->db->join('tahun_ajaran ta', 'ta.id=pp.id_tahun_ajaran', 'left');
-        $this->db->order_by('pp.'.$this->id, $this->order);
+        $this->db->order_by('pp.' . $this->id, $this->order);
         $this->db->like('pp.id', $q);
-	$this->db->or_like('pp.judul', $q);
-	$this->db->or_like('pp.deskripsi', $q);
-	$this->db->or_like('pp.id_tahun_ajaran', $q);
-	$this->db->or_like('pp.tgl_update', $q);
-	$this->db->limit($limit, $start);
+        $this->db->or_like('pp.judul', $q);
+        $this->db->or_like('pp.deskripsi', $q);
+        $this->db->or_like('pp.id_tahun_ajaran', $q);
+        $this->db->or_like('pp.tgl_update', $q);
+        $this->db->limit($limit, $start);
         return $this->db->get()->result();
     }
 

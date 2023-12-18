@@ -1,7 +1,8 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class Profil extends CI_Controller {
+class Profil extends CI_Controller
+{
 
 	public function __construct()
 	{
@@ -13,7 +14,7 @@ class Profil extends CI_Controller {
 	public function index()
 	{
 		$data['judul'] = "Profil Saya";
-        $data['user'] = $this->session->userdata('user');
+		$data['user'] = $this->session->userdata('user');
 		$data['profil'] = $this->db->get_where('users', ['id' => $this->session->userdata('id_user')])->row_array();
 
 		$this->load->view('templates/header', $data, FALSE);
@@ -35,8 +36,8 @@ class Profil extends CI_Controller {
 		if ($valid->run()) {
 			$this->users_model->ubah_profil($this->input->post());
 			$this->session->set_flashdata('success', 'diubah');
-			redirect('profil','refresh');
-		}else{
+			redirect('profil', 'refresh');
+		} else {
 			$this->index();
 		}
 	}
@@ -49,7 +50,7 @@ class Profil extends CI_Controller {
 		$this->db->update('user');
 
 		$this->session->set_flashdata('success', 'diubah');
-		redirect('profil','refresh');
+		redirect('profil', 'refresh');
 	}
 
 	public function ubah_password_action()
@@ -71,15 +72,15 @@ class Profil extends CI_Controller {
 				$this->db->set('password', password_hash($post['pw1'], PASSWORD_DEFAULT));
 				$this->db->where('id_user', $this->session->userdata('id_user'));
 				$this->db->update('user');
-				
+
 				$this->session->set_flashdata('success', 'diubah');
-				redirect('profil','refresh');
-			}else{
+				redirect('profil', 'refresh');
+			} else {
 				$this->session->set_flashdata('error', 'Password sekarang salah');
-				redirect('profil','refresh');
+				redirect('profil', 'refresh');
 			}
-			
-		}else{
+
+		} else {
 			$this->index();
 		}
 	}
@@ -87,4 +88,4 @@ class Profil extends CI_Controller {
 }
 
 /* End of file profil.php */
-/* Location: ./application/modules/profil/controllers/profil.php */ ?>
+/* Location: ./application/modules/profil/controllers/profil.php */?>

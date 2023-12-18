@@ -49,23 +49,23 @@
         
             <form method="post">
                 <div class="form-group has-feedback">
-                    <input autocomplete="off"  autofocus="" type="number" class="form-control" placeholder="NISN" required="" name="nisn">
+                    <input autocomplete="off"  autofocus="" type="number" class="form-control" placeholder="NISN" required="" name="nisn" value="<?php echo $nisn; ?>">
                     <span class="glyphicon glyphicon-education form-control-feedback"></span>
                 </div>
                 <div class="form-group has-feedback">
-                    <input autocomplete="off"  autofocus="" type="text" class="form-control" placeholder="Nama Lengkap" required="" name="nama_lengkap">
+                    <input autocomplete="off"  autofocus="" type="text" class="form-control" placeholder="Nama Lengkap" required="" name="nama_lengkap" value="<?php echo $nama; ?>">
                     <span class="glyphicon glyphicon-pencil form-control-feedback"></span>
                 </div>
                 <div class="form-group has-feedback">
-                    <input autocomplete="off"  autofocus="" type="email" class="form-control" placeholder="E-Mail" required="" name="email">
+                    <input autocomplete="off"  autofocus="" type="email" class="form-control" placeholder="E-Mail" required="" name="email" value="<?php echo $email; ?>">
                     <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
                 </div>
                 <div class="form-group has-feedback">
-                    <input autocomplete="off"  autofocus="" type="text" class="form-control" placeholder="Username" required="" name="username">
+                    <input autocomplete="off"  autofocus="" type="text" class="form-control" placeholder="Username" required="" name="username" value="<?php echo $username; ?>">
                     <span class="glyphicon glyphicon-user form-control-feedback"></span>
                 </div>
                 <div class="form-group has-feedback">
-                    <input autocomplete="off" type="password" class="form-control" placeholder="Password" required="" name="password">
+                    <input autocomplete="off" type="password" class="form-control" placeholder="Password" required="" name="password" value="<?php echo $password; ?>">
                     <span class="glyphicon glyphicon-lock form-control-feedback"></span>
                 </div>
                 <div class="row">

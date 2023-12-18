@@ -1,7 +1,7 @@
 <?php
 
 if (!defined('BASEPATH'))
-exit('No direct script access allowed');
+    exit('No direct script access allowed');
 
 class Users_model extends CI_Model
 {
@@ -28,27 +28,29 @@ class Users_model extends CI_Model
         $this->db->where($this->id, $id);
         return $this->db->get($this->table)->row();
     }
-    
+
     // get total rows
-    function total_rows($q = NULL) {
+    function total_rows($q = NULL)
+    {
         $this->db->like('id', $q);
-	$this->db->or_like('nama', $q);
-	$this->db->or_like('username', $q);
-	$this->db->or_like('password', $q);
-	$this->db->or_like('level', $q);
-	$this->db->from($this->table);
+        $this->db->or_like('nama', $q);
+        $this->db->or_like('username', $q);
+        $this->db->or_like('password', $q);
+        $this->db->or_like('level', $q);
+        $this->db->from($this->table);
         return $this->db->count_all_results();
     }
 
     // get data with limit and search
-    function get_limit_data($limit, $start = 0, $q = NULL) {
+    function get_limit_data($limit, $start = 0, $q = NULL)
+    {
         $this->db->order_by($this->id, $this->order);
         $this->db->like('id', $q);
-	$this->db->or_like('nama', $q);
-	$this->db->or_like('username', $q);
-	$this->db->or_like('password', $q);
-	$this->db->or_like('level', $q);
-	$this->db->limit($limit, $start);
+        $this->db->or_like('nama', $q);
+        $this->db->or_like('username', $q);
+        $this->db->or_like('password', $q);
+        $this->db->or_like('level', $q);
+        $this->db->limit($limit, $start);
         return $this->db->get($this->table)->result();
     }
 
@@ -56,6 +58,8 @@ class Users_model extends CI_Model
     function insert($data)
     {
         $this->db->insert($this->table, $data);
+        $insert_id = $this->db->insert_id();
+        return $insert_id;
     }
 
     // update data
