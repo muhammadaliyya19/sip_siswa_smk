@@ -124,6 +124,7 @@ class Auth extends CI_Controller
 				// prepare userData
 				$data = array(
 					'nama' => $this->input->post('nama_lengkap', TRUE),
+					'email' => $this->input->post('email', TRUE),
 					'username' => $this->input->post('username', TRUE),
 					'password' => $this->input->post('password', TRUE),
 					'level' => 1,

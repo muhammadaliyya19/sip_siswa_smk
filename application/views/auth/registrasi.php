@@ -31,7 +31,7 @@
             </div>
             <!-- /.login-logo -->
             <div class="login-box-body">
-            <p class="login-box-msg">Silakan input NISN, nama lengkap, email, username dan password</p>
+            <p class="login-box-msg">Silakan input nama lengkap, email, username dan password</p>
         
             <?php if ($error = $this->session->flashdata('error')): ?>
                 <span class="alert-error d-error hidden"><?php echo $error ?></span>
@@ -48,10 +48,10 @@
         
         
             <form method="post">
-                <div class="form-group has-feedback">
+                <!-- <div class="form-group has-feedback">
                     <input autocomplete="off"  autofocus="" type="number" class="form-control" placeholder="NISN" required="" name="nisn" value="<?php echo $nisn; ?>">
                     <span class="glyphicon glyphicon-education form-control-feedback"></span>
-                </div>
+                </div> -->
                 <div class="form-group has-feedback">
                     <input autocomplete="off"  autofocus="" type="text" class="form-control" placeholder="Nama Lengkap" required="" name="nama_lengkap" value="<?php echo $nama; ?>">
                     <span class="glyphicon glyphicon-pencil form-control-feedback"></span>

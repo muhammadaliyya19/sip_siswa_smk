@@ -20,14 +20,7 @@
                 <div class="row">
                     <div class="col-md-2"></div>
                     <div class="col-md-8">
-                        <form action="<?php echo $action; ?>" method="post" enctype="multipart/form-data">
-                            <div class="form-group <?php if (form_error('nisn'))
-                                echo 'has-error' ?> ">
-                                    <label for="varchar">Nisn</label>
-                                    <input type="text" class="form-control" name="nisn" id="nisn" placeholder="Nisn"
-                                        value="<?php echo $nisn; ?>" />
-                                <?php echo form_error('nisn', '<small style="color:red">', '</small>') ?>
-                            </div>
+                        <form action="<?php echo $action; ?>" method="post">
                             <div class="form-group <?php if (form_error('nama'))
                                 echo 'has-error' ?> ">
                                     <label for="varchar">Nama</label>
@@ -145,7 +138,67 @@
                                         placeholder="No Hp Orang Tua" value="<?php echo $no_hp_orang_tua; ?>" />
                                 <?php echo form_error('no_hp_orang_tua', '<small style="color:red">', '</small>') ?>
                             </div>
-                            <div class="form-group <?php if (form_error('berkas_persyaratan'))
+                            <div class="form-group <?php if (form_error('id_tahun_ajaran'))
+                                echo 'has-error' ?> ">
+                                    <label for="id_tahun_ajaran">Tahun Ajaran</label>
+                                    <select class="form-control" name="id_tahun_ajaran" id="id_tahun_ajaran" required>
+                                    <?php foreach (tahun_ajarans as $ta): ?>
+                                        <option value="<?= $ta->id; ?>">
+                                            <?= $ta->tahun_ajaran; ?>
+                                        </option>
+                                    <?php endforeach; ?>
+                                </select>
+                                <?php echo form_error('id_tahun_ajaran', '<small style="color:red">', '</small>') ?>
+                            </div>
+                            <div class="form-group <?php if (form_error('status_lolos'))
+                                echo 'has-error' ?> ">
+                                    <label for="int">Status Lolos</label>
+                                    <!-- <input type="text" class="form-control" name="status_lolos" id="status_lolos" placeholder="Status Lolos" value="<?php echo $status_lolos; ?>" /> -->
+                                <select class="form-control" name="status_lolos" id="status_lolos" required>
+                                    <option value="0">-</option>
+                                    <option value="1">Akuntansi</option>
+                                    <option value="2">Pemasaran</option>
+                                </select>
+                                <?php echo form_error('status_lolos', '<small style="color:red">', '</small>') ?>
+                            </div>
+                            <div class="form-group <?php if (form_error('nisn'))
+                                echo 'has-error' ?> ">
+                                    <label for="varchar">Nisn</label>
+                                    <input type="text" class="form-control" name="nisn" id="nisn" placeholder="Nisn"
+                                        value="<?php echo $nisn; ?>" />
+                                <?php echo form_error('nisn', '<small style="color:red">', '</small>') ?>
+                            </div>
+                            <!-- <div class="form-group <?php if (form_error('berat_badan'))
+                                echo 'has-error' ?> ">
+                            <label for="int">Berat Badan</label>
+                            <input type="text" class="form-control" name="berat_badan" id="berat_badan" placeholder="Berat Badan" value="<?php echo $berat_badan; ?>" />
+                            <?php echo form_error('berat_badan', '<small style="color:red">', '</small>') ?>
+                        </div> -->
+                            <!-- <div class="form-group <?php if (form_error('tinggi_badan'))
+                                echo 'has-error' ?> ">
+                            <label for="int">Tinggi Badan</label>
+                            <input type="text" class="form-control" name="tinggi_badan" id="tinggi_badan" placeholder="Tinggi Badan" value="<?php echo $tinggi_badan; ?>" />
+                            <?php echo form_error('tinggi_badan', '<small style="color:red">', '</small>') ?>
+                        </div> -->
+                            <!-- <div class="form-group <?php if (form_error('gol_darah'))
+                                echo 'has-error' ?> ">
+                            <label for="varchar">Gol Darah</label>
+                            <input type="text" class="form-control" name="gol_darah" id="gol_darah" placeholder="Gol Darah" value="<?php echo $gol_darah; ?>" />
+                            <?php echo form_error('gol_darah', '<small style="color:red">', '</small>') ?>
+                        </div> -->
+                            <!-- <div class="form-group <?php if (form_error('penghasilan_orang_tua'))
+                                echo 'has-error' ?> ">
+                            <label for="int">Penghasilan Orang Tua</label>
+                            <input type="text" class="form-control" name="penghasilan_orang_tua" id="penghasilan_orang_tua" placeholder="Penghasilan Orang Tua" value="<?php echo $penghasilan_orang_tua; ?>" />
+                            <?php echo form_error('penghasilan_orang_tua', '<small style="color:red">', '</small>') ?>
+                        </div> -->
+                            <!-- <div class="form-group <?php if (form_error('tanggungan_anak'))
+                                echo 'has-error' ?> ">
+                            <label for="int">Tanggungan Anak</label>
+                            <input type="text" class="form-control" name="tanggungan_anak" id="tanggungan_anak" placeholder="Tanggungan Anak" value="<?php echo $tanggungan_anak; ?>" />
+                            <?php echo form_error('tanggungan_anak', '<small style="color:red">', '</small>') ?>
+                        </div> -->
+                        <div class="form-group <?php if (form_error('berkas_persyaratan'))
                                 echo 'has-error' ?> ">
                                     <label for="berkas_persyaratan">Berkas Persyaratan (zip / rar)</label>
                                     <input type="file" class="form-control" name="berkas_persyaratan" id="berkas_persyaratan"/>
@@ -220,14 +273,11 @@
                                 </div>
                             </div>
                             <!--  -->
+                            <input type="hidden" name="id_user" id="id_user" placeholder="Id User"
+                                value="<?php echo $id_user; ?>" />
+                            <input type="hidden" name="id" value="<?php echo $id; ?>" />
                             <button type="button" class="btn btn-primary btn-block mb-3" data-toggle="modal"
                                 data-target="#nilaiIjazahModal">Isi nilai ijazah</button><br>
-                            <input type="hidden" name="id_tahun_ajaran" id="id_tahun_ajaran"
-                                placeholder="Id Tahun Ajaran"
-                                value="<?php echo $this_pengumuman->id_tahun_ajaran; ?>" />
-                            <input type="hidden" name="id_user" id="id_user" placeholder="Id User"
-                                value="<?php echo $user['id_user']; ?>" />
-                            <input type="hidden" name="id" value="<?php echo $id; ?>" />
                             <button type="submit" class="btn btn-primary btn-block">SUBMIT</button>
                         </form>
                     </div>

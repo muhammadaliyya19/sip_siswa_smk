@@ -9,6 +9,9 @@ class Pendaftaran extends CI_Controller
 	{
 		parent::__construct();
 		$this->load->model('Calon_siswa_model');
+		$this->load->model('Pengumuman_pendaftaran_model');
+        $this->load->model('Tahun_ajaran_model');
+        $this->load->model('Nilai_ijazah_model');
 		$this->load->library('form_validation');
 		$this->load->library('datatables');
 		$this->load->model('Users_model');
@@ -118,14 +121,25 @@ class Pendaftaran extends CI_Controller
 			'id_user' => set_value('id_user'),
 			'status_lolos' => set_value('status_lolos'),
 			'nisn' => set_value('nisn'),
+
+			// for nilai ijazah
+			'nilai_bhs_indo' => set_value('nilai_bhs_indo'),
+            'nilai_bhs_inggris' => set_value('nilai_bhs_inggris'),
+            'nilai_ipa' => set_value('nilai_ipa'),
+            'nilai_ips' => set_value('nilai_ips'),
+            'nilai_mtk' => set_value('nilai_mtk'),
+            'nilai_akhir' => set_value('nilai_akhir'),
+            'keterangan' => set_value('keterangan'),
 		);
 
+        $tahun_ajarans = $this->Tahun_ajaran_model->get_all();
 		$data['judul'] = 'Tambah Pendaftaran';
 		$data['user'] = $this->session->userdata('user');
+        $data['tahun_ajarans'] = $tahun_ajarans;
 		// var_dump($data['user']); die;
 
 		$this->load->view('templates/header', $data);
-		$this->load->view('calon_siswa/calon_siswa_form', $data);
+		$this->load->view('calon_siswa/calon_siswa_form_admin', $data);
 		$this->load->view('templates/footer', $data);
 	}
 
@@ -154,6 +168,17 @@ class Pendaftaran extends CI_Controller
 			'id_user' => set_value('id_user'),
 			'status_lolos' => set_value('status_lolos'),
 			'nisn' => set_value('nisn'),
+
+			// for nilai ijazah
+			'nilai_bhs_indo' => set_value('nilai_bhs_indo'),
+            'nilai_bhs_inggris' => set_value('nilai_bhs_inggris'),
+            'nilai_ipa' => set_value('nilai_ipa'),
+            'nilai_ips' => set_value('nilai_ips'),
+            'nilai_mtk' => set_value('nilai_mtk'),
+            'nilai_akhir' => set_value('nilai_akhir'),
+            'keterangan' => set_value('keterangan'),
+
+			// unused column, dihapus
 			// 'berat_badan' => set_value('berat_badan'),
 			// 'tinggi_badan' => set_value('tinggi_badan'),
 			// 'gol_darah' => set_value('gol_darah'),
@@ -161,6 +186,7 @@ class Pendaftaran extends CI_Controller
 			// 'tanggungan_anak' => set_value('tanggungan_anak'),
 		);
 
+		$data['this_pengumuman'] = $this->Pengumuman_pendaftaran_model->get_by_id($id);
 		$data['judul'] = 'Pendaftaran Calon Siswa Baru';
 		$data['user'] = $this->session->userdata('user');
 		$this->load->view('templates/header', $data);
@@ -175,6 +201,10 @@ class Pendaftaran extends CI_Controller
 		if ($this->form_validation->run() == FALSE) {
 			$this->create();
 		} else {
+			// upload berkas kelengkapan
+			$nama_file = $this->do_upload();
+
+			// prepare data calon siswa
 			$data = array(
 				'nama' => $this->input->post('nama', TRUE),
 				'tempat_lahir' => $this->input->post('tempat_lahir', TRUE),
@@ -195,6 +225,7 @@ class Pendaftaran extends CI_Controller
 				'id_user' => $this->input->post('id_user', TRUE),
 				'status_lolos' => $this->input->post('status_lolos', TRUE),
 				'nisn' => $this->input->post('nisn', TRUE),
+				'berkas' => $nama_file,
 				// 'berat_badan' => $this->input->post('berat_badan',TRUE),
 				// 'tinggi_badan' => $this->input->post('tinggi_badan',TRUE),
 				// 'gol_darah' => $this->input->post('gol_darah',TRUE),
@@ -202,7 +233,23 @@ class Pendaftaran extends CI_Controller
 				// 'tanggungan_anak' => $this->input->post('tanggungan_anak',TRUE),
 			);
 
+			// insert calon siswa
 			$this->Calon_siswa_model->insert($data);
+
+			// insert nilai ijazah
+			$nilai_ijazah = array(
+				'id_user' => $this->input->post('id_user', TRUE),
+				'nisn' => $this->input->post('nisn', TRUE),
+				'nilai_bhs_indo' => $this->input->post('nilai_bhs_indo', TRUE),
+                'nilai_bhs_inggris' => $this->input->post('nilai_bhs_inggris', TRUE),
+                'nilai_ipa' => $this->input->post('nilai_ipa', TRUE),
+                'nilai_ips' => $this->input->post('nilai_ips', TRUE),
+                'nilai_mtk' => $this->input->post('nilai_mtk', TRUE),
+                'nilai_akhir' => $this->input->post('nilai_akhir', TRUE),
+                'keterangan' => $this->input->post('keterangan', TRUE),
+			);
+            $this->Nilai_ijazah_model->insert($nilai_ijazah);
+
 			$this->session->set_flashdata('success', 'Ditambah');
 			redirect(site_url('pendaftaran'));
 		}
@@ -247,7 +294,7 @@ class Pendaftaran extends CI_Controller
 			$data['user'] = $this->session->userdata('user');
 
 			$this->load->view('templates/header', $data);
-			$this->load->view('calon_siswa/calon_siswa_form', $data);
+			$this->load->view('calon_siswa/calon_siswa_form_admin', $data);
 			$this->load->view('templates/footer', $data);
 
 		} else {
@@ -296,6 +343,23 @@ class Pendaftaran extends CI_Controller
 		}
 	}
 
+	public function verify_pendaftaran()
+	{
+		$this->_rules();
+
+		if ($this->form_validation->run() == FALSE) {
+			$this->update($this->input->post('id', TRUE));
+		} else {
+			$data = array(
+				'status_lolos' => $this->input->post('status_lolos', TRUE),
+			);
+
+			$this->Calon_siswa_model->update($this->input->post('id', TRUE), $data);
+			$this->session->set_flashdata('success', 'Diubah');
+			redirect(site_url('calon_siswa'));
+		}
+	}
+
 	public function delete($id)
 	{
 		$row = $this->Calon_siswa_model->get_by_id($id);
@@ -336,6 +400,15 @@ class Pendaftaran extends CI_Controller
 		// $this->form_validation->set_rules('gol_darah', 'gol darah', 'trim|required');
 		// $this->form_validation->set_rules('penghasilan_orang_tua', 'penghasilan orang tua', 'trim|required|numeric');
 		// $this->form_validation->set_rules('tanggungan_anak', 'tanggungan anak', 'trim|required|numeric');
+
+		// validasi nilai ijazah
+		$this->form_validation->set_rules('nilai_bhs_indo', 'nilai bhs indo', 'trim|required|numeric');
+        $this->form_validation->set_rules('nilai_bhs_inggris', 'nilai bhs inggris', 'trim|required|numeric');
+        $this->form_validation->set_rules('nilai_ipa', 'nilai ipa', 'trim|required|numeric');
+        $this->form_validation->set_rules('nilai_ips', 'nilai ips', 'trim|required|numeric');
+        $this->form_validation->set_rules('nilai_mtk', 'nilai mtk', 'trim|required|numeric');
+        $this->form_validation->set_rules('nilai_akhir', 'nilai akhir', 'trim|required|numeric');
+        $this->form_validation->set_rules('keterangan', 'keterangan', 'trim|required');
 
 		$this->form_validation->set_rules('id', 'id', 'trim');
 		$this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');
@@ -425,6 +498,31 @@ class Pendaftaran extends CI_Controller
 		xlsEOF();
 		exit();
 	}
+
+	public function do_upload()
+    {
+        $this->load->library('upload');
+		$path = $_FILES['berkas_persyaratan']['name'];
+		$ext = pathinfo($path, PATHINFO_EXTENSION);
+        $files = $_FILES['berkas_persyaratan'];
+        $config = $this->set_upload_options();
+        $config['file_name'] = time() . '-' . date("Y-m-d-his") . '.'. $ext;
+        $this->upload->initialize($config);
+        $res = $this->upload->do_upload('berkas_persyaratan');
+        echo $res . "Berkas sukses diupload<br><br>";
+        return $config['file_name'];
+    }
+
+    private function set_upload_options()
+    {
+        //upload an image options
+        $config = array();
+        $config['upload_path'] = './assets/berkas_daftar/';
+        $config['allowed_types'] = 'zip|7z|rar|tar|gz';
+        $config['max_size'] = '1200000';
+        $config['overwrite'] = FALSE;
+        return $config;
+    }
 
 }
 
