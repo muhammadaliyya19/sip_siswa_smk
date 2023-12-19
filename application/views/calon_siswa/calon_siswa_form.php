@@ -228,6 +228,8 @@
                             <input type="hidden" name="id_user" id="id_user" placeholder="Id User"
                                 value="<?php echo $user['id_user']; ?>" />
                             <input type="hidden" name="id" value="<?php echo $id; ?>" />
+                            <input type="hidden" name="from" value="<?php echo "cs"; ?>" />
+                            <input type="hidden" name="id_pengumuman" value="<?php echo $this_pengumuman->id; ?>" />
                             <button type="submit" class="btn btn-primary btn-block">SUBMIT</button>
                         </form>
                     </div>

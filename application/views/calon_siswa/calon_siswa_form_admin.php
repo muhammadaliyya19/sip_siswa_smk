@@ -20,7 +20,7 @@
                 <div class="row">
                     <div class="col-md-2"></div>
                     <div class="col-md-8">
-                        <form action="<?php echo $action; ?>" method="post">
+                        <form action="<?php echo $action; ?>" method="post" enctype="multipart/form-data">
                             <div class="form-group <?php if (form_error('nama'))
                                 echo 'has-error' ?> ">
                                     <label for="varchar">Nama</label>
@@ -276,6 +276,7 @@
                             <input type="hidden" name="id_user" id="id_user" placeholder="Id User"
                                 value="<?php echo $id_user; ?>" />
                             <input type="hidden" name="id" value="<?php echo $id; ?>" />
+                            <input type="hidden" name="from" value="<?php echo "admin"; ?>" />
                             <button type="button" class="btn btn-primary btn-block mb-3" data-toggle="modal"
                                 data-target="#nilaiIjazahModal">Isi nilai ijazah</button><br>
                             <button type="submit" class="btn btn-primary btn-block">SUBMIT</button>
