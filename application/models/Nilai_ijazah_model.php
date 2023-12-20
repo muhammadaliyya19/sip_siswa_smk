@@ -29,6 +29,12 @@ class Nilai_ijazah_model extends CI_Model
         return $this->db->get($this->table)->row();
     }
 
+    function get_by_csid($csid)
+    {
+        $this->db->where('id_calon_siswa', $csid);
+        return $this->db->get($this->table)->row();
+    }
+
     // get total rows
     function total_rows($q = NULL)
     {

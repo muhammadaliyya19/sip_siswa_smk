@@ -37,7 +37,7 @@ class Pendaftaran extends CI_Controller
 		);
 
 		$this->load->view('templates/header', $data);
-		$this->load->view('calon_siswa/pendaftaran_calon_siswa_list', $data);
+		$this->load->view('calon_siswa/mine_list', $data);
 		$this->load->view('templates/footer', $data);
 	}
 
@@ -47,9 +47,16 @@ class Pendaftaran extends CI_Controller
 		echo $this->Calon_siswa_model->json();
 	}
 
+	public function json_mine()
+	{
+		header('Content-Type: application/json');
+		echo $this->Calon_siswa_model->json_mine();
+	}
+
 	public function read($id)
 	{
 		$row = $this->Calon_siswa_model->get_by_id($id);
+		$nilai_ijazah = $this->Nilai_ijazah_model->get_by_csid($id);
 		if ($row) {
 			$data = array(
 				'id' => $row->id,
@@ -72,6 +79,68 @@ class Pendaftaran extends CI_Controller
 				'id_user' => $row->id_user,
 				'status_lolos' => $row->status_lolos,
 				'nisn' => $row->nisn,
+				'nilai_ijazah' => $nilai_ijazah,
+
+				'nilai_bhs_indo' => $nilai_ijazah->nilai_bhs_indo,
+				'nilai_bhs_inggris' => $nilai_ijazah->nilai_bhs_inggris,
+				'nilai_ipa' => $nilai_ijazah->nilai_ipa,
+				'nilai_ips' => $nilai_ijazah->nilai_ips,
+				'nilai_mtk' => $nilai_ijazah->nilai_mtk,
+				'nilai_akhir' => $nilai_ijazah->nilai_akhir,
+				'keterangan' => $nilai_ijazah->keterangan,
+				// 'berat_badan' => $row->berat_badan,
+				// 'tinggi_badan' => $row->tinggi_badan,
+				// 'gol_darah' => $row->gol_darah,
+				// 'penghasilan_orang_tua' => $row->penghasilan_orang_tua,
+				// 'tanggungan_anak' => $row->tanggungan_anak,
+			);
+
+			$data['judul'] = 'Detail Pendaftaran';
+			$data['user'] = $this->session->userdata('user');
+
+			$this->load->view('templates/header', $data);
+			$this->load->view('calon_siswa/calon_siswa_read', $data);
+			$this->load->view('templates/footer', $data);
+		} else {
+			$this->session->set_flashdata('error', 'Data tidak ditemukan');
+			redirect(site_url('calon_siswa'));
+		}
+	}
+
+	public function read_mine($id)
+	{
+		$row = $this->Calon_siswa_model->get_by_id($id);
+		$nilai_ijazah = $this->Nilai_ijazah_model->get_by_csid($id);
+		if ($row) {
+			$data = array(
+				'id' => $row->id,
+				'nama' => $row->nama,
+				'tempat_lahir' => $row->tempat_lahir,
+				'tanggal_lahir' => $row->tanggal_lahir,
+				'jenis_kelamin' => $row->jenis_kelamin,
+				'agama' => $row->agama,
+				'anak_ke' => $row->anak_ke,
+				'jumlah_saudara' => $row->jumlah_saudara,
+				'no_hp_siswa' => $row->no_hp_siswa,
+				'alamat_siswa' => $row->alamat_siswa,
+				'asal_sekolah' => $row->asal_sekolah,
+				'alamat_sekolah' => $row->alamat_sekolah,
+				'nama_ayah' => $row->nama_ayah,
+				'nama_ibu' => $row->nama_ibu,
+				'alamat_orang_tua' => $row->alamat_orang_tua,
+				'no_hp_orang_tua' => $row->no_hp_orang_tua,
+				'id_tahun_ajaran' => $row->id_tahun_ajaran,
+				'id_user' => $row->id_user,
+				'status_lolos' => $row->status_lolos,
+				'nisn' => $row->nisn,
+
+				'nilai_bhs_indo' => $nilai_ijazah->nilai_bhs_indo,
+				'nilai_bhs_inggris' => $nilai_ijazah->nilai_bhs_inggris,
+				'nilai_ipa' => $nilai_ijazah->nilai_ipa,
+				'nilai_ips' => $nilai_ijazah->nilai_ips,
+				'nilai_mtk' => $nilai_ijazah->nilai_mtk,
+				'nilai_akhir' => $nilai_ijazah->nilai_akhir,
+				'keterangan' => $nilai_ijazah->keterangan,
 				// 'berat_badan' => $row->berat_badan,
 				// 'tinggi_badan' => $row->tinggi_badan,
 				// 'gol_darah' => $row->gol_darah,
@@ -259,13 +328,18 @@ class Pendaftaran extends CI_Controller
             $this->Nilai_ijazah_model->insert($nilai_ijazah);
 
 			$this->session->set_flashdata('success', 'Ditambah');
-			redirect(site_url('pendaftaran'));
+			if ($from_req == "admin") {
+				redirect(site_url('pendaftaran'));
+			} else {
+				redirect(site_url('pendaftaran/mine'));
+			}
 		}
 	}
 
 	public function update($id)
 	{
 		$row = $this->Calon_siswa_model->get_by_id($id);
+		$nilai_ijazah = $this->Nilai_ijazah_model->get_by_csid($id);
 
 		if ($row) {
 			$data = array(
@@ -291,6 +365,14 @@ class Pendaftaran extends CI_Controller
 				'id_user' => set_value('id_user', $row->id_user),
 				'status_lolos' => set_value('status_lolos', $row->status_lolos),
 				'nisn' => set_value('nisn', $row->nisn),
+
+				'nilai_bhs_indo' => $nilai_ijazah->nilai_bhs_indo,
+				'nilai_bhs_inggris' => $nilai_ijazah->nilai_bhs_inggris,
+				'nilai_ipa' => $nilai_ijazah->nilai_ipa,
+				'nilai_ips' => $nilai_ijazah->nilai_ips,
+				'nilai_mtk' => $nilai_ijazah->nilai_mtk,
+				'nilai_akhir' => $nilai_ijazah->nilai_akhir,
+				'keterangan' => $nilai_ijazah->keterangan,
 				// 'berat_badan' => set_value('berat_badan', $row->berat_badan),
 				// 'tinggi_badan' => set_value('tinggi_badan', $row->tinggi_badan),
 				// 'gol_darah' => set_value('gol_darah', $row->gol_darah),
@@ -513,11 +595,17 @@ class Pendaftaran extends CI_Controller
 		$path = $_FILES['berkas_persyaratan']['name'];
 		$ext = pathinfo($path, PATHINFO_EXTENSION);
         $files = $_FILES['berkas_persyaratan'];
+		// var_dump($files);
+		// echo "<br><br><br>";
+		// var_dump($ext);
+		// die;
         $config = $this->set_upload_options();
         $config['file_name'] = time() . '-' . date("Y-m-d-his") . '.'. $ext;
         $this->upload->initialize($config);
         $res = $this->upload->do_upload('berkas_persyaratan');
         echo $res . "Berkas sukses diupload<br><br>";
+        echo $config['file_name'];
+		// die;
         return $config['file_name'];
     }
 

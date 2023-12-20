@@ -19,11 +19,35 @@ class Calon_siswa_model extends CI_Model
     function json()
     {
         $this->datatables->select(
-            'id,nama,tempat_lahir,tanggal_lahir,jenis_kelamin,agama,anak_ke,jumlah_saudara,no_hp_siswa,
-                alamat_siswa,
-                asal_sekolah,alamat_sekolah,nama_ayah,nama_ibu, alamat_orang_tua,no_hp_orang_tua,
-                id_tahun_ajaran,id_user,
-                status_lolos,nisn'
+            'calon_siswa.id, calon_siswa.nama, calon_siswa.tempat_lahir, calon_siswa.tanggal_lahir, calon_siswa.jenis_kelamin, calon_siswa.agama, calon_siswa.anak_ke, 
+            calon_siswa.jumlah_saudara, calon_siswa.no_hp_siswa, calon_siswa.alamat_siswa, 
+            calon_siswa.asal_sekolah, calon_siswa.alamat_sekolah, calon_siswa.nama_ayah, 
+            calon_siswa.nama_ibu, calon_siswa.alamat_orang_tua, calon_siswa.no_hp_orang_tua, calon_siswa.id_tahun_ajaran, tahun_ajaran.tahun_ajaran, 
+            calon_siswa. id_user, calon_siswa.status_lolos, calon_siswa.nisn,calon_siswa.berkas' 
+            // berat_badan,
+            // tinggi_badan,
+            // gol_darah,
+            // penghasilan_orang_tua,
+            // tanggungan_anak,
+        );
+        $this->datatables->from('calon_siswa');
+        $this->datatables->join('tahun_ajaran', 'calon_siswa.id_tahun_ajaran = tahun_ajaran.id');
+        $this->datatables->add_column('action',
+            '<a href="' . site_url('pendaftaran/read/$1') . '" class="btn btn-info"><i class="fa fa-eye"></i></a> 
+            <a href="' . site_url('pendaftaran/update/$1') . '" class="btn btn-warning"><i class="fa fa-edit"></i></a> 
+            <a data-href="' . site_url('pendaftaran/delete/$1') . '" class="btn btn-danger hapus-data"><i class="fa fa-trash"></i></a>', 'id');
+        return $this->datatables->generate();
+    }
+
+    function json_mine()
+    {
+        $this_user = $this->session->userdata('user');
+        $this->datatables->select(
+            'calon_siswa.id, calon_siswa.nama, calon_siswa.tempat_lahir, calon_siswa.tanggal_lahir, calon_siswa.jenis_kelamin, calon_siswa.agama, calon_siswa.anak_ke, 
+            calon_siswa.jumlah_saudara, calon_siswa.no_hp_siswa, calon_siswa.alamat_siswa, 
+            calon_siswa.asal_sekolah, calon_siswa.alamat_sekolah, calon_siswa.nama_ayah, 
+            calon_siswa.nama_ibu, calon_siswa.alamat_orang_tua, calon_siswa.no_hp_orang_tua, calon_siswa.id_tahun_ajaran, tahun_ajaran.tahun_ajaran, 
+            calon_siswa. id_user, calon_siswa.status_lolos, calon_siswa.nisn,calon_siswa.berkas' 
             // berat_badan,
             // tinggi_badan,
             // gol_darah,
@@ -32,11 +56,10 @@ class Calon_siswa_model extends CI_Model
         );
         $this->datatables->from('calon_siswa');
         //add this line for join
-        //$this->datatables->join('table2', 'calon_siswa.field = table2.field');
+        $this->datatables->join('tahun_ajaran', 'calon_siswa.id_tahun_ajaran = tahun_ajaran.id');
+        $this->datatables->where('calon_siswa.id_user', $this_user['id_user']);
         $this->datatables->add_column('action',
-            '<a href="' . site_url('pendaftaran/read/$1') . '" class="btn btn-info"><i class="fa fa-eye"></i></a> 
-            <a href="' . site_url('pendaftaran/update/$1') . '" class="btn btn-warning"><i class="fa fa-edit"></i></a> 
-            <a data-href="' . site_url('pendaftaran/delete/$1') . '" class="btn btn-danger hapus-data"><i class="fa fa-trash"></i></a>', 'id');
+            '<a href="' . site_url('pendaftaran/read_mine/$1') . '" target="_blank" class="btn btn-info"><i class="fa fa-eye"></i></a>', 'id');
         return $this->datatables->generate();
     }
 

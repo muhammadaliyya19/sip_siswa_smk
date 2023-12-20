@@ -9,13 +9,6 @@
                         </h4>
                     </div>
                 </div>
-                <div class="pull-right">
-                    <div class="box-title">
-                        <?php echo anchor(site_url('pendaftaran/create'), '<i class="fas fa-plus"></i> Tambah Data', 'class="btn btn-primary"'); ?>
-                        <?php echo anchor(site_url('pendaftaran/excel'), '<i class="fas fa-sign-out-alt"></i> Excel', 'class="btn btn-success"'); ?>
-
-                    </div>
-                </div>
             </div>
             <div class="box-body">
                 <div class="table-responsive">
@@ -88,7 +81,7 @@
                 },
                 processing: true,
                 serverSide: true,
-                ajax: { "url": "<?= base_url('/pendaftaran/json')?>", "type": "POST" },
+                ajax: { "url": "<?= base_url('/pendaftaran/json_mine')?>", "type": "POST" },
                 columns: [
                     {
                         "data": "id",
