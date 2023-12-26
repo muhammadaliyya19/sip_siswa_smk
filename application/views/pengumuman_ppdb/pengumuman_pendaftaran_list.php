@@ -31,6 +31,8 @@
                             <th>Judul</th>
                             <th>Deskripsi</th>
                             <th>Tahun Ajaran</th>
+                            <th>File Hasil Seleksi</th>
+                            <th>Status</th>
                             <th>Tgl Update</th>
                             <th>Action</th>
                         </tr>
@@ -49,6 +51,16 @@
                                 </td>
                                 <td>
                                     <?php echo $pengumuman_pendaftaran->tahun_ajaran ?>
+                                </td>
+                                <td>
+                                    <a href="<?= $pengumuman_pendaftaran->link_files != "" ? base_url('assets/berkas_pengumuman/' . $pengumuman_pendaftaran->link_files) : "#";?>" target="_blank">Link Berkas</a>
+                                </td>
+                                <td>
+                                    <?php if($pengumuman_pendaftaran->is_active == 1): ?>
+                                        <a href="#" class="btn btn-sm btn-success">Aktif</a>
+                                    <?php else: ?>
+                                        <a href="#" class="btn btn-sm btn-warning">Tidak Aktif</a>
+                                    <?php endif; ?>
                                 </td>
                                 <td>
                                     <?php echo $pengumuman_pendaftaran->tgl_update ?>

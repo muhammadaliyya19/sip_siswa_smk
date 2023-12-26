@@ -61,10 +61,13 @@ class Pengumuman_ppdb extends CI_Controller
         if ($row) {
             $data = array(
                 'id' => $row->id,
-                'judul' => $row->judul,
+                'title' => $row->judul,
                 'deskripsi' => $row->deskripsi,
                 'id_tahun_ajaran' => $row->id_tahun_ajaran,
+                'tahun_ajaran' => $row->tahun_ajaran,
                 'tgl_update' => $row->tgl_update,
+                'is_active' => $row->is_active,
+                'link_files' => $row->link_files,
             );
 
             $data['judul'] = 'Detail Pengumuman PPDB';
@@ -86,10 +89,12 @@ class Pengumuman_ppdb extends CI_Controller
             'button' => 'Create',
             'action' => site_url('pengumuman_ppdb/create_action'),
             'id' => set_value('id'),
-            'judul' => set_value('judul'),
+            'title' => set_value('title'),
             'deskripsi' => set_value('deskripsi'),
             'id_tahun_ajaran' => set_value('id_tahun_ajaran'),
             'tgl_update' => set_value('tgl_update'),
+            'is_active' => set_value('is_active'),
+            'link_files' => set_value('link_files'),
             'tahun_ajarans' => $tahun_ajarans,
         );
 
@@ -108,10 +113,14 @@ class Pengumuman_ppdb extends CI_Controller
         if ($this->form_validation->run() == FALSE) {
             $this->create();
         } else {
+            // upload berkas kelengkapan
+			$nama_file = $this->do_upload();
             $data = array(
-                'judul' => $this->input->post('judul', TRUE),
+                'judul' => $this->input->post('title', TRUE),
                 'deskripsi' => $this->input->post('deskripsi', TRUE),
                 'id_tahun_ajaran' => $this->input->post('id_tahun_ajaran', TRUE),
+                'is_active' => $this->input->post('is_active', TRUE),
+                'link_files' => $nama_file,
                 // 'tgl_update' => $this->input->post('tgl_update',TRUE),
             );
 
@@ -127,15 +136,17 @@ class Pengumuman_ppdb extends CI_Controller
         $tahun_ajarans = $this->Tahun_ajaran_model->get_all();
 
         if ($row) {
-            $data = array(
+			$data = array(
                 'button' => 'Update',
                 'action' => site_url('pengumuman_ppdb/update_action'),
                 'id' => set_value('id', $row->id),
-                'judul' => set_value('judul', $row->judul),
+                'title' => set_value('title', $row->judul),
                 'deskripsi' => set_value('deskripsi', $row->deskripsi),
                 'id_tahun_ajaran' => set_value('id_tahun_ajaran', $row->id_tahun_ajaran),
                 'tgl_update' => set_value('tgl_update', $row->tgl_update),
+                'is_active' => set_value('is_active', $row->tgl_update),
                 'tahun_ajarans' => $tahun_ajarans,
+                'link_files' => $row->link_files,
             );
 
             $data['judul'] = 'Ubah Pengumuman Ppdb';
@@ -154,15 +165,25 @@ class Pengumuman_ppdb extends CI_Controller
     public function update_action()
     {
         $this->_rules();
-
+        $id = $this->input->post('id', TRUE);
+        $row = $this->Pengumuman_pendaftaran_model->get_by_id($id);
         if ($this->form_validation->run() == FALSE) {
             $this->update($this->input->post('id', TRUE));
         } else {
+            $nama_file = $this->do_upload();
+            if ($nama_file != "" && $row->link_files != "") {
+				// delete old files
+				unlink('./assets/berkas_pengumuman/' . $row->link_files);
+			} else {
+				$nama_file = $row->link_files;
+			}
             $data = array(
-                'judul' => $this->input->post('judul', TRUE),
+                'judul' => $this->input->post('title', TRUE),
                 'deskripsi' => $this->input->post('deskripsi', TRUE),
                 'id_tahun_ajaran' => $this->input->post('id_tahun_ajaran', TRUE),
                 'tgl_update' => $this->input->post('tgl_update', TRUE),
+                'is_active' => $this->input->post('is_active', TRUE),
+                'link_files' => $nama_file,
             );
 
             $this->Pengumuman_pendaftaran_model->update($this->input->post('id', TRUE), $data);
@@ -187,13 +208,49 @@ class Pengumuman_ppdb extends CI_Controller
 
     public function _rules()
     {
-        $this->form_validation->set_rules('judul', 'judul', 'trim|required');
+        $this->form_validation->set_rules('title', 'judul', 'trim|required');
         $this->form_validation->set_rules('deskripsi', 'deskripsi', 'trim|required');
         $this->form_validation->set_rules('id_tahun_ajaran', 'id tahun ajaran', 'trim|required|numeric');
         $this->form_validation->set_rules('tgl_update', 'tgl update', 'trim');
+        $this->form_validation->set_rules('is_active', 'status aktif', 'required');
 
         $this->form_validation->set_rules('id', 'id', 'trim');
         $this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');
+    }
+
+    public function do_upload()
+    {
+		if ($_FILES['berkas_pendukung']['size'] > 0) {
+            $this->load->library('upload');
+            $path = $_FILES['berkas_pendukung']['name'];
+            $ext = pathinfo($path, PATHINFO_EXTENSION);
+            $files = $_FILES['berkas_pendukung'];
+            // var_dump($files);
+            // echo "<br><br><br>";
+            // var_dump($ext);
+            // die;
+            $config = $this->set_upload_options();
+            $config['file_name'] = time() . '-' . date("Y-m-d-his") . '.'. $ext;
+            $this->upload->initialize($config);
+            $res = $this->upload->do_upload('berkas_pendukung');
+            echo $res . "Berkas sukses diupload<br><br>";
+            echo $config['file_name'];
+            // die;
+            return $config['file_name'];
+        } else {
+            return "";
+        }
+    }
+
+    private function set_upload_options()
+    {
+        //upload an image options
+        $config = array();
+        $config['upload_path'] = './assets/berkas_pengumuman/';
+        $config['allowed_types'] = 'xls|xlsx|zip|7z|rar|tar|gz';
+        $config['max_size'] = '1200000';
+        $config['overwrite'] = FALSE;
+        return $config;
     }
 
 }

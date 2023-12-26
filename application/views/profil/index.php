@@ -14,7 +14,7 @@
                       <div class="nav-tabs-custom">
                         <ul class="nav nav-tabs">
                           <li class="active"><a href="#activity" data-toggle="tab" aria-expanded="false">Ubah Profil</a></li>
-                          <li class=""><a href="#timeline" data-toggle="tab" aria-expanded="true">Ubah Gambar</a></li>
+                          <!-- <li class=""><a href="#timeline" data-toggle="tab" aria-expanded="true">Ubah Gambar</a></li> -->
                           <li class=""><a href="#settings" data-toggle="tab" aria-expanded="false">Ubah Password</a></li>
                       </ul>
                       <div class="tab-content">
@@ -44,13 +44,13 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="tab-pane" id="timeline">
+                        <!-- <div class="tab-pane" id="timeline">
                             <div class="row">
                                 <div class="col-md-6">
                                     
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                         <div class="tab-pane" id="settings">
                             <div class="row">
                                 <div class="col-md-6">

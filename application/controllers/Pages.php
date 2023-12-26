@@ -122,7 +122,7 @@ class Pages extends CI_Controller
 	{
 		$req = $this->input->get('q', TRUE);
 		if ($req == "registrasi") {
-			$row = $this->Pengumuman_pendaftaran_model->get_all();
+			$row = $this->Pengumuman_pendaftaran_model->get_all_active($req);
 			// print_r($row); die;
 			$data = [
 				'judul' => 'Pendaftaran PPDB',
@@ -136,7 +136,7 @@ class Pages extends CI_Controller
 			$this->load->view('pages/info/pengumuman', $data);
 			$this->load->view('templates/home_footer', $data);
 		} else if ($req == "announcement") {
-			$row = $this->Pengumuman_pendaftaran_model->get_all();
+			$row = $this->Pengumuman_pendaftaran_model->get_all_active($req);
 			// print_r($row); die;
 			$data = [
 				'judul' => 'Pengumuman Kelolosan PPDB',

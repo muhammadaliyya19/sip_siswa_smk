@@ -25,11 +25,29 @@ class Pengumuman_pendaftaran_model extends CI_Model
         return $this->db->get()->result();
     }
 
+    function get_all_active($req)
+    {
+        $this->db->select('pp.*, ta.tahun_ajaran');
+        $this->db->from($this->table . ' pp');
+        $this->db->order_by($this->id, $this->order);
+        $this->db->join('tahun_ajaran ta', 'ta.id=pp.id_tahun_ajaran', 'left');
+        $this->db->where("pp.is_active" , 1);
+        if ($req == "registrasi") {
+            $this->db->where("pp.link_files" , "");
+        } else if ($req == "announcement") {
+            $this->db->where("pp.link_files != ''");            
+        }
+        return $this->db->get()->result();
+    }
+
     // get data by id
     function get_by_id($id)
     {
-        $this->db->where($this->id, $id);
-        return $this->db->get($this->table)->row();
+        $this->db->select('pp.*, ta.tahun_ajaran');
+        $this->db->from($this->table . ' pp');
+        $this->db->join('tahun_ajaran ta', 'ta.id=pp.id_tahun_ajaran', 'left');
+        $this->db->where('pp.' .$this->id, $id);
+        return $this->db->get()->row();
     }
 
     // get total rows

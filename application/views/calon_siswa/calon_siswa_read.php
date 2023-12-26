@@ -202,7 +202,13 @@
 							<tr>
 								<td>Status Lolos</td>
 								<td>
-									<?php echo $status_lolos; ?>
+									<?php if($status_lolos == 1): ?>
+										Jurusan Akuntansi
+									<?php elseif($status_lolos == 2): ?>
+										Jurusan Pemasaran
+									<?php else: ?>
+										-
+									<?php endif; ?>
 								</td>
 							</tr>
 							<tr>

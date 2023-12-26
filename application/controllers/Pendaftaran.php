@@ -201,9 +201,9 @@ class Pendaftaran extends CI_Controller
             'keterangan' => set_value('keterangan'),
 		);
 
-        $tahun_ajarans = $this->Tahun_ajaran_model->get_all();
 		$data['judul'] = 'Tambah Pendaftaran';
 		$data['user'] = $this->session->userdata('user');
+        $tahun_ajarans = $this->Tahun_ajaran_model->get_all();
         $data['tahun_ajarans'] = $tahun_ajarans;
 		// var_dump($data['user']); die;
 
@@ -237,6 +237,7 @@ class Pendaftaran extends CI_Controller
 			'id_user' => set_value('id_user'),
 			'status_lolos' => set_value('status_lolos'),
 			'nisn' => set_value('nisn'),
+			'berkas' => set_value('berkas'),
 
 			// for nilai ijazah
 			'nilai_bhs_indo' => set_value('nilai_bhs_indo'),
@@ -344,7 +345,7 @@ class Pendaftaran extends CI_Controller
 		if ($row) {
 			$data = array(
 				'button' => 'Update',
-				'action' => site_url('calon_siswa/update_action'),
+				'action' => site_url('pendaftaran/update_action'),
 				'id' => set_value('id', $row->id),
 				'nama' => set_value('nama', $row->nama),
 				'tempat_lahir' => set_value('tempat_lahir', $row->tempat_lahir),
@@ -365,6 +366,7 @@ class Pendaftaran extends CI_Controller
 				'id_user' => set_value('id_user', $row->id_user),
 				'status_lolos' => set_value('status_lolos', $row->status_lolos),
 				'nisn' => set_value('nisn', $row->nisn),
+				'berkas' => set_value('erkas', $row->berkas),
 
 				'nilai_bhs_indo' => $nilai_ijazah->nilai_bhs_indo,
 				'nilai_bhs_inggris' => $nilai_ijazah->nilai_bhs_inggris,
@@ -380,6 +382,8 @@ class Pendaftaran extends CI_Controller
 				// 'tanggungan_anak' => set_value('tanggungan_anak', $row->tanggungan_anak),
 			);
 
+			$tahun_ajarans = $this->Tahun_ajaran_model->get_all();
+			$data['tahun_ajarans'] = $tahun_ajarans;
 			$data['judul'] = 'Ubah Pendaftaran';
 			$data['user'] = $this->session->userdata('user');
 
@@ -396,10 +400,18 @@ class Pendaftaran extends CI_Controller
 	public function update_action()
 	{
 		$this->_rules();
-
+        $id = $this->input->post('id', TRUE);
+		$row = $this->Calon_siswa_model->get_by_id($id);
 		if ($this->form_validation->run() == FALSE) {
 			$this->update($this->input->post('id', TRUE));
 		} else {
+			$nama_file = $this->do_upload();
+			if ($nama_file != "") {
+				// delete old files
+				unlink('./assets/berkas_daftar/' . $row['berkas']);
+			} else {
+				$nama_file = $row->berkas;
+			}
 			$data = array(
 				'nama' => $this->input->post('nama', TRUE),
 				'tempat_lahir' => $this->input->post('tempat_lahir', TRUE),
@@ -420,7 +432,7 @@ class Pendaftaran extends CI_Controller
 				'id_user' => $this->input->post('id_user', TRUE),
 				'status_lolos' => $this->input->post('status_lolos', TRUE),
 				'nisn' => $this->input->post('nisn', TRUE),
-				// 'berat_badan' => $this->input->post('berat_badan',TRUE),
+				'berkas' => $nama_file,
 				// 'tinggi_badan' => $this->input->post('tinggi_badan',TRUE),
 				// 'gol_darah' => $this->input->post('gol_darah',TRUE),
 				// 'penghasilan_orang_tua' => $this->input->post('penghasilan_orang_tua',TRUE),
@@ -429,7 +441,7 @@ class Pendaftaran extends CI_Controller
 
 			$this->Calon_siswa_model->update($this->input->post('id', TRUE), $data);
 			$this->session->set_flashdata('success', 'Diubah');
-			redirect(site_url('calon_siswa'));
+			redirect(site_url('pendaftaran'));
 		}
 	}
 
@@ -591,22 +603,26 @@ class Pendaftaran extends CI_Controller
 
 	public function do_upload()
     {
-        $this->load->library('upload');
-		$path = $_FILES['berkas_persyaratan']['name'];
-		$ext = pathinfo($path, PATHINFO_EXTENSION);
-        $files = $_FILES['berkas_persyaratan'];
-		// var_dump($files);
-		// echo "<br><br><br>";
-		// var_dump($ext);
-		// die;
-        $config = $this->set_upload_options();
-        $config['file_name'] = time() . '-' . date("Y-m-d-his") . '.'. $ext;
-        $this->upload->initialize($config);
-        $res = $this->upload->do_upload('berkas_persyaratan');
-        echo $res . "Berkas sukses diupload<br><br>";
-        echo $config['file_name'];
-		// die;
-        return $config['file_name'];
+		if ($_FILES['berkas_persyaratan']['size'] > 0) {
+			$this->load->library('upload');
+			$path = $_FILES['berkas_persyaratan']['name'];
+			$ext = pathinfo($path, PATHINFO_EXTENSION);
+			$files = $_FILES['berkas_persyaratan'];
+			// var_dump($files);
+			// echo "<br><br><br>";
+			// var_dump($ext);
+			// die;
+			$config = $this->set_upload_options();
+			$config['file_name'] = time() . '-' . date("Y-m-d-his") . '.'. $ext;
+			$this->upload->initialize($config);
+			$res = $this->upload->do_upload('berkas_persyaratan');
+			echo $res . "Berkas sukses diupload<br><br>";
+			echo $config['file_name'];
+			// die;
+			return $config['file_name'];
+		} else {
+			return "";
+		}
     }
 
     private function set_upload_options()

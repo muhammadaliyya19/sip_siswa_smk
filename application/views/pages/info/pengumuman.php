@@ -45,7 +45,7 @@ function konversiTanggal($tanggal)
                         <th>Deskripsi</th>
                         <th>Tahun Ajaran</th>
                         <?php if ($user != NULL): ?>
-                        <th><?= $q == "registrasi" ? "Action": "Link"; ?></th>
+                        <th><?= $q == "registrasi" ? "Action": "Link Hasil Seleksi"; ?></th>
                         <?php endif; ?>
                     </tr>
                     <?php $i = 0; foreach ($pengumuman as $p):?>
@@ -66,7 +66,7 @@ function konversiTanggal($tanggal)
                             <?php else : ?>
                                 <td>
                                     <?php if ($p->link_files != ""): ?>
-                                        <a href="<?= $p->link_files ?>" class="text-primary">Click here!</a>
+                                        <a href="<?= $p->link_files ?>" target="_blank" class="text-primary">Click here!</a>
                                     <?php else : ?>
                                         <a href="#" class="text-primary">No Files Uploaded</a>
                                     <?php endif; ?>                                

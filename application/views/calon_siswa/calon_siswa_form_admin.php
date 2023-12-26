@@ -25,7 +25,7 @@
                                 echo 'has-error' ?> ">
                                     <label for="varchar">Nama</label>
                                     <input type="text" class="form-control" name="nama" id="nama" placeholder="Nama"
-                                        value="<?php echo $user['nama_user']; ?>" />
+                                        value="<?php echo $nama; ?>" />
                                 <?php echo form_error('nama', '<small style="color:red">', '</small>') ?>
                             </div>
                             <div class="form-group <?php if (form_error('tempat_lahir'))
@@ -48,8 +48,8 @@
                                     <!-- <input type="text" class="form-control" name="jenis_kelamin" id="jenis_kelamin"
                                         placeholder="Jenis Kelamin" value="<?php echo $jenis_kelamin; ?>" /> -->
                                 <select class="form-control" name="jenis_kelamin" id="jenis_kelamin" required>
-                                    <option value="L">Laki-laki</option>
-                                    <option value="P">Perempuan</option>
+                                    <option <?=$jenis_kelamin == "L" ? "selected" : ""; ?> value="L">Laki-laki</option>
+                                    <option <?=$jenis_kelamin == "P" ? "selected" : ""; ?> value="P">Perempuan</option>
                                 </select>
                                 <?php echo form_error('jenis_kelamin', '<small style="color:red">', '</small>') ?>
                             </div>
@@ -59,12 +59,12 @@
                                     <!-- <input type="text" class="form-control" name="agama" id="agama" placeholder="Agama"
                                         value="<?php echo $agama; ?>" /> -->
                                 <select class="form-control" name="agama" id="agama" required>
-                                    <option value="Islam">Islam</option>
-                                    <option value="Kristen">Kristen</option>
-                                    <option value="Katolik">Katolik</option>
-                                    <option value="Hindu">Hindu</option>
-                                    <option value="Buddha">Buddha</option>
-                                    <option value="Khonghucu">Khonghucu</option>
+                                    <option <?=$agama == "Islam" ? "selected" : ""; ?> value="Islam">Islam</option>
+                                    <option <?=$agama == "Kristen" ? "selected" : ""; ?> value="Kristen">Kristen</option>
+                                    <option <?=$agama == "Katolik" ? "selected" : ""; ?> value="Katolik">Katolik</option>
+                                    <option <?=$agama == "Hindu" ? "selected" : ""; ?> value="Hindu">Hindu</option>
+                                    <option <?=$agama == "Buddha" ? "selected" : ""; ?> value="Buddha">Buddha</option>
+                                    <option <?=$agama == "Khonghucu" ? "selected" : ""; ?> value="Khonghucu">Khonghucu</option>
                                 </select>
                                 <?php echo form_error('agama', '<small style="color:red">', '</small>') ?>
                             </div>
@@ -142,8 +142,8 @@
                                 echo 'has-error' ?> ">
                                     <label for="id_tahun_ajaran">Tahun Ajaran</label>
                                     <select class="form-control" name="id_tahun_ajaran" id="id_tahun_ajaran" required>
-                                    <?php foreach (tahun_ajarans as $ta): ?>
-                                        <option value="<?= $ta->id; ?>">
+                                    <?php foreach ($tahun_ajarans as $ta): ?>
+                                        <option <?=$id_tahun_ajaran == $ta->id ? "selected" : ""; ?> value="<?= $ta->id; ?>">
                                             <?= $ta->tahun_ajaran; ?>
                                         </option>
                                     <?php endforeach; ?>
@@ -155,9 +155,9 @@
                                     <label for="int">Status Lolos</label>
                                     <!-- <input type="text" class="form-control" name="status_lolos" id="status_lolos" placeholder="Status Lolos" value="<?php echo $status_lolos; ?>" /> -->
                                 <select class="form-control" name="status_lolos" id="status_lolos" required>
-                                    <option value="0">-</option>
-                                    <option value="1">Akuntansi</option>
-                                    <option value="2">Pemasaran</option>
+                                    <option <?=$status_lolos == 0 ? "selected" : ""; ?> value="0">-</option>
+                                    <option <?=$status_lolos == 1 ? "selected" : ""; ?> value="1">Akuntansi</option>
+                                    <option <?=$status_lolos == 2 ? "selected" : ""; ?> value="2">Pemasaran</option>
                                 </select>
                                 <?php echo form_error('status_lolos', '<small style="color:red">', '</small>') ?>
                             </div>

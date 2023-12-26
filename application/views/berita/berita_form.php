@@ -81,7 +81,7 @@
 							<label for="nama">Konten Berita</label>
 							<textarea rows="5" placeholder="konten..." class="form-control" name="konten" id="content_berita" required=""></textarea>
 							<small class="form-text text-danger"><?php echo form_error('konten'); ?></small>
-						</div>					 						 
+						</div>
 						<div class="form-group">
 						    <label for="alamat">Tag</label>						    
 						    <input type="text" class="form-control" id="alamat" placeholder="Pisahkan dengan tanda koma (,)" name="tag" required="">
