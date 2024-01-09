@@ -316,11 +316,12 @@ class Pendaftaran extends CI_Controller
 			}
 
 			// insert calon siswa
-			$this->Calon_siswa_model->insert($data);
+			$id_cs = $this->Calon_siswa_model->insert($data);
 
 			// insert nilai ijazah
 			$nilai_ijazah = array(
 				'id_user' => $data['id_user'],
+				'id_calon_siswa' => $id_cs,
 				'nisn' => $this->input->post('nisn', TRUE),
 				'nilai_bhs_indo' => $this->input->post('nilai_bhs_indo', TRUE),
                 'nilai_bhs_inggris' => $this->input->post('nilai_bhs_inggris', TRUE),
@@ -334,9 +335,10 @@ class Pendaftaran extends CI_Controller
 
 			$this->session->set_flashdata('success', 'Ditambah');
 			if ($from_req == "admin") {
-				$this->session->set_flashdata('info_user', 'Informasi');
+				$this->session->set_flashdata('success_cs_admin', 'Ditambah');
 				redirect(site_url('pendaftaran'));
 			} else {
+				$this->session->set_flashdata('success', 'Diinputkan');
 				redirect(site_url('pendaftaran/mine'));
 			}
 		}

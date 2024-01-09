@@ -52,11 +52,18 @@
                                 <td>
                                     <?php echo $pengumuman_pendaftaran->tahun_ajaran ?>
                                 </td>
+                                <?php if ($pengumuman_pendaftaran->link_files != "") : ?>
+                                    <td>
+                                        <a href="<?= $pengumuman_pendaftaran->link_files != "" ? base_url('assets/berkas_pengumuman/' . $pengumuman_pendaftaran->link_files) : "#"; ?>"
+                                            target="_blank">Link Berkas</a>
+                                    </td>
+                                <?php else : ?>
+                                    <td>
+                                        <a href="#" class="text-secondary">Belum ada berkas</a>
+                                    </td>
+                                <?php endif; ?>
                                 <td>
-                                    <a href="<?= $pengumuman_pendaftaran->link_files != "" ? base_url('assets/berkas_pengumuman/' . $pengumuman_pendaftaran->link_files) : "#";?>" target="_blank">Link Berkas</a>
-                                </td>
-                                <td>
-                                    <?php if($pengumuman_pendaftaran->is_active == 1): ?>
+                                    <?php if ($pengumuman_pendaftaran->is_active == 1): ?>
                                         <a href="#" class="btn btn-sm btn-success">Aktif</a>
                                     <?php else: ?>
                                         <a href="#" class="btn btn-sm btn-warning">Tidak Aktif</a>
