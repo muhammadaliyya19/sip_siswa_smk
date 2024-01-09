@@ -62,6 +62,24 @@ class Users_model extends CI_Model
         return $insert_id;
     }
 
+    function create_user_cs($data)
+    {
+        $arr_name = explode(" ",$data['nama']);
+        $username = "";
+        foreach ($arr_name as $str) {
+            $username.= $str."_";
+        }
+        $data_insert = array(
+            'nama' => $data['nama'],
+            'username' => $data['nisn'],
+            'password' => $data['nisn'],
+            'level' => 1,
+        );
+        $this->db->insert($this->table, $data_insert);
+        $insert_id = $this->db->insert_id();
+        return $insert_id;
+    }
+
     // update data
     function update($id, $data)
     {

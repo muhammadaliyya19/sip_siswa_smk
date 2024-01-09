@@ -109,10 +109,14 @@
                     }
                 });
 
-               $(document).on("click", ".hapus-data", function () {
+                $(document).on("click", ".hapus-data", function () {
                   hapus($(this).data("href"));
                 });
 
+                $(document).on("click", ".info-user", function () {
+                    let idsiswa = $(this).data("idsiswa");
+                    console.log("data-idsiswa", idsiswa)
+                });
             });
 
         </script>

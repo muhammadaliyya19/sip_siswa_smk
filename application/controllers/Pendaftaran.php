@@ -311,12 +311,16 @@ class Pendaftaran extends CI_Controller
 				// 'tanggungan_anak' => $this->input->post('tanggungan_anak',TRUE),
 			);
 
+			if ($from_req == "admin") {
+				$data['id_user'] = $this->Users_model->create_user_cs($data);
+			}
+
 			// insert calon siswa
 			$this->Calon_siswa_model->insert($data);
 
 			// insert nilai ijazah
 			$nilai_ijazah = array(
-				'id_user' => $this->input->post('id_user', TRUE),
+				'id_user' => $data['id_user'],
 				'nisn' => $this->input->post('nisn', TRUE),
 				'nilai_bhs_indo' => $this->input->post('nilai_bhs_indo', TRUE),
                 'nilai_bhs_inggris' => $this->input->post('nilai_bhs_inggris', TRUE),
@@ -330,6 +334,7 @@ class Pendaftaran extends CI_Controller
 
 			$this->session->set_flashdata('success', 'Ditambah');
 			if ($from_req == "admin") {
+				$this->session->set_flashdata('info_user', 'Informasi');
 				redirect(site_url('pendaftaran'));
 			} else {
 				redirect(site_url('pendaftaran/mine'));
@@ -468,10 +473,16 @@ class Pendaftaran extends CI_Controller
 
 		if ($row) {
 			$this->Calon_siswa_model->delete($id);
-			$this->session->set_flashdata('success', 'Dihapus');
-			redirect(site_url('calon_siswa'));
+			$row_users = $this->Users_model->get_by_id($row->id_user);
+			if ($row_users) {
+				$this->session->set_flashdata('success', 'Dihapus');
+				redirect(site_url('calon_siswa'));
+			} else {
+				$this->session->set_flashdata('error', 'Data user tidak ditemukan');
+				redirect(site_url('calon_siswa'));	
+			}
 		} else {
-			$this->session->set_flashdata('error', 'Data tidak ditemukan');
+			$this->session->set_flashdata('error', 'Data calon siswa tidak ditemukan');
 			redirect(site_url('calon_siswa'));
 		}
 	}
@@ -494,8 +505,8 @@ class Pendaftaran extends CI_Controller
 		$this->form_validation->set_rules('alamat_orang_tua', 'alamat orang tua', 'trim|required');
 		$this->form_validation->set_rules('no_hp_orang_tua', 'no hp orang tua', 'trim|required');
 		$this->form_validation->set_rules('id_tahun_ajaran', 'id tahun ajaran', 'trim|required|numeric');
-		$this->form_validation->set_rules('id_user', 'id user', 'trim|required|numeric');
 		$this->form_validation->set_rules('nisn', 'nisn', 'trim|required');
+		// $this->form_validation->set_rules('id_user', 'id user', 'trim|required|numeric');
 		// $this->form_validation->set_rules('status_lolos', 'status lolos', 'trim|required|numeric');
 		// $this->form_validation->set_rules('berat_badan', 'berat badan', 'trim|required|numeric');
 		// $this->form_validation->set_rules('tinggi_badan', 'tinggi badan', 'trim|required|numeric');

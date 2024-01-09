@@ -58,6 +58,41 @@
         </div>
     </div>
 
+    <!-- Modals for view data users -->
+    <div class="modal fade" id="modal-info-user">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Informasi Login Akun Calon Siswa</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="card" style="height: 100%;">
+                        <div class="card-body">
+                            <div class="text-center mb-4">
+                                <img class="img-circle"
+                                src="<?= base_url('assets/img/user/student.png'); ?>"
+                                alt="Angkot picture" style="height:200px; width:auto;">
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6 text-right">
+                                    <b>Nama</b><br>
+                                    <b>Username</b><br>
+                                    <b>Password</b>
+                                </div>
+                                <div class="col-lg-6 text-left">
+                                    <span id="holder_nama" class="mb-3">Nama</span><br>
+                                    <span id="holder_username" class="mb-3">Username</span><br>
+                                    <span id="holder_password" class="mb-3">Password</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
     <script type="text/javascript">
         $(document).ready(function () {
             $.fn.dataTableExt.oApi.fnPagingInfo = function (oSettings) {
@@ -156,6 +191,31 @@
 
             $(document).on("click", ".hapus-data", function () {
                 hapus($(this).data("href"));
+            });
+
+            $(document).on("click", ".info-user", function () {
+                let idsiswa = $(this).data("idsiswa");
+                console.log("data-idsiswa", idsiswa)
+                $.ajax({
+                    url: '<?=base_url();?>/users/getUserJson/'+idsiswa,
+                    data: { id: idsiswa },
+                    method: 'get',
+                    dataType: 'json',
+                    success:function(data) {
+                        console.log(data);
+                        if (data.status == 200) {
+                            $('#modal-info-user').modal('show')
+                            $('#holder_nama').html(data.nama)
+                            $('#holder_username').html(data.username)
+                            $('#holder_password').html(data.password)
+                        } else {
+                            alert("Error ! " + data.message)
+                        }
+                        // $('#id').val(data.id_outlet);
+                        // $('#kode').val(data.kode_outlet);
+                        // $('#alamat').val(data.alamat_outlet);
+                    }
+                });
             });
 
         });

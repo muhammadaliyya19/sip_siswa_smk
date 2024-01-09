@@ -9,6 +9,7 @@ class Users extends CI_Controller
     {
         parent::__construct();
         $this->load->model('Users_model');
+        $this->load->model('Calon_siswa_model');
         $this->load->library('form_validation');
     }
 
@@ -71,6 +72,37 @@ class Users extends CI_Controller
             $this->session->set_flashdata('error', 'Data tidak ditemukan');
             redirect(site_url('users'));
         }
+    }
+
+    public function getUserJson($id)
+    {
+        $row = $this->Calon_siswa_model->get_by_id($id);
+        $data = null;
+        if ($row) {
+            $row_user = $this->Users_model->get_by_id($row->id_user);
+            if ($row_user) {
+                $data = array(
+                    'id' => $row_user->id,
+                    'nama' => $row_user->nama,
+                    'username' => $row_user->username,
+                    'password' => $row_user->password,
+                    'level' => $row_user->level,
+                    'status' => 200,
+                    'message' => "Data found",
+                );
+            } else {
+                $data = array(
+                    'status' => 500,
+                    'message' => "Data user not found",
+                );
+            }
+        } else {
+            $data = array(
+                'status' => 500,
+                'message' => "Data calon siswa not found",
+            );
+        }
+        echo json_encode($data);
     }
 
     public function create()

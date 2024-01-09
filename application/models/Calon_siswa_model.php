@@ -33,7 +33,8 @@ class Calon_siswa_model extends CI_Model
         $this->datatables->from('calon_siswa');
         $this->datatables->join('tahun_ajaran', 'calon_siswa.id_tahun_ajaran = tahun_ajaran.id');
         $this->datatables->add_column('action',
-            '<a href="' . site_url('pendaftaran/read/$1') . '" class="btn btn-info"><i class="fa fa-eye"></i></a> 
+            '<a href="#" class="btn btn-success info-user" data-idsiswa = "$1"><i class="fa fa-info"></i></a> 
+            <a href="' . site_url('pendaftaran/read/$1') . '" class="btn btn-info"><i class="fa fa-eye"></i></a> 
             <a href="' . site_url('pendaftaran/update/$1') . '" class="btn btn-warning"><i class="fa fa-edit"></i></a> 
             <a data-href="' . site_url('pendaftaran/delete/$1') . '" class="btn btn-danger hapus-data"><i class="fa fa-trash"></i></a>', 'id');
         return $this->datatables->generate();
