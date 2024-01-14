@@ -96,7 +96,7 @@ class Auth extends CI_Controller
 		$post = $this->input->post();
 		$data = array(
 			'nama' => $this->input->post('nama_lengkap', TRUE),
-			'nisn' => $this->input->post('nisn', TRUE),
+			// 'nisn' => $this->input->post('nisn', TRUE),
 			'email' => $this->input->post('email', TRUE),
 			'username' => $this->input->post('username', TRUE),
 			'password' => $this->input->post('password', TRUE),
@@ -108,7 +108,7 @@ class Auth extends CI_Controller
 			$user = $this->db->get_where('users', ['username' => $post['username']])->row_array();
 			$user2 = $this->db->get_where('users', ['nama' => $post['nama_lengkap']])->row_array();
 			$user3 = $this->db->get_where('users', ['email' => $post['email']])->row_array();
-			$cs = $this->db->get_where('calon_siswa', ['nisn' => $post['nisn']])->row_array();
+			// $cs = $this->db->get_where('calon_siswa', ['nisn' => $post['nisn']])->row_array();
 
 			// var_dump($data); die;
 
@@ -118,8 +118,6 @@ class Auth extends CI_Controller
 				$this->session->set_flashdata('error', 'Nama sudah pernah didaftarkan!');
 			} else if ($user3) {
 				$this->session->set_flashdata('error', 'Email sudah pernah didaftarkan!');
-			} else if ($cs) {
-				$this->session->set_flashdata('error', 'NISN sudah pernah didaftarkan!');
 			} else {
 				// prepare userData
 				$data = array(

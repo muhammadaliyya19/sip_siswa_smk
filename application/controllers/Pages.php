@@ -11,6 +11,7 @@ class Pages extends CI_Controller
 		$this->load->model('Visi_misi_model');
 		$this->load->model('Berita_model');
 		$this->load->model('Pengumuman_pendaftaran_model');
+		$this->load->model('Calon_siswa_model');
 	}
 
 	public function index()
@@ -121,16 +122,24 @@ class Pages extends CI_Controller
 	public function ppdb()
 	{
 		$req = $this->input->get('q', TRUE);
+		$is_registered = false;
 		if ($req == "registrasi") {
 			$row = $this->Pengumuman_pendaftaran_model->get_all_active($req);
-			// print_r($row); die;
+			
+			$this_user = $this->session->userdata('user');
+			if($this_user != null && $this_user['level'] != "Administrator"){
+				$is_registered = $this->Calon_siswa_model->check_user_registered($this_user['id_user']);
+			}
+
 			$data = [
 				'judul' => 'Pendaftaran PPDB',
 				'q' => $req,
 				'user' => $this->session->userdata('user'),
 				'foto' => [],
-				'pengumuman' => $row
+				'pengumuman' => $row,
+				'is_registered' => $is_registered
 			];
+			// print_r($data); die;
 			$this->load->view('templates/home_header', $data);
 			$this->load->view('templates/home_navbar', $data);
 			$this->load->view('pages/info/pengumuman', $data);
@@ -143,7 +152,8 @@ class Pages extends CI_Controller
 				'q' => $req,
 				'user' => $this->session->userdata('user'),
 				'foto' => [],
-				'pengumuman' => $row
+				'pengumuman' => $row,
+				'is_registered' => $is_registered
 			];
 			$this->load->view('templates/home_header', $data);
 			$this->load->view('templates/home_navbar', $data);

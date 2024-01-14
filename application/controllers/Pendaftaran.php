@@ -273,10 +273,11 @@ class Pendaftaran extends CI_Controller
 		if ($this->form_validation->run() == FALSE) {
 			if ($from_req == "admin") {
 				$this->create();
+				// redirect(site_url('pendaftaran/create'));
 			} else {
 				$id_pengumuman = $this->input->post('id_pengumuman', TRUE);
-				// redirect(site_url('pendaftaran/apply/'.$id_pengumuman));
 				$this->apply($id_pengumuman);
+				// redirect(site_url('pendaftaran/apply/' . $id_pengumuman));
 			}
 		} else {
 			// upload berkas kelengkapan

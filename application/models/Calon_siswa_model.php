@@ -78,6 +78,18 @@ class Calon_siswa_model extends CI_Model
         return $this->db->get($this->table)->row();
     }
 
+    function check_user_registered($id_user)
+    {
+        $this_user = $this->session->userdata('user');
+        $this->datatables->where('calon_siswa.id_user', $this_user['id_user']);
+        $res = $this->db->get($this->table)->row();
+        if ($res){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     // get total rows
     function total_rows($q = NULL)
     {

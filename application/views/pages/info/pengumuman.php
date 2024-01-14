@@ -55,14 +55,20 @@ function konversiTanggal($tanggal)
                             <td><?= $p->deskripsi ?></td>
                             <td><?= $p->tahun_ajaran ?></td>
                             <?php if ($user != NULL): ?>
-                            <?php if ($q == "registrasi"): ?>
-                                <td>
-                                    <?php if ($p->is_active == 1): ?>
-                                        <a href="<?= base_url("pendaftaran/apply/".$p->id); ?>" class="btn btn-primary btn-xs">Daftar</a>
+                                <?php if ($q == "registrasi"): ?>
+                                    <?php if (!$is_registered): ?>
+                                        <td>
+                                            <?php if ($p->is_active == 1): ?>
+                                                <a href="<?= base_url("pendaftaran/apply/".$p->id); ?>" class="btn btn-primary btn-xs">Daftar</a>
+                                            <?php else : ?>
+                                                <a href="#" class="btn btn-secondary btn-xs">#</a>
+                                            <?php endif; ?>                                
+                                        </td>
                                     <?php else : ?>
-                                        <a href="#" class="btn btn-secondary btn-xs">#</a>
-                                    <?php endif; ?>                                
-                                </td>
+                                        <td>
+                                            <a href="#" class="btn btn-secondary btn-xs">#</a>
+                                        </td>
+                                    <?php endif; ?>
                             <?php else : ?>
                                 <td>
                                     <?php if ($p->link_files != ""): ?>
