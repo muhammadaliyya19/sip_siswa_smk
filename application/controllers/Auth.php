@@ -60,12 +60,13 @@ class Auth extends CI_Controller
 
 				} else {
 					$this->session->set_flashdata('error', 'Password anda salah');
-					redirect('auth', 'refresh');
+					// redirect('auth', 'refresh');
 				}
 
 			} else {
 				$this->session->set_flashdata('error', 'Email tidak ditemukan');
-				redirect('auth', 'refresh');
+				// $this->login();
+				// redirect('auth', 'refresh');
 			}
 		}
 

@@ -65,13 +65,16 @@ class Profil extends CI_Controller
 
 			$post = $this->input->post();
 
-			$hash = $this->users_model->get_by_id($this->session->userdata('id_user'))->password;
+			// $hash = $this->users_model->get_by_id($this->session->userdata('id_user'))->password;
+			$non_hash = $this->users_model->get_by_id($this->session->userdata('id_user'))->password;
 
-			if (password_verify($post['pw_sekarang'], $hash)) {
+			// if (password_verify($post['pw_sekarang'], $hash)) {
+			if ($post['pw_sekarang'] == $non_hash) {
 
-				$this->db->set('password', password_hash($post['pw1'], PASSWORD_DEFAULT));
-				$this->db->where('id_user', $this->session->userdata('id_user'));
-				$this->db->update('user');
+				// $this->db->set('password', password_hash($post['pw1'], PASSWORD_DEFAULT));
+				$this->db->set('password', $post['pw1']); // non hash
+				$this->db->where('id', $this->session->userdata('id_user'));
+				$this->db->update('users');
 
 				$this->session->set_flashdata('success', 'diubah');
 				redirect('profil', 'refresh');

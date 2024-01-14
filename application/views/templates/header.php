@@ -115,6 +115,9 @@
       <?php if ($success = $this->session->flashdata('success')): ?>
         <span class="alert-success hidden d-success"><?php echo $success ?></span>
       <?php endif ?>
+      <?php if ($success_admin = $this->session->flashdata('success_cs_admin')): ?>
+        <span class="alert-success hidden d-successadmin"><?php echo $success_admin ?></span>
+      <?php endif ?>
       <?php if ($message = $this->session->flashdata('message')): ?>
         <span class="alert-message hidden d-message"><?php echo $message ?></span>
       <?php endif ?>
