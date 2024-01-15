@@ -113,7 +113,7 @@ date_default_timezone_set('Asia/Jakarta');
         </tr>
         <tr>
           <?php if($calon_siswa->status_lolos == 0):?>
-          <th scope="col">-</th>
+          <th scope="col"> -- data belum diproses -- </th>
           <?php elseif ($calon_siswa->status_lolos == 1):?>
           <th scope="col">Akuntansi</th>
           <?php elseif ($calon_siswa->status_lolos == 2):?>
