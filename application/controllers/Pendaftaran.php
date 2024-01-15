@@ -496,7 +496,7 @@ class Pendaftaran extends CI_Controller
 		$text_qr = base_url("pendaftaran/cetak/").$cs_id;
 
 		$dir = "assets/img/qr_siswa/"; //Nama folder tempat menyimpan file qrcode
- 		QRcode::png($text_qr, $dir.$row->nisn, QR_ECLEVEL_L, 10);
+ 		QRcode::png($text_qr, $dir.$row->nisn.".png", QR_ECLEVEL_L, 10);
 		// echo "Beres nih <br>";
 		$direc = base_url().'assets/img/qr_siswa/'.$row->nisn.".png";
 
