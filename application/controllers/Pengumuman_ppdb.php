@@ -144,7 +144,7 @@ class Pengumuman_ppdb extends CI_Controller
                 'deskripsi' => set_value('deskripsi', $row->deskripsi),
                 'id_tahun_ajaran' => set_value('id_tahun_ajaran', $row->id_tahun_ajaran),
                 'tgl_update' => set_value('tgl_update', $row->tgl_update),
-                'is_active' => set_value('is_active', $row->tgl_update),
+                'is_active' => set_value('is_active', $row->is_active),
                 'tahun_ajarans' => $tahun_ajarans,
                 'link_files' => $row->link_files,
             );
@@ -171,10 +171,11 @@ class Pengumuman_ppdb extends CI_Controller
             $this->update($this->input->post('id', TRUE));
         } else {
             $nama_file = $this->do_upload();
+            // var_dump($nama_file); die;
             if ($nama_file != "" && $row->link_files != "") {
 				// delete old files
 				unlink('./assets/berkas_pengumuman/' . $row->link_files);
-			} else {
+			} else if ($nama_file == "" && $row->link_files != "") {
 				$nama_file = $row->link_files;
 			}
             $data = array(
@@ -221,25 +222,25 @@ class Pengumuman_ppdb extends CI_Controller
     public function do_upload()
     {
 		if ($_FILES['berkas_pendukung']['size'] > 0) {
-            $this->load->library('upload');
-            $path = $_FILES['berkas_pendukung']['name'];
-            $ext = pathinfo($path, PATHINFO_EXTENSION);
-            $files = $_FILES['berkas_pendukung'];
-            // var_dump($files);
-            // echo "<br><br><br>";
-            // var_dump($ext);
-            // die;
-            $config = $this->set_upload_options();
-            $config['file_name'] = time() . '-' . date("Y-m-d-his") . '.'. $ext;
-            $this->upload->initialize($config);
-            $res = $this->upload->do_upload('berkas_pendukung');
-            echo $res . "Berkas sukses diupload<br><br>";
-            echo $config['file_name'];
-            // die;
-            return $config['file_name'];
-        } else {
-            return "";
-        }
+			$this->load->library('upload');
+			$path = $_FILES['berkas_pendukung']['name'];
+			$ext = pathinfo($path, PATHINFO_EXTENSION);
+			$files = $_FILES['berkas_pendukung'];
+			// var_dump($files);
+			// echo "<br><br><br>";
+			// var_dump($ext);
+			// die;
+			$config = $this->set_upload_options();
+			$config['file_name'] = time() . '-' . date("Y-m-d-his") . '.'. $ext;
+			$this->upload->initialize($config);
+			$res = $this->upload->do_upload('berkas_pendukung');
+			echo $res . "Berkas sukses diupload<br><br>";
+			echo $config['file_name'];
+			// die;
+			return $config['file_name'];
+		} else {
+			return "";
+		}
     }
 
     private function set_upload_options()
@@ -247,7 +248,7 @@ class Pengumuman_ppdb extends CI_Controller
         //upload an image options
         $config = array();
         $config['upload_path'] = './assets/berkas_pengumuman/';
-        $config['allowed_types'] = 'xls|xlsx|zip|7z|rar|tar|gz';
+        $config['allowed_types'] = 'zip|7z|rar|tar|gz|xls|xlsx';
         $config['max_size'] = '1200000';
         $config['overwrite'] = FALSE;
         return $config;

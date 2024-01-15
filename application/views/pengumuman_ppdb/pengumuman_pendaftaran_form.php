@@ -66,7 +66,7 @@
                             </div>
                             <div class="form-group <?php if (form_error('berkas_pendukung'))
                                 echo 'has-error' ?> ">
-                                    <label for="berkas_pendukung">Berkas Pendukung (zip / rar)</label>
+                                    <label for="berkas_pendukung">Berkas Hasil Seleksi (zip / rar)</label>
                                     <input type="file" class="form-control" name="berkas_pendukung" id="berkas_pendukung"/>
                                     <?php if ($link_files != "") :?>
                                         <a href="<?= base_url('assets/berkas_pengumuman/' . $link_files);?>" target="_blank">Link Berkas Terdahulu</a>
