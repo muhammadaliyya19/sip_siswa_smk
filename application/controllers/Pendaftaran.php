@@ -23,6 +23,8 @@ class Pendaftaran extends CI_Controller
 			'judul' => 'Data Pendaftaran',
 			'user' => $this->session->userdata('user'),
 		);
+        $tahun_ajarans = $this->Tahun_ajaran_model->get_all();
+        $data['tahun_ajarans'] = $tahun_ajarans;
 
 		$this->load->view('templates/header', $data);
 		$this->load->view('calon_siswa/calon_siswa_list', $data);
@@ -549,10 +551,10 @@ class Pendaftaran extends CI_Controller
 		$this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');
 	}
 
-	public function excel()
+	public function excel($id_ta)
 	{
 		$this->load->helper('exportexcel');
-		$namaFile = "calon_siswa.xls";
+		$namaFile = "Data Calon Siswa.xls";
 		$judul = "calon_siswa";
 		$tablehead = 0;
 		$tablebody = 1;
@@ -587,7 +589,7 @@ class Pendaftaran extends CI_Controller
 		xlsWriteLabel($tablehead, $kolomhead++, "Alamat Orang Tua");
 		xlsWriteLabel($tablehead, $kolomhead++, "No Hp Orang Tua");
 		xlsWriteLabel($tablehead, $kolomhead++, "Id Tahun Ajaran");
-		xlsWriteLabel($tablehead, $kolomhead++, "Id User");
+		// xlsWriteLabel($tablehead, $kolomhead++, "Tahun Ajaran");
 		xlsWriteLabel($tablehead, $kolomhead++, "Status Lolos");
 		xlsWriteLabel($tablehead, $kolomhead++, "Nisn");
 		// xlsWriteLabel($tablehead, $kolomhead++, "Berat Badan");
@@ -596,8 +598,29 @@ class Pendaftaran extends CI_Controller
 		// xlsWriteLabel($tablehead, $kolomhead++, "Penghasilan Orang Tua");
 		// xlsWriteLabel($tablehead, $kolomhead++, "Tanggungan Anak");
 
-		foreach ($this->Calon_siswa_model->get_all() as $data) {
+		// var_dump($id_ta); die;
+
+		$datas = $this->Calon_siswa_model->get_all();
+		// var_dump($datas); die;
+		
+		if ($id_ta != "All") {
+			$datas = $this->Calon_siswa_model->get_by_tahunAjarId($id_ta);
+		} 
+
+		foreach ($datas as $data) {
 			$kolombody = 0;
+
+			// $data->jenis_kelamin = $data->jenis_kelamin == "L" ? "Laki-laki" : "Perempuan";
+
+			$status = "-";
+
+			if ($data->status_lolos == 2) {
+				$status = "Pemasaran";
+			} else if ($data->status_lolos == 1) { 
+				$status = "Akuntansi";
+			} else {
+				$status = "-";
+			}
 
 			//ubah xlsWriteLabel menjadi xlsWriteNumber untuk kolom numeric
 			xlsWriteNumber($tablebody, $kolombody++, $nourut);
@@ -617,8 +640,8 @@ class Pendaftaran extends CI_Controller
 			xlsWriteLabel($tablebody, $kolombody++, $data->alamat_orang_tua);
 			xlsWriteLabel($tablebody, $kolombody++, $data->no_hp_orang_tua);
 			xlsWriteNumber($tablebody, $kolombody++, $data->id_tahun_ajaran);
-			xlsWriteNumber($tablebody, $kolombody++, $data->id_user);
-			xlsWriteNumber($tablebody, $kolombody++, $data->status_lolos);
+			// xlsWriteNumber($tablebody, $kolombody++, $data->tahun_ajaran);
+			xlsWriteLabel($tablebody, $kolombody++, $status);
 			xlsWriteLabel($tablebody, $kolombody++, $data->nisn);
 			// xlsWriteNumber($tablebody, $kolombody++, $data->berat_badan);
 			// xlsWriteNumber($tablebody, $kolombody++, $data->tinggi_badan);

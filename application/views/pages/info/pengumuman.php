@@ -41,8 +41,10 @@ function konversiTanggal($tanggal)
                 <table class="table table-bordered table-striped" width="100%">
                     <tr>
                         <th>No</th>
-                        <th>Judul</th>
+                        <th><?= $q == "registrasi" ? "Judul": "Pengumuman Pendaftaran"; ?></th>
+                        <?php if ($q == "registrasi"): ?>
                         <th>Deskripsi</th>
+                        <?php endif; ?>
                         <th>Tahun Ajaran</th>
                         <?php if ($user != NULL): ?>
                         <th><?= $q == "registrasi" ? "Action": "Link Hasil Seleksi"; ?></th>
@@ -52,7 +54,9 @@ function konversiTanggal($tanggal)
                         <tr>
                             <td><?= ++$i; ?></td>
                             <td><?= $p->judul ?></td>
-                            <td><?= $p->deskripsi ?></td>
+                            <?php if ($q == "registrasi"): ?>
+                                <td><?= $p->deskripsi ?></td>
+                            <?php endif; ?>
                             <td><?= $p->tahun_ajaran ?></td>
                             <?php if ($user != NULL): ?>
                                 <?php if ($q == "registrasi"): ?>
