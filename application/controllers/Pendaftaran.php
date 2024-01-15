@@ -1,5 +1,5 @@
 <?php
-
+require_once 'assets/phpqrcode/qrlib.php';
 if (!defined('BASEPATH'))
 	exit('No direct script access allowed');
 
@@ -488,6 +488,25 @@ class Pendaftaran extends CI_Controller
 			$this->session->set_flashdata('error', 'Data calon siswa tidak ditemukan');
 			redirect(site_url('calon_siswa'));
 		}
+	}
+
+	public function cetak($cs_id){
+		$row = $this->Calon_siswa_model->get_by_id($cs_id);
+		$nilai_ijazah = $this->Nilai_ijazah_model->get_by_csid($cs_id);
+		$text_qr = base_url("pendaftaran/cetak/").$cs_id;
+
+		$dir = "assets/img/qr_siswa/"; //Nama folder tempat menyimpan file qrcode
+ 		QRcode::png($text_qr, $dir.$row->nisn, QR_ECLEVEL_L, 10);
+		// echo "Beres nih <br>";
+		$direc = base_url().'assets/img/qr_siswa/'.$row->nisn;
+
+		$data = array(
+			"qr_image"	=> $direc,
+			"calon_siswa"	=> $row,
+			"nilai_ijazah"	=> $nilai_ijazah
+		);
+		// echo '<img src="'.$direc.'" class="thumbnail" alt="Angkot picture" style="height:400px;">';
+		$this->load->view('calon_siswa/cetak_daftar', $data);
 	}
 
 	public function _rules()

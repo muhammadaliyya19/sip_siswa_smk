@@ -1,5 +1,6 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
+require_once 'assets/phpqrcode/qrlib.php';
 
 class Auth extends CI_Controller
 {
