@@ -37,6 +37,14 @@ date_default_timezone_set('Asia/Jakarta');
       <hr>
       <hr style="border-top: 4px solid black;">
     </div>
+    
+    <?php 
+      $tgl_daftar = strtotime($calon_siswa->tgl_daftar);
+      $tgl = date("d-m-Y", $tgl_daftar);
+    ?>
+
+    <br><b>Tanggal Pendaftaran : </b> <?= $tgl;?><br><br>
+
     <table border="1" cellpadding="4" cellspacing="0" width="100%">
       <thead>
         <tr>
