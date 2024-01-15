@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 26 Des 2023 pada 05.54
+-- Waktu pembuatan: 15 Jan 2024 pada 15.11
 -- Versi server: 10.4.11-MariaDB
 -- Versi PHP: 7.4.6
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `nida_ta`
+-- Database: `sip_siswa_smk`
 --
 
 -- --------------------------------------------------------
@@ -75,21 +75,37 @@ CREATE TABLE `calon_siswa` (
   `id_user` int(6) NOT NULL,
   `status_lolos` int(2) NOT NULL,
   `nisn` varchar(10) NOT NULL,
-  `berkas` text NOT NULL
+  `berkas` text NOT NULL,
+  `tgl_daftar` date DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data untuk tabel `calon_siswa`
 --
 
-INSERT INTO `calon_siswa` (`id`, `nama`, `tempat_lahir`, `tanggal_lahir`, `jenis_kelamin`, `agama`, `anak_ke`, `jumlah_saudara`, `no_hp_siswa`, `alamat_siswa`, `asal_sekolah`, `alamat_sekolah`, `nama_ayah`, `nama_ibu`, `alamat_orang_tua`, `no_hp_orang_tua`, `id_tahun_ajaran`, `id_user`, `status_lolos`, `nisn`, `berkas`) VALUES
-(1, 'a', 'a', '0000-00-00', 'a', 'a', 1, 2, '21', '1', '1', '1', '1', '1', '1', '1', 1, 1, 1, '1', ''),
-(2, 'Ilmi', 'Kediri', '0000-00-00', 'L', 'Islam', 1, 1, '8976543', 'KANDANGAN - KEDIRI', 'Kdn', 'Kdn', 'A', 'B', 'A', '8976543', 1, 1, 0, '1651502001', ''),
-(3, 'Nida', 'Kediri', '0000-00-00', 'L', 'Islam', 1, 1, '8976543', 'Bogor', 'SMK', 'Bogor', 'A', 'B', 'Bogor', '8976543', 1, 1, 0, '1651502001', ''),
-(4, 'Muh Aliyya Ilmi', '', '0000-00-00', '', '', 0, 0, '', '', '', '', '', '', '', '', 0, 4, 0, '1651502001', ''),
-(5, 'Dustin Jack', 'Kediri', '1998-07-20', 'L', 'Islam', 1, 2, '085864273099', 'Malang', 'SMPN 2 Pare', 'Jl. Pk Bangsa Pare', 'MY', 'LM', 'Kandangan', '085864273099', 3, 5, 0, '1651502001', '1703007060-2023-12-19-063100.'),
-(6, 'Dustin Jack', 'Kediri', '2023-12-20', 'L', 'Islam', 1, 2, '085864273099', 'Malang', 'Mlg', 'Mlg', 'MY', 'LM', 'Kandangan', '085864273099', 2, 5, 0, '1651502001', '1703087146-2023-12-20-044546.zip'),
-(7, 'Abdul Tk.', 'Kediri', '2001-06-27', 'L', 'Islam', 1, 2, '085864273099', 'Malang', 'SMPN 1 Kediri', 'Kediri', 'MY', 'LM', 'KANDANGAN - KEDIRI', '8976543', 3, 6, 1, '1651502001', '1703563998-2023-12-26-051318.zip');
+INSERT INTO `calon_siswa` (`id`, `nama`, `tempat_lahir`, `tanggal_lahir`, `jenis_kelamin`, `agama`, `anak_ke`, `jumlah_saudara`, `no_hp_siswa`, `alamat_siswa`, `asal_sekolah`, `alamat_sekolah`, `nama_ayah`, `nama_ibu`, `alamat_orang_tua`, `no_hp_orang_tua`, `id_tahun_ajaran`, `id_user`, `status_lolos`, `nisn`, `berkas`, `tgl_daftar`) VALUES
+(1, 'a', 'a', '0000-00-00', 'a', 'a', 1, 2, '21', '1', '1', '1', '1', '1', '1', '1', 1, 1, 1, '1', '1703563998-2023-12-26-051318.zip', '2024-01-15'),
+(2, 'Ilmi', 'Kediri', '0000-00-00', 'L', 'Islam', 1, 1, '8976543', 'KANDANGAN - KEDIRI', 'Kdn', 'Kdn', 'A', 'B', 'A', '8976543', 1, 1, 0, '1651502001', '1703563998-2023-12-26-051318.zip', '2024-01-15'),
+(3, 'Nida', 'Kediri', '0000-00-00', 'L', 'Islam', 1, 1, '8976543', 'Bogor', 'SMK', 'Bogor', 'A', 'B', 'Bogor', '8976543', 1, 1, 0, '1651502001', '1703563998-2023-12-26-051318.zip', '2024-01-15'),
+(4, 'Muh Aliyya Ilmi', '', '0000-00-00', '', '', 0, 0, '', '', '', '', '', '', '', '', 0, 4, 0, '1651502001', '1703563998-2023-12-26-051318.zip', '2024-01-15'),
+(5, 'Dustin Jack', 'Kediri', '1998-07-20', 'L', 'Islam', 1, 2, '085864273099', 'Malang', 'SMPN 2 Pare', 'Jl. Pk Bangsa Pare', 'MY', 'LM', 'Kandangan', '085864273099', 3, 5, 0, '1651502001', '1703007060-2023-12-19-063100.', '2024-01-15'),
+(6, 'Dustin Jack', 'Kediri', '2023-12-20', 'L', 'Islam', 1, 2, '085864273099', 'Malang', 'Mlg', 'Mlg', 'MY', 'LM', 'Kandangan', '085864273099', 2, 5, 0, '1651502001', '1703087146-2023-12-20-044546.zip', '2024-01-15'),
+(7, 'Abdul Tk.', 'Kediri', '2001-06-27', 'L', 'Islam', 1, 2, '085864273099', 'Malang', 'SMPN 1 Kediri', 'Kediri', 'MY', 'LM', 'KANDANGAN - KEDIRI', '8976543', 3, 6, 1, '1651502001', '1703563998-2023-12-26-051318.zip', '2024-01-15'),
+(9, 'MUHAMMAD ALIYYA ILMI', 'Kediri', '2024-01-09', 'L', 'Islam', 1, 1, '085864273099', 'Malang', 'Malang', 'Malang', 'MY', 'LM', 'Malang', '085864273099', 3, 8, 0, '1651502001', '1703563998-2023-12-26-051318.zip', '2024-01-15'),
+(10, 'Test Produk LCD', 'Kediri', '2024-01-03', 'L', 'Islam', 1, 1, '8976543', 'KANDANGAN - KEDIRI', 'KANDANGAN - KEDIRI', 'KANDANGAN - KEDIRI', 'A', 'B', 'KANDANGAN - KEDIRI', '8976543', 3, 9, 0, '3216548979', '1704818713-2024-01-09-054513.zip', '2024-01-15'),
+(11, 'Will Smith', 'Kediri', '2024-01-03', 'L', 'Islam', 1, 1, '8976543', 'KANDANGAN - KEDIRI', 'KANDANGAN - KEDIRI', 'KANDANGAN - KEDIRI', 'A', 'B', 'KANDANGAN - KEDIRI', '8976543', 3, 10, 0, '3216548979', '1704819156-2024-01-09-055236.zip', '2024-01-15'),
+(12, 'Test Produk LCD Kedua', 'Kediri', '2024-01-04', 'L', 'Islam', 1, 1, '8976543', 'KANDANGAN - KEDIRI', 'KANDANGAN - KEDIRI', 'KANDANGAN - KEDIRI', 'MY', 'LM', 'KANDANGAN - KEDIRI', '8976543', 3, 11, 0, '1234563215', '1704819301-2024-01-09-055501.zip', '2024-01-15'),
+(13, 'Test Produk LCD Ketiga', 'Kediri', '2024-01-13', 'L', 'Islam', 1, 1, '8976543', 'KANDANGAN - KEDIRI', 'KANDANGAN - KEDIRI', 'KANDANGAN - KEDIRI', 'MY', 'LM', 'KANDANGAN - KEDIRI', '8976543', 3, 12, 0, '3334563215', '1704819413-2024-01-09-055653.zip', '2024-01-15'),
+(14, 'Test Produk LCD Keempat', 'Kediri', '2024-01-18', 'L', 'Islam', 1, 1, '8976543', 'KANDANGAN - KEDIRI', 'KANDANGAN - KEDIRI', 'KANDANGAN - KEDIRI', 'MY', 'LM', 'KANDANGAN - KEDIRI', '8976543', 3, 13, 0, '5554563215', '1704819566-2024-01-09-055926.zip', '2024-01-15'),
+(15, 'Test Produk LCD Kelima', 'Kediri', '2024-01-26', 'L', 'Islam', 1, 1, '8976543', 'KANDANGAN - KEDIRI', 'KANDANGAN - KEDIRI', 'KANDANGAN - KEDIRI', 'MY', 'LM', 'KANDANGAN - KEDIRI', '8976543', 3, 14, 0, '6664563215', '1704819845-2024-01-09-060405.zip', '2024-01-15'),
+(16, 'Ilmi Aku', 'Kediri', '2024-01-11', 'L', 'Islam', 1, 2, '8976543', 'KANDANGAN - KEDIRI', 'SMP 2 Pare', 'Pare Kediri', 'MY', 'LM', 'KANDANGAN - KEDIRI', '8976543', 3, 15, 1, '6664563215', '1704970697-2024-01-11-115817.zip', '2024-01-15'),
+(17, 'Ilmi Aku', 'Kediri', '2024-01-10', 'L', 'Islam', 1, 1, '085864273099', 'Malang', 'Malang', 'Malang', 'MY', 'LM', 'Malang', '085864273099', 3, 15, 0, '3216548900', '1704971475-2024-01-11-121115.zip', '2024-01-15'),
+(18, 'Muhammad A Ilmi', 'Kediri', '2024-01-09', 'L', 'Islam', 1, 1, '085864273099', 'Malang', 'SMP', 'Malang', 'MY', 'LM', 'Malang', '085864273099', 3, 16, 0, '3216548966', '1704971938-2024-01-11-121858.zip', '2024-01-15'),
+(19, 'H. BOLANG', 'Kediri', '2024-01-14', 'L', 'Islam', 1, 2, '8976543', 'KANDANGAN - KEDIRI', 'kdn', 'Kdn', 'MY', 'LM', 'KANDANGAN - KEDIRI', '8976543', 3, 21, 0, '1651502001', '1705202323-2024-01-14-041843.zip', '2024-01-15'),
+(20, 'Balong', 'Kediri', '1990-04-03', 'L', 'Islam', 2, 1, '8976543', 'KANDANGAN - KEDIRI', 'Kdn', 'Bogor', 'MY', 'LM', 'Kandangan', '085864273099', 5, 22, 0, '1234563215', '1705205525-2024-01-14-051205.zip', '2024-01-15'),
+(21, 'Fathur', 'Kediri', '2023-04-03', 'L', 'Islam', 1, 1, '085864273099', 'Malang', 'kdn', 'Bogor', 'MY', 'LM', 'Bogor', '8976543', 5, 23, 0, '321654897', '1705205998-2024-01-14-051958.zip', '2024-01-15'),
+(22, 'Hula', '123', '3322-03-03', 'L', 'Islam', 1, 1, '085864273099', 'Malang', 'Kdn', 'Kdn', 'MY', 'LM', 'Kdn', '8976543', 5, 24, 0, '1234563215', '1705206225-2024-01-14-052345.zip', '2024-01-15'),
+(23, 'Aqu Cuy', 'Kediri', '2024-01-15', 'L', 'Islam', 1, 1, '8976543', 'KANDANGAN - KEDIRI', 'KANDANGAN - KEDIRI', 'KANDANGAN - KEDIRI', 'MY', 'LM', 'KANDANGAN - KEDIRI', '8976543', 3, 25, 0, '1651502001', '1705320555-2024-01-15-010915.zip', '2024-01-15');
 
 -- --------------------------------------------------------
 
@@ -118,7 +134,23 @@ CREATE TABLE `nilai_ijazah` (
 INSERT INTO `nilai_ijazah` (`id`, `id_user`, `id_calon_siswa`, `nisn`, `nilai_bhs_indo`, `nilai_bhs_inggris`, `nilai_ipa`, `nilai_ips`, `nilai_mtk`, `nilai_akhir`, `keterangan`) VALUES
 (1, 5, 5, '1651502001', '85', '85', '85', '85', '85', '85', 'Ok'),
 (2, 5, 6, '1651502001', '85', '85', '85', '85', '85', '85', 'ok'),
-(3, 6, 7, '1651502001', '85', '85', '85', '85', '85', '85', 'Isi oke');
+(3, 6, 7, '1651502001', '85', '85', '85', '85', '85', '85', 'Isi oke'),
+(4, 7, 0, '1651502001', '85', '85', '85', '85', '85', '85', 'Ok'),
+(5, 8, 0, '1651502001', '85', '85', '85', '85', '85', '85', 'Ok'),
+(6, 9, 10, '3216548979', '85', '85', '85', '85', '85', '85', 'Oce'),
+(7, 10, 11, '3216548979', '85', '85', '85', '85', '85', '85', 'Oke'),
+(8, 11, 12, '1234563215', '85', '85', '85', '85', '85', '85', 'Tes'),
+(9, 12, 13, '3334563215', '85', '85', '85', '85', '85', '85', 'aaaa'),
+(10, 13, 14, '5554563215', '85', '85', '85', '85', '85', '85', 'aaabbbb'),
+(11, 14, 15, '6664563215', '85', '85', '85', '85', '85', '85', 'aaavvasda'),
+(12, 15, 16, '6664563215', '9', '9', '9', '9', '9', '9', 'Okay'),
+(13, 15, 17, '3216548900', '85', '85', '85', '85', '85', '85', 'OK'),
+(14, 16, 18, '3216548966', '85', '85', '85', '85', '85', '85', 'ABC'),
+(15, 21, 19, '1651502001', '85', '85', '85', '85', '85', '85', 'ok'),
+(16, 22, 20, '1234563215', '85', '85', '85', '85', '85', '85', 'Oce'),
+(17, 23, 21, '321654897', '9', '9', '9', '9', '9', '9', 'oke'),
+(18, 24, 22, '1234563215', '9', '9', '9', '9', '9', '9', '9 semua'),
+(19, 25, 23, '1651502001', '9', '9', '9', '9', '9', '9', 'ok');
 
 -- --------------------------------------------------------
 
@@ -191,7 +223,21 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`id`, `nama`, `email`, `username`, `password`, `level`) VALUES
 (1, 'Administrator', '', 'admin', '123', 0),
 (5, 'Dustin Jack', 'dustinjack21@yahoo.co.id', 'dustinjack21', '123', 1),
-(6, 'Abdul Tk.', 'aku@abdul.com', 'abdul', '123', 1);
+(6, 'Abdul Tk.', 'aku@abdul.com', 'abdul', '123', 1),
+(8, 'MUHAMMAD ALIYYA ILMI', '', '165150200111055', '165150200111055', 1),
+(9, 'Test Produk LCD', '', '3216548979', '3216548979', 1),
+(10, 'Will Smith', '', '3216548979', '3216548979', 1),
+(11, 'Test Produk LCD Kedua', '', '123456321543', '123456321543', 1),
+(12, 'Test Produk LCD Ketiga', '', '333456321543', '333456321543', 1),
+(13, 'Test Produk LCD Keempat', '', '555456321543', '555456321543', 1),
+(14, 'Test Produk LCD Kelima', '', '666456321543', '666456321543', 1),
+(15, 'Ilmi Aku', '', '6664563215', '6664563215', 1),
+(16, 'Muhammad A Ilmi', 'ilmi@gmail.com', 'ilmi12345', 'ilmi12345', 1),
+(21, 'H. BOLANG', 'muhammadaliyya19@gmail.com', 'bol', '123', 1),
+(22, 'Balong', '', '1234563215', '1234563215', 1),
+(23, 'Fathur', '', '321654897', '321654897', 1),
+(24, 'Hula', '', '123456321543', '123456321543', 1),
+(25, 'Aqu Cuy', 'aqcuy@oke.com', 'aqucuy', '123', 1);
 
 -- --------------------------------------------------------
 
@@ -273,13 +319,13 @@ ALTER TABLE `berita`
 -- AUTO_INCREMENT untuk tabel `calon_siswa`
 --
 ALTER TABLE `calon_siswa`
-  MODIFY `id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT untuk tabel `nilai_ijazah`
 --
 ALTER TABLE `nilai_ijazah`
-  MODIFY `id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT untuk tabel `pengumuman_pendaftaran`
@@ -297,7 +343,7 @@ ALTER TABLE `tahun_ajaran`
 -- AUTO_INCREMENT untuk tabel `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT untuk tabel `visi_misi`
