@@ -24,6 +24,7 @@ class Pages extends CI_Controller
 			'video' => [],
 			'berita' => $berita
 		];
+		// var_dump($berita); die;
 		$this->load->view('templates/home_header');
 		$this->load->view('templates/home_navbar', $data);
 		$this->load->view('pages/index', $data);

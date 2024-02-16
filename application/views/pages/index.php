@@ -59,7 +59,7 @@ function konversiTanggal($tanggal)
 
         <div class="row">
             <?php 
-                $sum = count($berita) > 3 ? 3 : count($foto);
+                $sum = count($berita) > 3 ? 3 : count($berita);
                 for ($i=0; $i < $sum; $i++):
             ?>
             <div class="col-lg-4 col-md-6" style="height: 450px; overflow: hidden;">
