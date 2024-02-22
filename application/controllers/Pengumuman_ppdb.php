@@ -84,7 +84,7 @@ class Pengumuman_ppdb extends CI_Controller
 
     public function create()
     {
-        $tahun_ajarans = $this->Tahun_ajaran_model->get_all();
+        $tahun_ajarans = $this->Tahun_ajaran_model->get_all_open();
         $data = array(
             'button' => 'Create',
             'action' => site_url('pengumuman_ppdb/create_action'),

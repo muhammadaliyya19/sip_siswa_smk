@@ -23,6 +23,19 @@ class Tahun_ajaran_model extends CI_Model
         return $this->db->get($this->table)->result();
     }
 
+    function get_last()
+    {
+        $this->db->order_by($this->id, $this->order)->limit(1);
+        return $this->db->get($this->table)->row();
+    }
+    
+    function get_all_open()
+    {
+        $this->db->order_by($this->id, $this->order);
+        $this->db->where('id_tahun_ajaran NOT in (SELECT id_tahun_ajaran FROM pengumuman_pendaftaran)');
+        return $this->db->get($this->table)->result();
+    }
+
     // get data by id
     function get_by_id($id)
     {

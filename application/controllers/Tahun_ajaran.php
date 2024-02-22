@@ -105,6 +105,18 @@ class Tahun_ajaran extends CI_Controller
         }
     }
 
+    public function create_action_add(){
+        $last_ta = $this->Tahun_ajaran_model->get_last();
+        // var_dump($last_ta); die;
+        $ta = (int)$last_ta->tahun_ajaran + 1;
+        $data = array(
+            'tahun_ajaran' => $ta,
+        );
+        $this->Tahun_ajaran_model->insert($data);
+        $this->session->set_flashdata('success', 'Ditambah');
+        redirect(site_url('pengumuman_ppdb'));
+    }
+
     public function update($id)
     {
         $row = $this->Tahun_ajaran_model->get_by_id($id);

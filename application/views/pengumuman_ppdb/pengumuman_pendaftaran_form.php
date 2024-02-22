@@ -60,7 +60,7 @@
                                     <label for="int">Is Active</label>
                                 <select class="form-control" id="is_active" name="is_active">
                                     <option <?php if ($is_active == 1) { echo "selected "; } ?> value="1">Aktif</option>
-                                    <option <?php if ($is_active == 0) { echo "selected "; } ?> value="0">Tidak Aktif</option>
+                                    <option <?php if ($is_active == 0) { echo ""; } ?> value="0">Tidak Aktif</option>
                                 </select>
                                 <?php echo form_error('is_active', '<small style="color:red">', '</small>') ?>
                             </div>

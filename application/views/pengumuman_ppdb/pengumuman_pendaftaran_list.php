@@ -115,27 +115,22 @@
                 </button>
             </div>
             <div class="modal-body">
-                <ol>
+                <table class="table table-bordered table-striped dt" width="100%" id="#mytable">
                     <?php foreach ($tahun_ajarans as $ta): ?>
-                        <div class="row">
-                            <li>
-                                <?= $ta->tahun_ajaran; ?> &nbsp;
-                                <a data-href="<?php echo site_url('tahun_ajaran/delete/' . $ta->id_tahun_ajaran) ?>"
-                                    class="btn btn-danger btn-xs hapus-data float-right"><i class="fa fa-trash"></i></a>
-                            </li>
+                        <tr>
+                            <td style="text-align:center;">
+                                <h5><?= $ta->tahun_ajaran; ?> &nbsp; <a data-href="<?php echo site_url('tahun_ajaran/delete/' . $ta->id_tahun_ajaran) ?>"
+                                    class="btn btn-danger btn-xs hapus-data float-right"><i class="fa fa-trash"></i></a></h5>
+                            </td>
+                        </tr>
                         </div>
                     <?php endforeach; ?>
-                </ol>
+                </table>
             </div>
-            <form action="<?= base_url('tahun_ajaran/create_action'); ?>" method="post">
-                <div class="modal-body">
-                    <div class="form-group">
-                        <input type="number" class="form-control" id="tahun" placeholder="Tahun" name="tahun_ajaran">
-                    </div>
-                </div>
+            <form action="<?= base_url('tahun_ajaran/create_action_add'); ?>" method="post">
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary newboard">Add</button>
+                    <button type="submit" class="btn btn-primary newboard">Tambah Tahun Ajaran</button>
                 </div>
             </form>
         </div>
