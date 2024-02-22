@@ -84,7 +84,7 @@
                 ajax: { "url": "<?= base_url('/pendaftaran/json_mine')?>", "type": "POST" },
                 columns: [
                     {
-                        "data": "id",
+                        "data": "id_calon_siswa",
                         "orderable": false
                     }, { "data": "nama" }, { "data": "tempat_lahir" }, { "data": "tanggal_lahir" }, 
                     { 

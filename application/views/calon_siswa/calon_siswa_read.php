@@ -118,7 +118,7 @@
 							<tr>
 								<td>Jenis Kelamin</td>
 								<td>
-									<?php echo $jenis_kelamin; ?>
+									<?php echo $jenis_kelamin == "L" ? "Laki-laki" : "Perempuan"; ?>
 								</td>
 							</tr>
 							<tr>
@@ -188,17 +188,17 @@
 								</td>
 							</tr>
 							<tr>
-								<td>Id Tahun Ajaran</td>
+								<td>Tahun Ajaran</td>
 								<td>
-									<?php echo $id_tahun_ajaran; ?>
+									<?php echo $tahun_ajaran->tahun_ajaran; ?>
 								</td>
 							</tr>
-							<tr>
+							<!-- <tr>
 								<td>Id User</td>
 								<td>
 									<?php echo $id_user; ?>
 								</td>
-							</tr>
+							</tr> -->
 							<tr>
 								<td>Status Lolos</td>
 								<td>
@@ -215,6 +215,16 @@
 								<td>Nisn</td>
 								<td>
 									<?php echo $nisn; ?>
+								</td>
+							</tr>
+							<tr>
+								<td>Berkas</td>
+								<td>
+									<?php if ($berkas != "") :?>
+										<a href="<?= base_url('assets/berkas_daftar/' . $berkas);?>" target="_blank">Link Berkas Terupload</a> &nbsp;
+                                    <?php else :?>
+                                        <a href="#">Belum Ada Berkas</a>
+                                    <?php endif;?>
 								</td>
 							</tr>
 							<!-- <tr><td>Berat Badan</td><td><?php echo $berat_badan; ?></td></tr>

@@ -34,9 +34,9 @@
 			<td><?php echo $pengumuman_pendaftaran->deskripsi ?></td>
 			<td><?php echo $pengumuman_pendaftaran->id_tahun_ajaran ?></td>
 			<td><?php echo $pengumuman_pendaftaran->tgl_update ?></td><td>
-                        <a href="<?php echo site_url('pengumuman_ppdb/read/' . $pengumuman_pendaftaran->id ) ?>" class="btn btn-info"><i class="fa fa-eye"></i></a>
-                        <a href="<?php echo site_url('pengumuman_ppdb/update/' . $pengumuman_pendaftaran->id ) ?>" class="btn btn-warning"><i class="fa fa-edit"></i></a>
-                        <a data-href="<?php echo site_url('pengumuman_ppdb/delete/' . $pengumuman_pendaftaran->id ) ?>" class="btn btn-danger hapus-data"><i class="fa fa-trash"></i></a>
+                        <a href="<?php echo site_url('pengumuman_ppdb/read/' . $pengumuman_pendaftaran->id_pengumuman_pendaftaran ) ?>" class="btn btn-info"><i class="fa fa-eye"></i></a>
+                        <a href="<?php echo site_url('pengumuman_ppdb/update/' . $pengumuman_pendaftaran->id_pengumuman_pendaftaran ) ?>" class="btn btn-warning"><i class="fa fa-edit"></i></a>
+                        <a data-href="<?php echo site_url('pengumuman_ppdb/delete/' . $pengumuman_pendaftaran->id_pengumuman_pendaftaran ) ?>" class="btn btn-danger hapus-data"><i class="fa fa-trash"></i></a>
                      </td>
 		</tr>
                             <?php

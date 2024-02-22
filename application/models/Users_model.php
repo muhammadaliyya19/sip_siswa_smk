@@ -7,7 +7,8 @@ class Users_model extends CI_Model
 {
 
     public $table = 'users';
-    public $id = 'id';
+    // public $id = 'id';
+    public $id = 'id_users';
     public $order = 'DESC';
 
     function __construct()
@@ -32,7 +33,7 @@ class Users_model extends CI_Model
     // get total rows
     function total_rows($q = NULL)
     {
-        $this->db->like('id', $q);
+        $this->db->like('id_users', $q);
         $this->db->or_like('nama', $q);
         $this->db->or_like('username', $q);
         $this->db->or_like('password', $q);
@@ -45,7 +46,7 @@ class Users_model extends CI_Model
     function get_limit_data($limit, $start = 0, $q = NULL)
     {
         $this->db->order_by($this->id, $this->order);
-        $this->db->like('id', $q);
+        $this->db->like('id_users', $q);
         $this->db->or_like('nama', $q);
         $this->db->or_like('username', $q);
         $this->db->or_like('password', $q);
@@ -83,6 +84,13 @@ class Users_model extends CI_Model
     // update data
     function update($id, $data)
     {
+        $this->db->where($this->id, $id);
+        $this->db->update($this->table, $data);
+    }
+
+    function ubah_profil($id, $data)
+    {
+        // var_dump($data); die;
         $this->db->where($this->id, $id);
         $this->db->update($this->table, $data);
     }

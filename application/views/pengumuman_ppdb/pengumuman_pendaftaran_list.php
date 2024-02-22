@@ -73,11 +73,11 @@
                                     <?php echo $pengumuman_pendaftaran->tgl_update ?>
                                 </td>
                                 <td>
-                                    <a href="<?php echo site_url('pengumuman_ppdb/read/' . $pengumuman_pendaftaran->id) ?>"
+                                    <a href="<?php echo site_url('pengumuman_ppdb/read/' . $pengumuman_pendaftaran->id_pengumuman_pendaftaran) ?>"
                                         class="btn btn-info"><i class="fa fa-eye"></i></a>
-                                    <a href="<?php echo site_url('pengumuman_ppdb/update/' . $pengumuman_pendaftaran->id) ?>"
+                                    <a href="<?php echo site_url('pengumuman_ppdb/update/' . $pengumuman_pendaftaran->id_pengumuman_pendaftaran) ?>"
                                         class="btn btn-warning"><i class="fa fa-edit"></i></a>
-                                    <a data-href="<?php echo site_url('pengumuman_ppdb/delete/' . $pengumuman_pendaftaran->id) ?>"
+                                    <a data-href="<?php echo site_url('pengumuman_ppdb/delete/' . $pengumuman_pendaftaran->id_pengumuman_pendaftaran) ?>"
                                         class="btn btn-danger hapus-data-ta"><i class="fa fa-trash"></i></a>
                                 </td>
                             </tr>
@@ -120,7 +120,7 @@
                         <div class="row">
                             <li>
                                 <?= $ta->tahun_ajaran; ?> &nbsp;
-                                <a data-href="<?php echo site_url('tahun_ajaran/delete/' . $ta->id) ?>"
+                                <a data-href="<?php echo site_url('tahun_ajaran/delete/' . $ta->id_tahun_ajaran) ?>"
                                     class="btn btn-danger btn-xs hapus-data float-right"><i class="fa fa-trash"></i></a>
                             </li>
                         </div>

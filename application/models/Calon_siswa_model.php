@@ -7,7 +7,8 @@ class Calon_siswa_model extends CI_Model
 {
 
     public $table = 'calon_siswa';
-    public $id = 'id';
+    // public $id = 'id';
+    public $id = 'id_calon_siswa';
     public $order = 'DESC';
 
     function __construct()
@@ -20,7 +21,7 @@ class Calon_siswa_model extends CI_Model
     {
         $datapost = $_POST;
         $this->datatables->select(
-            'calon_siswa.id, calon_siswa.nama, calon_siswa.tempat_lahir, calon_siswa.tanggal_lahir, calon_siswa.jenis_kelamin, calon_siswa.agama, calon_siswa.anak_ke, 
+            'calon_siswa.id_calon_siswa, calon_siswa.nama, calon_siswa.tempat_lahir, calon_siswa.tanggal_lahir, calon_siswa.jenis_kelamin, calon_siswa.agama, calon_siswa.anak_ke, 
             calon_siswa.jumlah_saudara, calon_siswa.no_hp_siswa, calon_siswa.alamat_siswa, 
             calon_siswa.asal_sekolah, calon_siswa.alamat_sekolah, calon_siswa.nama_ayah, 
             calon_siswa.nama_ibu, calon_siswa.alamat_orang_tua, calon_siswa.no_hp_orang_tua, calon_siswa.id_tahun_ajaran, tahun_ajaran.tahun_ajaran, 
@@ -32,7 +33,7 @@ class Calon_siswa_model extends CI_Model
             // tanggungan_anak,
         );
         $this->datatables->from('calon_siswa');
-        $this->datatables->join('tahun_ajaran', 'calon_siswa.id_tahun_ajaran = tahun_ajaran.id');
+        $this->datatables->join('tahun_ajaran', 'calon_siswa.id_tahun_ajaran = tahun_ajaran.id_tahun_ajaran');
         if($datapost['id_tahun_ajaran'] != "All" && $datapost['id_tahun_ajaran'] != 0) {
             $this->datatables->where('calon_siswa.id_tahun_ajaran', $datapost['id_tahun_ajaran']);
         }
@@ -41,7 +42,7 @@ class Calon_siswa_model extends CI_Model
             <a href="' . site_url('pendaftaran/read/$1') . '" class="btn btn-info"><i class="fa fa-eye"></i></a> 
             <a href="' . site_url('pendaftaran/cetak/$1') . '" target="_blank" class="btn btn-success"><i class="fa fa-print"></i></a> 
             <a href="' . site_url('pendaftaran/update/$1') . '" class="btn btn-warning"><i class="fa fa-edit"></i></a> 
-            <a data-href="' . site_url('pendaftaran/delete/$1') . '" class="btn btn-danger hapus-data"><i class="fa fa-trash"></i></a>', 'id');
+            <a data-href="' . site_url('pendaftaran/delete/$1') . '" class="btn btn-danger hapus-data"><i class="fa fa-trash"></i></a>', 'id_calon_siswa');
         return $this->datatables->generate();
     }
 
@@ -49,7 +50,7 @@ class Calon_siswa_model extends CI_Model
     {
         $this_user = $this->session->userdata('user');
         $this->datatables->select(
-            'calon_siswa.id, calon_siswa.nama, calon_siswa.tempat_lahir, calon_siswa.tanggal_lahir, calon_siswa.jenis_kelamin, calon_siswa.agama, calon_siswa.anak_ke, 
+            'calon_siswa.id_calon_siswa, calon_siswa.nama, calon_siswa.tempat_lahir, calon_siswa.tanggal_lahir, calon_siswa.jenis_kelamin, calon_siswa.agama, calon_siswa.anak_ke, 
             calon_siswa.jumlah_saudara, calon_siswa.no_hp_siswa, calon_siswa.alamat_siswa, 
             calon_siswa.asal_sekolah, calon_siswa.alamat_sekolah, calon_siswa.nama_ayah, 
             calon_siswa.nama_ibu, calon_siswa.alamat_orang_tua, calon_siswa.no_hp_orang_tua, calon_siswa.id_tahun_ajaran, tahun_ajaran.tahun_ajaran, 
@@ -62,12 +63,12 @@ class Calon_siswa_model extends CI_Model
         );
         $this->datatables->from('calon_siswa');
         //add this line for join
-        $this->datatables->join('tahun_ajaran', 'calon_siswa.id_tahun_ajaran = tahun_ajaran.id');
+        $this->datatables->join('tahun_ajaran', 'calon_siswa.id_tahun_ajaran = tahun_ajaran.id_tahun_ajaran');
         $this->datatables->where('calon_siswa.id_user', $this_user['id_user']);
         $this->datatables->add_column('action',
             '<a href="' . site_url('pendaftaran/read_mine/$1') . '" target="_blank" class="btn btn-info"><i class="fa fa-eye"></i></a>
             <a href="' . site_url('pendaftaran/cetak/$1') . '" target="_blank" class="btn btn-success"><i class="fa fa-print"></i></a>'
-            , 'id');
+            , 'id_calon_siswa');
         return $this->datatables->generate();
     }
 
@@ -112,7 +113,7 @@ class Calon_siswa_model extends CI_Model
     // get total rows
     function total_rows($q = NULL)
     {
-        $this->db->like('id', $q);
+        $this->db->like('id_calon_siswa', $q);
         $this->db->or_like('nama', $q);
         $this->db->or_like('tempat_lahir', $q);
         $this->db->or_like('tanggal_lahir', $q);

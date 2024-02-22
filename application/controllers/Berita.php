@@ -56,7 +56,7 @@ class Berita extends CI_Controller
         $row = $this->Berita_model->get_by_id($id);
         if ($row) {
             $data = array(
-                'id' => $row->id,
+                'id_berita' => $row->id_berita,
                 'judul' => $row->judul,
                 'penulis' => $row->penulis,
                 'konten' => $row->konten,
@@ -94,6 +94,7 @@ class Berita extends CI_Controller
 
         $data['judul'] = 'Tambah Berita';
         $data['user'] = $this->session->userdata('user');
+        $data['penulis'] = $this->session->userdata('user');
 
         $this->load->view('templates/header', $data);
         $this->load->view('berita/berita_form', $data);
@@ -161,7 +162,7 @@ class Berita extends CI_Controller
             $data = array(
                 'button' => 'Update',
                 'action' => site_url('berita/update_action'),
-                'id' => set_value('id', $row->id),
+                'id_berita' => set_value('id_berita', $row->id_berita),
                 'judul' => set_value('judul', $row->judul),
                 'penulis' => set_value('penulis', $row->penulis),
                 'konten' => set_value('konten', $row->konten),
@@ -188,11 +189,11 @@ class Berita extends CI_Controller
         $this->_rules();
 
         if ($this->form_validation->run() == FALSE) {
-            $urls = 'update/' . $this->update($this->input->post('id', TRUE));
+            $urls = 'update/' . $this->update($this->input->post('id_berita', TRUE));
             redirect(site_url($urls));
         } else {
             // Pre proses, cek pratinjau atau terbitkan
-            $id = $this->input->post('id', TRUE);
+            $id = $this->input->post('id_berita', TRUE);
 
             if (isset($_POST['terbitkan_update'])) {
                 $this_berita = $this->Berita_model->get_by_id_arr($id);

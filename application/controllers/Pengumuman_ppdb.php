@@ -60,7 +60,7 @@ class Pengumuman_ppdb extends CI_Controller
         $row = $this->Pengumuman_pendaftaran_model->get_by_id($id);
         if ($row) {
             $data = array(
-                'id' => $row->id,
+                'id_pengumuman_pendaftaran' => $row->id_pengumuman_pendaftaran,
                 'title' => $row->judul,
                 'deskripsi' => $row->deskripsi,
                 'id_tahun_ajaran' => $row->id_tahun_ajaran,
@@ -88,7 +88,7 @@ class Pengumuman_ppdb extends CI_Controller
         $data = array(
             'button' => 'Create',
             'action' => site_url('pengumuman_ppdb/create_action'),
-            'id' => set_value('id'),
+            'id_pengumuman_pendaftaran' => set_value('id_pengumuman_pendaftaran'),
             'title' => set_value('title'),
             'deskripsi' => set_value('deskripsi'),
             'id_tahun_ajaran' => set_value('id_tahun_ajaran'),
@@ -139,7 +139,7 @@ class Pengumuman_ppdb extends CI_Controller
 			$data = array(
                 'button' => 'Update',
                 'action' => site_url('pengumuman_ppdb/update_action'),
-                'id' => set_value('id', $row->id),
+                'id_pengumuman_pendaftaran' => set_value('id_pengumuman_pendaftaran', $row->id_pengumuman_pendaftaran),
                 'title' => set_value('title', $row->judul),
                 'deskripsi' => set_value('deskripsi', $row->deskripsi),
                 'id_tahun_ajaran' => set_value('id_tahun_ajaran', $row->id_tahun_ajaran),
@@ -162,16 +162,30 @@ class Pengumuman_ppdb extends CI_Controller
         }
     }
 
+    public function delete_files($id){
+        $row = $this->Pengumuman_pendaftaran_model->get_by_id($id);
+        unlink('./assets/berkas_pengumuman/' . $row->link_files);
+
+        $data = array( 'link_files' => '' );
+
+        $this->Pengumuman_pendaftaran_model->update($id, $data);
+        $this->session->set_flashdata('success', 'dihapus');
+        
+        $red = base_url('pengumuman_ppdb/update/'.$id);
+        redirect($red);
+    }
     public function update_action()
     {
         $this->_rules();
-        $id = $this->input->post('id', TRUE);
+        $id = $this->input->post('id_pengumuman_pendaftaran', TRUE);
         $row = $this->Pengumuman_pendaftaran_model->get_by_id($id);
         if ($this->form_validation->run() == FALSE) {
-            $this->update($this->input->post('id', TRUE));
+            // $this->update($this->input->post('id_pengumuman_pendaftaran', TRUE));
+            $red = base_url('pengumuman_ppdb/update/'.$id);
+            redirect($red);
         } else {
             $nama_file = $this->do_upload();
-            // var_dump($nama_file); die;
+            // var_dump($nama_file); 
             if ($nama_file != "" && $row->link_files != "") {
 				// delete old files
 				unlink('./assets/berkas_pengumuman/' . $row->link_files);
@@ -182,12 +196,13 @@ class Pengumuman_ppdb extends CI_Controller
                 'judul' => $this->input->post('title', TRUE),
                 'deskripsi' => $this->input->post('deskripsi', TRUE),
                 'id_tahun_ajaran' => $this->input->post('id_tahun_ajaran', TRUE),
-                'tgl_update' => $this->input->post('tgl_update', TRUE),
+                'tgl_update' => date('Y-m-d h:i:s a', time()),
                 'is_active' => $this->input->post('is_active', TRUE),
                 'link_files' => $nama_file,
             );
+            // var_dump($data); die;
 
-            $this->Pengumuman_pendaftaran_model->update($this->input->post('id', TRUE), $data);
+            $this->Pengumuman_pendaftaran_model->update($id, $data);
             $this->session->set_flashdata('success', 'Diubah');
             redirect(site_url('pengumuman_ppdb'));
         }

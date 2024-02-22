@@ -7,7 +7,8 @@ class Berita_model extends CI_Model
 {
 
     public $table = 'berita';
-    public $id = 'id';
+    // public $id = 'id';
+    public $id = 'id_berita';
     public $order = 'DESC';
 
     function __construct()
@@ -44,7 +45,7 @@ class Berita_model extends CI_Model
     // get total rows
     function total_rows($q = NULL)
     {
-        $this->db->like('id', $q);
+        $this->db->like('id_berita', $q);
         $this->db->or_like('judul', $q);
         $this->db->or_like('penulis', $q);
         $this->db->or_like('konten', $q);
@@ -60,7 +61,7 @@ class Berita_model extends CI_Model
     function get_limit_data($limit, $start = 0, $q = NULL)
     {
         $this->db->order_by($this->id, $this->order);
-        $this->db->like('id', $q);
+        $this->db->like('id_berita', $q);
         $this->db->or_like('judul', $q);
         $this->db->or_like('penulis', $q);
         $this->db->or_like('konten', $q);
@@ -94,18 +95,18 @@ class Berita_model extends CI_Model
 
     public function getBeritaPrev($id)
     {
-        return $this->db->get_where('berita', ['id <' => $id])->row_array();
+        return $this->db->get_where('berita', ['id_berita <' => $id])->row_array();
     }
 
     public function getBeritaNext($id)
     {
-        return $this->db->get_where('berita', ['id >' => $id])->row_array();
+        return $this->db->get_where('berita', ['id_berita >' => $id])->row_array();
     }
 
     public function getBeritaRandom()
     {
 
-        $this->db->order_by('id', 'RANDOM');
+        $this->db->order_by('id_berita', 'RANDOM');
         $q = $this->db->get('berita', 5);
         return $q->result_array();
     }

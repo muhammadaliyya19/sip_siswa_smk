@@ -8,6 +8,9 @@ class Dashboard extends CI_Controller
 	{
 		parent::__construct();
 		$this->load->model('Users_model');
+		$this->load->model('Tahun_ajaran_model');
+		$this->load->model('Pengumuman_pendaftaran_model');
+		$this->load->model('Calon_siswa_model');
 	}
 
 	public function index()
@@ -23,16 +26,16 @@ class Dashboard extends CI_Controller
 
 	public function getDashboardData()
 	{
-		// $sum_produks = $this->Produk_model->total_rows();
 		$sum_users = $this->Users_model->total_rows();
-		// $sum_orders = $this->Pesanan_model->total_rows();
-		// $sum_order_finish = $this->Pesanan_model->total_orderFinish_rows();
-
+		$sum_tahun_ajaran = $this->Tahun_ajaran_model->total_rows();
+		$sum_geombang_pendaftaran = $this->Pengumuman_pendaftaran_model->total_rows();
+		$sum_siswa_mendaftar = $this->Calon_siswa_model->total_rows();
+		
 		$result = [
-			'sum_admin_user' => $sum_users
-			// 'sum_orders' => $sum_orders,
-			// 'sum_order_finished' => $sum_order_finish,
-			// 'products' => $sum_produks
+			'sum_all_users' => $sum_users,
+			'sum_tahun_ajaran' => $sum_tahun_ajaran,
+			'sum_geombang_pendaftaran' => $sum_geombang_pendaftaran,
+			'sum_siswa_mendaftar' => $sum_siswa_mendaftar,
 		];
 
 		echo json_encode($result);

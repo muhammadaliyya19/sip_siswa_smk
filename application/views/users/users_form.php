@@ -52,7 +52,7 @@
                                     </select>
                                 <?php echo form_error('level', '<small style="color:red">', '</small>') ?>
                             </div>
-                            <input type="hidden" name="id" value="<?php echo $id; ?>" />
+                            <input type="hidden" name="id_users" value="<?php echo $id_users; ?>" />
                             <button type="submit" class="btn btn-primary btn-block">SUBMIT</button>
                         </form>
                     </div>

@@ -143,7 +143,7 @@
                                     <label for="id_tahun_ajaran">Tahun Ajaran</label>
                                     <select class="form-control" name="id_tahun_ajaran" id="id_tahun_ajaran" required>
                                     <?php foreach ($tahun_ajarans as $ta): ?>
-                                        <option <?=$id_tahun_ajaran == $ta->id ? "selected" : ""; ?> value="<?= $ta->id; ?>">
+                                        <option <?=$id_tahun_ajaran == $ta->id_tahun_ajaran ? "selected" : ""; ?> value="<?= $ta->id_tahun_ajaran; ?>">
                                             <?= $ta->tahun_ajaran; ?>
                                         </option>
                                     <?php endforeach; ?>
@@ -203,6 +203,12 @@
                                     <label for="berkas_persyaratan">Berkas Persyaratan (zip / rar)</label>
                                     <input type="file" class="form-control" name="berkas_persyaratan" id="berkas_persyaratan"/>
                                 <?php echo form_error('berkas_persyaratan', '<small style="color:red">', '</small>') ?>
+                                <?php if ($berkas != "") :?>
+                                        <a href="<?= base_url('assets/berkas_daftar/' . $berkas);?>" target="_blank">Link Berkas Terdahulu</a> &nbsp;
+                                        <a href="<?= base_url('pendaftaran/delete_files/' . $id_calon_siswa);?>" class="text-danger" >Hapus Berkas</a>
+                                    <?php else :?>
+                                        <a href="#">Belum Ada Berkas</a>
+                                    <?php endif;?>
                             </div>
                             <!-- Modal for nilai ijazah -->
                             <div class="modal fade" id="nilaiIjazahModal" tabindex="-1" role="dialog"
@@ -275,7 +281,7 @@
                             <!--  -->
                             <input type="hidden" name="id_user" id="id_user" placeholder="Id User"
                                 value="<?php echo $id_user; ?>" />
-                            <input type="hidden" name="id" value="<?php echo $id; ?>" />
+                            <input type="hidden" name="id_calon_siswa" value="<?php echo $id_calon_siswa; ?>" />
                             <input type="hidden" name="from" value="<?php echo "admin"; ?>" />
                             <button type="button" class="btn btn-primary btn-block mb-3" data-toggle="modal"
                                 data-target="#nilaiIjazahModal">Isi nilai ijazah</button><br>

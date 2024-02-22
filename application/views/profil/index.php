@@ -24,12 +24,12 @@
                                     <form action="<?php echo base_url('profil/ubah_profil_action') ?>" method="POST">
                                         <div class="form-group <?php if(form_error('id')) echo 'has-error'?>">
                                           <label for="id_user">ID user</label>
-                                          <input readonly="" type="text" id="id" name="id" class="form-control" value="<?php echo $profil['id'] ?>">
+                                          <input readonly="" type="text" id="id" name="id_users" class="form-control" value="<?php echo $profil['id_users'] ?>">
                                           <?php echo form_error('id', '<small style="color:red">','</small>') ?>
                                       </div>
                                       <div class="form-group <?php if(form_error('nama')) echo 'has-error'?>">
                                          <label for="nama_user">Nama user</label>
-                                         <input type="text" id="nama_user" name="nama" class="form-control nama_user" placeholder="Nama user" value="<?php echo $profil['nama'] ?>">
+                                         <input type="text" id="nama" name="nama" class="form-control nama_user" placeholder="Nama user" value="<?php echo $profil['nama'] ?>">
                                          <?php echo form_error('nama', '<small style="color:red">','</small>') ?>
                                      </div>
                                      <div class="form-group <?php if(form_error('username')) echo 'has-error'?>">

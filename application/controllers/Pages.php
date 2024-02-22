@@ -110,8 +110,8 @@ class Pages extends CI_Controller
 	public function baca($slug)
 	{
 		$data['this_berita'] = $this->Berita_model->getBeritaBySlug($slug);
-		$data['prev_berita'] = $this->Berita_model->getBeritaPrev($data['this_berita']['id']);
-		$data['next_berita'] = $this->Berita_model->getBeritaNext($data['this_berita']['id']);
+		$data['prev_berita'] = $this->Berita_model->getBeritaPrev($data['this_berita']['id_berita']);
+		$data['next_berita'] = $this->Berita_model->getBeritaNext($data['this_berita']['id_berita']);
 		$data['random_berita'] = $this->Berita_model->getBeritaRandom();
 		$data['user'] = $this->session->userdata('user');
 		$this->load->view('templates/home_header', $data);

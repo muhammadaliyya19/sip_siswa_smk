@@ -47,11 +47,11 @@
                                     <?php echo $users->level == '0' ? "Admin" : "Calon Siswa" ?>
                                 </td>
                                 <td>
-                                    <a href="<?php echo site_url('users/read/' . $users->id) ?>" class="btn btn-info"><i
+                                    <a href="<?php echo site_url('users/read/' . $users->id_users) ?>" class="btn btn-info"><i
                                             class="fa fa-eye"></i></a>
-                                    <a href="<?php echo site_url('users/update/' . $users->id) ?>"
+                                    <a href="<?php echo site_url('users/update/' . $users->id_users) ?>"
                                         class="btn btn-warning"><i class="fa fa-edit"></i></a>
-                                    <a data-href="<?php echo site_url('users/delete/' . $users->id) ?>"
+                                    <a data-href="<?php echo site_url('users/delete/' . $users->id_users) ?>"
                                         class="btn btn-danger hapus-data"><i class="fa fa-trash"></i></a>
                                 </td>
                             </tr>

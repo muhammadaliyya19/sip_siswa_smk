@@ -7,7 +7,8 @@ class Visi_misi_model extends CI_Model
 {
 
     public $table = 'visi_misi';
-    public $id = 'id';
+    // public $id = 'id';
+    public $id = 'id_visi_misi';
     public $order = 'DESC';
 
     function __construct()

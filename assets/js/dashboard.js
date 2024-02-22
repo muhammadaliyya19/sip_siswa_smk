@@ -1,6 +1,27 @@
 $(function () {
 
     'use strict';
+
+    $.ajax({
+			url: 'http://localhost/sip_siswa_smk/dashboard/getDashboardData',
+			method: 'get',
+			dataType: 'json',
+			success: function (data) {
+        console.log(data)
+				$('#sum_admin_user').html(data.sum_all_users);
+				$('#sum_tahun_ajaran').html(data.sum_tahun_ajaran);
+				$('#sum_geombang_pendaftaran').html(data.sum_geombang_pendaftaran);
+				$('#sum_siswa_mendaftar').html(data.sum_siswa_mendaftar);
+				// $('.nama_trayek').html(data['trayek']['jurusan']);
+				// $('.jarak_trayek').html(data['trayek']['jarak'] + ' Km');
+				// for (var i = 0; i < data['rute'].length; i++) {
+				// 	// console.log(data['rute'][i]);
+				// 	$('#holder_rute').append(									
+				// 		'<li class="list-group-item">'+data['rute'][i]['nama_jalan']+'</li>'
+				// 		);
+				// }
+			}
+		});
   
     /* ChartJS
      * -------

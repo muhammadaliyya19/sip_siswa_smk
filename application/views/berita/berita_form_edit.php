@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-xs-12">
         <form action="<?php echo $action; ?>" method="post" target="_blank" enctype="multipart/form-data">
-        <input type="hidden" name="id" value="<?=$this_berita['id']; ?>">
+        <input type="hidden" name="id_berita" value="<?=$this_berita['id_berita']; ?>">
         <div class="box box-primary">
             <div class="box-header with-border">
                 <div class="pull-left">
@@ -38,7 +38,7 @@
 						</div>
                         <div class="form-group">
 							<label for="penulis">Penulis</label>
-							<input type="text" class="form-control" id="penulis" placeholder="Nama Penulis..." name="penulis" required="" value="<?=$this_berita['penulis'] ?>">      
+							<input type="text" class="form-control" id="penulis" placeholder="Nama Penulis..." name="penulis" required="" value="<?=$this_berita['penulis'] ?>" readonly>      
 							<small class="form-text text-danger"><?php echo form_error('penulis'); ?></small>
 						</div>
 						 <div class="form-group">

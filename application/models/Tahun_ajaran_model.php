@@ -7,7 +7,8 @@ class Tahun_ajaran_model extends CI_Model
 {
 
     public $table = 'tahun_ajaran';
-    public $id = 'id';
+    // public $id = 'id';
+    public $id = 'id_tahun_ajaran';
     public $order = 'DESC';
 
     function __construct()
@@ -32,7 +33,7 @@ class Tahun_ajaran_model extends CI_Model
     // get total rows
     function total_rows($q = NULL)
     {
-        $this->db->like('id', $q);
+        $this->db->like('id_tahun_ajaran', $q);
         $this->db->or_like('tahun_ajaran', $q);
         $this->db->from($this->table);
         return $this->db->count_all_results();

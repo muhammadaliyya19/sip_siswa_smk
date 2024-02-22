@@ -7,7 +7,8 @@ class Nilai_ijazah_model extends CI_Model
 {
 
     public $table = 'nilai_ijazah';
-    public $id = 'id';
+    // public $id = 'id';
+    public $id = 'id_nilai_ijazah';
     public $order = 'DESC';
 
     function __construct()

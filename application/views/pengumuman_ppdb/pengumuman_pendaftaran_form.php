@@ -46,11 +46,11 @@
                                     <!-- <input type="text" class="form-control" name="id_tahun_ajaran" id="id_tahun_ajaran" placeholder="Id Tahun Ajaran" value="<?php echo $id_tahun_ajaran; ?>" /> -->
                                 <select class="form-control" id="id_tahun_ajaran" name="id_tahun_ajaran">
                                     <?php foreach ($tahun_ajarans as $ta): ?>
-                                        <!-- <option value="<?= $ta->id; ?>"><?= $ta->$tahun_ajaran; ?></option> -->
-                                        <option <?php if ($ta->id == $id_tahun_ajaran) {
+                                        <!-- <option value="<?= $ta->id_tahun_ajaran; ?>"><?= $ta->$tahun_ajaran; ?></option> -->
+                                        <option <?php if ($ta->id_tahun_ajaran == $id_tahun_ajaran) {
                                             echo "selected ";
                                         } ?>
-                                            value="<?= $ta->id; ?>"><?= $ta->tahun_ajaran; ?></option>
+                                            value="<?= $ta->id_tahun_ajaran; ?>"><?= $ta->tahun_ajaran; ?></option>
                                     <?php endforeach; ?>
                                 </select>
                                 <?php echo form_error('id_tahun_ajaran', '<small style="color:red">', '</small>') ?>
@@ -69,7 +69,8 @@
                                     <label for="berkas_pendukung">Berkas Hasil Seleksi (zip / rar)</label>
                                     <input type="file" class="form-control" name="berkas_pendukung" id="berkas_pendukung"/>
                                     <?php if ($link_files != "") :?>
-                                        <a href="<?= base_url('assets/berkas_pengumuman/' . $link_files);?>" target="_blank">Link Berkas Terdahulu</a>
+                                        <a href="<?= base_url('assets/berkas_pengumuman/' . $link_files);?>" target="_blank">Link Berkas Terdahulu</a> &nbsp;
+                                        <a href="<?= base_url('pengumuman_ppdb/delete_files/' . $id_pengumuman_pendaftaran);?>" class="text-danger" >Hapus Berkas</a>
                                     <?php else :?>
                                         <a href="#">Belum Ada Berkas</a>
                                     <?php endif;?>
@@ -81,7 +82,7 @@
                             <input type="text" class="form-control" name="tgl_update" id="tgl_update" placeholder="Tgl Update" value="<?php echo $tgl_update; ?>" />
                             <?php echo form_error('tgl_update', '<small style="color:red">', '</small>') ?>
                         </div> -->
-                            <input type="hidden" name="id" value="<?php echo $id; ?>" />
+                            <input type="hidden" name="id_pengumuman_pendaftaran" value="<?php echo $id_pengumuman_pendaftaran; ?>" />
                             <button type="submit" class="btn btn-primary btn-block">SUBMIT</button>
                         </form>
                     </div>

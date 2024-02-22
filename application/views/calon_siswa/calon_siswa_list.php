@@ -16,7 +16,7 @@
                         <select name="id_tahun_ajaran" id="id_tahun_ajaran" required>
                             <option value="All">All</option>
                             <?php foreach ($tahun_ajarans as $ta): ?>
-                                <option value="<?= $ta->id; ?>">
+                                <option value="<?= $ta->id_tahun_ajaran; ?>">
                                     <?= $ta->tahun_ajaran; ?>
                                 </option>
                             <?php endforeach; ?>
@@ -146,7 +146,7 @@
                 },
                 columns: [
                     {
-                        "data": "id",
+                        "data": "id_calon_siswa",
                         "orderable": false
                     }, { "data": "nama" }, { "data": "tempat_lahir" }, { "data": "tanggal_lahir" }, 
                     { 
@@ -181,7 +181,7 @@
                         "data": "berkas",
                         "render": function (data) {
                             if (data == "") {
-
+                                return `Belum ada berkas`;
                             } else {
                                 return `<a href="<?=base_url('assets/berkas_daftar/');?>` + data + ` " target="_blank">Link Berkas Terupload</a>`;
                             }
@@ -259,7 +259,7 @@
                     },
                     columns: [
                         {
-                            "data": "id",
+                            "data": "id_calon_siswa",
                             "orderable": false
                         }, { "data": "nama" }, { "data": "tempat_lahir" }, { "data": "tanggal_lahir" }, 
                         { 
@@ -293,8 +293,9 @@
                         { 
                             "data": "berkas",
                             "render": function (data) {
-                                if (data == "") {
-    
+                                console.log(data)
+                                if (data == '') {
+                                    return `Belum ada berkas`;
                                 } else {
                                     return `<a href="<?=base_url('assets/berkas_daftar/');?>` + data + ` " target="_blank">Link Berkas Terupload</a>`;
                                 }

@@ -37,15 +37,15 @@
 			<td><?php echo $berita->penulis ?></td>
 			<td><?php echo $berita->konten ?></td>
 			<td>
-                <img src="<?=base_url('assets/img/berita/').$berita->foto_utama; ?>" alt="main_image">
+                <img src="<?=base_url('assets/img/berita/').$berita->foto_utama; ?>" alt="main_image" style="max-width: 300px;">
                 <?php echo "<br>" . $berita->foto_utama ?>
             </td>
 			<td><?php echo $berita->tag ?></td>
 			<td><?php echo $berita->slug ?></td>
 			<td><?php echo $berita->tanggal ?></td><td>
-                        <a href="<?php echo site_url('berita/read/' . $berita->id ) ?>" class="btn btn-info"><i class="fa fa-eye"></i></a>
-                        <a href="<?php echo site_url('berita/update/' . $berita->id ) ?>" class="btn btn-warning"><i class="fa fa-edit"></i></a>
-                        <a data-href="<?php echo site_url('berita/delete/' . $berita->id ) ?>" class="btn btn-danger hapus-data"><i class="fa fa-trash"></i></a>
+                        <a href="<?php echo site_url('berita/read/' . $berita->id_berita ) ?>" class="btn btn-info"><i class="fa fa-eye"></i></a>
+                        <a href="<?php echo site_url('berita/update/' . $berita->id_berita ) ?>" class="btn btn-warning"><i class="fa fa-edit"></i></a>
+                        <a data-href="<?php echo site_url('berita/delete/' . $berita->id_berita ) ?>" class="btn btn-danger hapus-data"><i class="fa fa-trash"></i></a>
                      </td>
 		</tr>
                             <?php

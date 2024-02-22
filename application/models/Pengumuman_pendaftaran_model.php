@@ -7,7 +7,8 @@ class Pengumuman_pendaftaran_model extends CI_Model
 {
 
     public $table = 'pengumuman_pendaftaran';
-    public $id = 'id';
+    // public $id = 'id';
+    public $id = 'id_pengumuman_pendaftaran';
     public $order = 'DESC';
 
     function __construct()
@@ -21,7 +22,7 @@ class Pengumuman_pendaftaran_model extends CI_Model
         $this->db->select('pp.*, ta.tahun_ajaran');
         $this->db->from($this->table . ' pp');
         $this->db->order_by($this->id, $this->order);
-        $this->db->join('tahun_ajaran ta', 'ta.id=pp.id_tahun_ajaran', 'left');
+        $this->db->join('tahun_ajaran ta', 'ta.id_tahun_ajaran=pp.id_tahun_ajaran', 'left');
         return $this->db->get()->result();
     }
 
@@ -30,7 +31,7 @@ class Pengumuman_pendaftaran_model extends CI_Model
         $this->db->select('pp.*, ta.tahun_ajaran');
         $this->db->from($this->table . ' pp');
         $this->db->order_by($this->id, $this->order);
-        $this->db->join('tahun_ajaran ta', 'ta.id=pp.id_tahun_ajaran', 'left');
+        $this->db->join('tahun_ajaran ta', 'ta.id_tahun_ajaran=pp.id_tahun_ajaran', 'left');
         $this->db->where("pp.is_active" , 1);
         if ($req == "registrasi") {
             $this->db->where("pp.link_files" , "");
@@ -45,7 +46,7 @@ class Pengumuman_pendaftaran_model extends CI_Model
     {
         $this->db->select('pp.*, ta.tahun_ajaran');
         $this->db->from($this->table . ' pp');
-        $this->db->join('tahun_ajaran ta', 'ta.id=pp.id_tahun_ajaran', 'left');
+        $this->db->join('tahun_ajaran ta', 'ta.id_tahun_ajaran=pp.id_tahun_ajaran', 'left');
         $this->db->where('pp.' .$this->id, $id);
         return $this->db->get()->row();
     }
@@ -53,7 +54,7 @@ class Pengumuman_pendaftaran_model extends CI_Model
     // get total rows
     function total_rows($q = NULL)
     {
-        $this->db->like('id', $q);
+        $this->db->like('id_pengumuman_pendaftaran', $q);
         $this->db->or_like('judul', $q);
         $this->db->or_like('deskripsi', $q);
         $this->db->or_like('id_tahun_ajaran', $q);
@@ -65,11 +66,11 @@ class Pengumuman_pendaftaran_model extends CI_Model
     // get data with limit and search
     function get_limit_data($limit, $start = 0, $q = NULL)
     {
-        $this->db->select('pp.*, ta.id as ta_id, ta.tahun_ajaran');
+        $this->db->select('pp.*, ta.id_tahun_ajaran as ta_id, ta.tahun_ajaran');
         $this->db->from($this->table . ' pp');
-        $this->db->join('tahun_ajaran ta', 'ta.id=pp.id_tahun_ajaran', 'left');
+        $this->db->join('tahun_ajaran ta', 'ta.id_tahun_ajaran=pp.id_tahun_ajaran', 'left');
         $this->db->order_by('pp.' . $this->id, $this->order);
-        $this->db->like('pp.id', $q);
+        $this->db->like('pp.id_pengumuman_pendaftaran', $q);
         $this->db->or_like('pp.judul', $q);
         $this->db->or_like('pp.deskripsi', $q);
         $this->db->or_like('pp.id_tahun_ajaran', $q);

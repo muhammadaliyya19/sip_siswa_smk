@@ -227,9 +227,9 @@
                                 value="<?php echo $this_pengumuman->id_tahun_ajaran; ?>" />
                             <input type="hidden" name="id_user" id="id_user" placeholder="Id User"
                                 value="<?php echo $user['id_user']; ?>" />
-                            <input type="hidden" name="id" value="<?php echo $id; ?>" />
+                            <input type="hidden" name="id_calon_siswa" value="<?php echo $id_calon_siswa; ?>" />
                             <input type="hidden" name="from" value="<?php echo "cs"; ?>" />
-                            <input type="hidden" name="id_pengumuman" value="<?php echo $this_pengumuman->id; ?>" />
+                            <input type="hidden" name="id_pengumuman_pendaftaran" value="<?php echo $this_pengumuman->id_pengumuman_pendaftaran; ?>" />
                             <button type="submit" class="btn btn-primary btn-block">SUBMIT</button>
                         </form>
                     </div>

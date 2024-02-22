@@ -74,7 +74,7 @@
 						</div>
 						<div class="form-group">
 							<label for="penulis">Penulis</label>
-							<input type="text" class="form-control" id="penulis" placeholder="Nama Penulis..." name="penulis" required="">    
+							<input type="text" class="form-control" id="penulis" placeholder="Nama Penulis..." name="penulis" required="" readonly value="<?=$penulis["nama_user"];?>">
 							<small class="form-text text-danger"><?php echo form_error('penulis'); ?></small>
 						</div>
 						 <div class="form-group">

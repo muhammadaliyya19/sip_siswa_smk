@@ -54,7 +54,7 @@ class Nilai_ijazah extends CI_Controller
         $row = $this->Nilai_ijazah_model->get_by_id($id);
         if ($row) {
             $data = array(
-                'id' => $row->id,
+                'id_nilai_ijazah' => $row->id_nilai_ijazah,
                 'id_user' => $row->id_user,
                 'nisn' => $row->nisn,
                 'nilai_bhs_indo' => $row->nilai_bhs_indo,
@@ -82,7 +82,7 @@ class Nilai_ijazah extends CI_Controller
         $data = array(
             'button' => 'Create',
             'action' => site_url('nilai_ijazah/create_action'),
-            'id' => set_value('id'),
+            'id_nilai_ijazah' => set_value('id_nilai_ijazah'),
             'id_user' => set_value('id_user'),
             'nisn' => set_value('nisn'),
             'nilai_bhs_indo' => set_value('nilai_bhs_indo'),
@@ -135,7 +135,7 @@ class Nilai_ijazah extends CI_Controller
             $data = array(
                 'button' => 'Update',
                 'action' => site_url('nilai_ijazah/update_action'),
-                'id' => set_value('id', $row->id),
+                'id_nilai_ijazah' => set_value('id_nilai_ijazah', $row->id_nilai_ijazah),
                 'id_user' => set_value('id_user', $row->id_user),
                 'nisn' => set_value('nisn', $row->nisn),
                 'nilai_bhs_indo' => set_value('nilai_bhs_indo', $row->nilai_bhs_indo),
@@ -164,7 +164,7 @@ class Nilai_ijazah extends CI_Controller
         $this->_rules();
 
         if ($this->form_validation->run() == FALSE) {
-            $this->update($this->input->post('id', TRUE));
+            $this->update($this->input->post('id_nilai_ijazah', TRUE));
         } else {
             $data = array(
                 'id_user' => $this->input->post('id_user', TRUE),
@@ -178,7 +178,7 @@ class Nilai_ijazah extends CI_Controller
                 'keterangan' => $this->input->post('keterangan', TRUE),
             );
 
-            $this->Nilai_ijazah_model->update($this->input->post('id', TRUE), $data);
+            $this->Nilai_ijazah_model->update($this->input->post('id_nilai_ijazah', TRUE), $data);
             $this->session->set_flashdata('success', 'Diubah');
             redirect(site_url('nilai_ijazah'));
         }
@@ -210,7 +210,7 @@ class Nilai_ijazah extends CI_Controller
         $this->form_validation->set_rules('nilai_akhir', 'nilai akhir', 'trim|required|numeric');
         $this->form_validation->set_rules('keterangan', 'keterangan', 'trim|required');
 
-        $this->form_validation->set_rules('id', 'id', 'trim');
+        $this->form_validation->set_rules('id_nilai_ijazah', 'id', 'trim');
         $this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');
     }
 

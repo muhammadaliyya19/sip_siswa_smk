@@ -43,7 +43,7 @@ class Auth extends CI_Controller
 					$gambar = $user['level'] == 0 ? 'man.png' : 'student.png';
 					$session = [
 						'login' => true,
-						'id_user' => $user['id'],
+						'id_user' => $user['id_users'],
 						'nama_user' => $user['nama'],
 						'gbr_user' => $gambar,
 						'level' => $user['level'] == 0 ? 'Administrator' : 'Calon Siswa'

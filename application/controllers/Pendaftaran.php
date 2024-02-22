@@ -61,7 +61,7 @@ class Pendaftaran extends CI_Controller
 		$nilai_ijazah = $this->Nilai_ijazah_model->get_by_csid($id);
 		if ($row) {
 			$data = array(
-				'id' => $row->id,
+				'id_calon_siswa' => $row->id_calon_siswa,
 				'nama' => $row->nama,
 				'tempat_lahir' => $row->tempat_lahir,
 				'tanggal_lahir' => $row->tanggal_lahir,
@@ -112,10 +112,11 @@ class Pendaftaran extends CI_Controller
 	public function read_mine($id)
 	{
 		$row = $this->Calon_siswa_model->get_by_id($id);
+		$tahun_ajaran = $this->Tahun_ajaran_model->get_by_id($row->id_tahun_ajaran);
 		$nilai_ijazah = $this->Nilai_ijazah_model->get_by_csid($id);
 		if ($row) {
 			$data = array(
-				'id' => $row->id,
+				'id_calon_siswa' => $row->id_calon_siswa,
 				'nama' => $row->nama,
 				'tempat_lahir' => $row->tempat_lahir,
 				'tanggal_lahir' => $row->tanggal_lahir,
@@ -132,9 +133,11 @@ class Pendaftaran extends CI_Controller
 				'alamat_orang_tua' => $row->alamat_orang_tua,
 				'no_hp_orang_tua' => $row->no_hp_orang_tua,
 				'id_tahun_ajaran' => $row->id_tahun_ajaran,
+				'tahun_ajaran' => $tahun_ajaran,
 				'id_user' => $row->id_user,
 				'status_lolos' => $row->status_lolos,
 				'nisn' => $row->nisn,
+				'berkas' => $row->berkas,
 
 				'nilai_bhs_indo' => $nilai_ijazah->nilai_bhs_indo,
 				'nilai_bhs_inggris' => $nilai_ijazah->nilai_bhs_inggris,
@@ -167,7 +170,7 @@ class Pendaftaran extends CI_Controller
 		$data = array(
 			'button' => 'Create',
 			'action' => site_url('pendaftaran/create_action'),
-			'id' => set_value('id'),
+			'id_calon_siswa' => set_value('id_calon_siswa'),
 			'nama' => set_value('nama'),
 			'tempat_lahir' => set_value('tempat_lahir'),
 			'tanggal_lahir' => set_value('tanggal_lahir'),
@@ -192,6 +195,7 @@ class Pendaftaran extends CI_Controller
 			'id_user' => set_value('id_user'),
 			'status_lolos' => set_value('status_lolos'),
 			'nisn' => set_value('nisn'),
+			'berkas' => '',
 
 			// for nilai ijazah
 			'nilai_bhs_indo' => set_value('nilai_bhs_indo'),
@@ -219,7 +223,7 @@ class Pendaftaran extends CI_Controller
 		$data = array(
 			'button' => 'Create',
 			'action' => site_url('pendaftaran/create_action'),
-			'id' => set_value('id'),
+			'id_calon_siswa' => set_value('id_calon_siswa'),
 			'nama' => set_value('nama'),
 			'tempat_lahir' => set_value('tempat_lahir'),
 			'tanggal_lahir' => set_value('tanggal_lahir'),
@@ -356,7 +360,7 @@ class Pendaftaran extends CI_Controller
 			$data = array(
 				'button' => 'Update',
 				'action' => site_url('pendaftaran/update_action'),
-				'id' => set_value('id', $row->id),
+				'id_calon_siswa' => set_value('id', $row->id_calon_siswa),
 				'nama' => set_value('nama', $row->nama),
 				'tempat_lahir' => set_value('tempat_lahir', $row->tempat_lahir),
 				'tanggal_lahir' => set_value('tanggal_lahir', $row->tanggal_lahir),
@@ -407,13 +411,26 @@ class Pendaftaran extends CI_Controller
 		}
 	}
 
+	public function delete_files($id){
+        $row = $this->Calon_siswa_model->get_by_id($id);
+        unlink('./assets/berkas_daftar/' . $row->berkas);
+
+        $data = array( 'berkas' => '' );
+
+        $this->Calon_siswa_model->update($id, $data);
+        $this->session->set_flashdata('success', 'dihapus');
+        
+        $red = base_url('pendaftaran/update/'.$id);
+        redirect($red);
+    }
+
 	public function update_action()
 	{
 		$this->_rules();
-        $id = $this->input->post('id', TRUE);
+        $id = $this->input->post('id_calon_siswa', TRUE);
 		$row = $this->Calon_siswa_model->get_by_id($id);
 		if ($this->form_validation->run() == FALSE) {
-			$this->update($this->input->post('id', TRUE));
+			$this->update($this->input->post('id_calon_siswa', TRUE));
 		} else {
 			$nama_file = $this->do_upload();
 			if ($nama_file != "") {
@@ -449,7 +466,24 @@ class Pendaftaran extends CI_Controller
 				// 'tanggungan_anak' => $this->input->post('tanggungan_anak',TRUE),
 			);
 
-			$this->Calon_siswa_model->update($this->input->post('id', TRUE), $data);
+			$this->Calon_siswa_model->update($id, $data);
+			
+			// Update nilai ijazah
+			$nilai_ijazah = $this->Nilai_ijazah_model->get_by_csid($id);
+			$nilai_ijazah_baru = array(
+				'id_user' => $data['id_user'],
+				'id_calon_siswa' => $id,
+				'nisn' => $this->input->post('nisn', TRUE),
+				'nilai_bhs_indo' => $this->input->post('nilai_bhs_indo', TRUE),
+                'nilai_bhs_inggris' => $this->input->post('nilai_bhs_inggris', TRUE),
+                'nilai_ipa' => $this->input->post('nilai_ipa', TRUE),
+                'nilai_ips' => $this->input->post('nilai_ips', TRUE),
+                'nilai_mtk' => $this->input->post('nilai_mtk', TRUE),
+                'nilai_akhir' => $this->input->post('nilai_akhir', TRUE),
+                'keterangan' => $this->input->post('keterangan', TRUE),
+			);
+			$this->Nilai_ijazah_model->update($nilai_ijazah->id_nilai_ijazah, $nilai_ijazah_baru);
+			
 			$this->session->set_flashdata('success', 'Diubah');
 			redirect(site_url('pendaftaran'));
 		}
@@ -553,8 +587,14 @@ class Pendaftaran extends CI_Controller
 
 	public function excel($id_ta)
 	{
+		$namaFile = "";
+		if($id_ta != "All"){
+			$ta = $this->Tahun_ajaran_model->get_by_id($id_ta);
+			$namaFile = "Data Calon Siswa Tahun Ajaran ".$ta->tahun_ajaran.".xls";
+		} else {
+			$namaFile = "Data Calon Siswa Semua Tahun Ajaran.xls";
+		}
 		$this->load->helper('exportexcel');
-		$namaFile = "Data Calon Siswa.xls";
 		$judul = "calon_siswa";
 		$tablehead = 0;
 		$tablebody = 1;

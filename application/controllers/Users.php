@@ -55,7 +55,7 @@ class Users extends CI_Controller
         $row = $this->Users_model->get_by_id($id);
         if ($row) {
             $data = array(
-                'id' => $row->id,
+                'id_users' => $row->id_users,
                 'nama' => $row->nama,
                 'username' => $row->username,
                 'password' => $row->password,
@@ -82,7 +82,7 @@ class Users extends CI_Controller
             $row_user = $this->Users_model->get_by_id($row->id_user);
             if ($row_user) {
                 $data = array(
-                    'id' => $row_user->id,
+                    'id_user' => $row_user->id_users,
                     'nama' => $row_user->nama,
                     'username' => $row_user->username,
                     'password' => $row_user->password,
@@ -110,7 +110,7 @@ class Users extends CI_Controller
         $data = array(
             'button' => 'Create',
             'action' => site_url('users/create_action'),
-            'id' => set_value('id'),
+            'id_users' => set_value('id_users'),
             'nama' => set_value('nama'),
             'username' => set_value('username'),
             'password' => set_value('password'),
@@ -153,7 +153,7 @@ class Users extends CI_Controller
             $data = array(
                 'button' => 'Update',
                 'action' => site_url('users/update_action'),
-                'id' => set_value('id', $row->id),
+                'id_users' => set_value('id_users', $row->id_users),
                 'nama' => set_value('nama', $row->nama),
                 'username' => set_value('username', $row->username),
                 'password' => set_value('password', $row->password),
