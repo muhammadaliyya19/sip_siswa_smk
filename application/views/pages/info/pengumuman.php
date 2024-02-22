@@ -76,7 +76,7 @@ function konversiTanggal($tanggal)
                             <?php else : ?>
                                 <td>
                                     <?php if ($p->link_files != ""): ?>
-                                        <a href="<?= $p->link_files ?>" target="_blank" class="text-primary">Click here!</a>
+                                        <a href="<?= base_url('assets/berkas_pengumuman/' . $p->link_files);?> ?>" target="_blank" class="text-primary">Click here!</a>
                                     <?php else : ?>
                                         <a href="#" class="text-primary">No Files Uploaded</a>
                                     <?php endif; ?>                                
