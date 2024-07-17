@@ -59,6 +59,7 @@ class Pendaftaran extends CI_Controller
 	{
 		$row = $this->Calon_siswa_model->get_by_id($id);
 		$nilai_ijazah = $this->Nilai_ijazah_model->get_by_csid($id);
+		$tahun_ajaran = $this->Tahun_ajaran_model->get_by_id($row->id_tahun_ajaran);
 		if ($row) {
 			$data = array(
 				'id_calon_siswa' => $row->id_calon_siswa,
@@ -90,6 +91,8 @@ class Pendaftaran extends CI_Controller
 				'nilai_mtk' => $nilai_ijazah->nilai_mtk,
 				'nilai_akhir' => $nilai_ijazah->nilai_akhir,
 				'keterangan' => $nilai_ijazah->keterangan,
+				'tahun_ajaran' => $tahun_ajaran,
+				'berkas' => $row->berkas,
 				// 'berat_badan' => $row->berat_badan,
 				// 'tinggi_badan' => $row->tinggi_badan,
 				// 'gol_darah' => $row->gol_darah,

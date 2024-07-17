@@ -108,7 +108,11 @@ class Tahun_ajaran extends CI_Controller
     public function create_action_add(){
         $last_ta = $this->Tahun_ajaran_model->get_last();
         // var_dump($last_ta); die;
-        $ta = (int)$last_ta->tahun_ajaran + 1;
+        if ((int)$last_ta->tahun_ajaran == 0) {
+            $ta = (int)date("Y");
+        } else {
+            $ta = (int)$last_ta->tahun_ajaran + 1;
+        }
         $data = array(
             'tahun_ajaran' => $ta,
         );
