@@ -40,6 +40,11 @@
                                 <textarea rows="5" placeholder="deskripsi..." class="form-control" name="deskripsi" id="deskripsi" required=""><?=$deskripsi; ?></textarea>
                                 <small class="form-text text-danger"><?php echo form_error('deskripsi'); ?></small>
                             </div>
+                            <div class="form-group <?php if (form_error('notes')) echo 'has-error' ?> ">
+                                <label for="nama">Catatan Pengumuman</label>
+                                <textarea rows="5" placeholder="catatan..." class="form-control" name="notes" id="notes" required=""><?=$notes; ?></textarea>
+                                <small class="form-text text-danger"><?php echo form_error('notes'); ?></small>
+                            </div>
                             <div class="form-group <?php if (form_error('id_tahun_ajaran'))
                                 echo 'has-error' ?> ">
                                     <label for="int">Id Tahun Ajaran</label>

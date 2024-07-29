@@ -1,5 +1,5 @@
 <!-- Start Page Title Area -->
-<?php 
+<h5?php 
 function konversiTanggal($tanggal)
 {
     $myDateTime = DateTime::createFromFormat('Y-m-d', $tanggal);
@@ -102,10 +102,18 @@ function konversiTanggal($tanggal)
             <div class="modal-body">
                 <div class="card" style="height: 100%;">
                     <div class="card-body">
-                        <div class="text-center mb-4">
-                            <img class="img-circle"
-                            src="<?= base_url('assets/img/user/student.png'); ?>"
-                            alt="Angkot picture" style="height:200px; width:auto;">
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 text-left">
+                                <div class="text-center mb-4">
+                                    <img class="img-circle"
+                                    src="<?= base_url('assets/img/user/student.png'); ?>"
+                                    alt="Angkot picture" style="height:200px; width:auto;">
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6">
+                                <h4 class="text-center"> Pengumuman Kelolosan </h4>
+                                <p class="text-justify" id="catatan_pengumuman"> - </p>
+                            </div>
                         </div>
                         <div class="row">
                             <div class="col-lg-12 col-md-8 text-right">
@@ -173,7 +181,10 @@ function konversiTanggal($tanggal)
                             });
                             $('#body-kelolosan').html(body_table)
                         }
-
+                        if (data.data_pengumuman != null && data.data_pengumuman.notes != "") {
+                            $('#catatan_pengumuman').html("");
+                            $('#catatan_pengumuman').html(data.data_pengumuman.notes);
+                        }
                     } else {
                         let msg = data.message == 'Data kelolosan calon siswa not found' ? "Data belum diproses atau belum ada pengumuman." : data.message;
                         alert("Failed get data. Terjadi kesalahan : " + msg)

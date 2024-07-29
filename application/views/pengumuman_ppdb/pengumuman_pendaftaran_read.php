@@ -34,6 +34,12 @@
                                 </td>
                             </tr>
                             <tr>
+                                <td>Catatan</td>
+                                <td>
+                                    <?php echo $notes; ?>
+                                </td>
+                            </tr>
+                            <tr>
                                 <td>Id Tahun Ajaran / Tahun Ajaran</td>
                                 <td>
                                     <?php echo $id_tahun_ajaran . " | " . $tahun_ajaran; ?>
