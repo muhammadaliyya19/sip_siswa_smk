@@ -209,7 +209,7 @@ class Calon_siswa_model extends CI_Model
         $this->db->join('tahun_ajaran', 'calon_siswa.id_tahun_ajaran = tahun_ajaran.id_tahun_ajaran');
         // $this->db->get('calon_siswa');
         $this->db->where('calon_siswa.id_tahun_ajaran', $tahun_ajarID);
-        $this->db->where('calon_siswa.status_lolos = 0');
+        $this->db->where('calon_siswa.status_lolos != 0');
         // $this->datatables->add_column('action',
         //     '<a href="#" class="btn btn-success info-user" data-idsiswa = "$1"><i class="fa fa-info-circle"></i></a> 
         //     <a href="' . site_url('pendaftaran/read/$1') . '" class="btn btn-info"><i class="fa fa-eye"></i></a> 
