@@ -198,18 +198,54 @@
                             <input type="text" class="form-control" name="tanggungan_anak" id="tanggungan_anak" placeholder="Tanggungan Anak" value="<?php echo $tanggungan_anak; ?>" />
                             <?php echo form_error('tanggungan_anak', '<small style="color:red">', '</small>') ?>
                         </div> -->
+                        <div class="form-group <?php if (form_error('scan_ijazah'))
+                            echo 'has-error' ?> ">
+                                <label for="scan_ijazah">Scan Ijazah * ( jpeg, jpg, png, pdf | Max 5MB )</label>
+                                <input type="file" class="form-control" name="scan_ijazah" id="scan_ijazah"/>
+                            <?php echo form_error('scan_ijazah', '<small style="color:red">', '</small>') ?>
+                            <?php if ($berkas_ijazah != "") :?>
+                                    <a href="<?= base_url('assets/berkas_daftar/' . $berkas_ijazah);?>" target="_blank">Link Ijazah Terupload</a> &nbsp;
+                                    <a href="<?= base_url('pendaftaran/delete_files/' . $id_calon_siswa."/ijazah");?>" class="text-danger" >Hapus Ijazah</a>
+                                <?php else :?>
+                                    <a href="#">Belum Ada Ijazah</a>
+                                <?php endif;?>
+                        </div>
+                        <div class="form-group <?php if (form_error('scan_skhun'))
+                            echo 'has-error' ?> ">
+                                <label for="scan_skhun">Scan SKHUN / Transkrip Nilai * ( jpeg, jpg, png, pdf | Max 5MB )</label>
+                                <input type="file" class="form-control" name="scan_skhun" id="scan_skhun"/>
+                            <?php echo form_error('scan_skhun', '<small style="color:red">', '</small>') ?>
+                            <?php if ($berkas_skhun != "") :?>
+                                    <a href="<?= base_url('assets/berkas_daftar/' . $berkas_skhun);?>" target="_blank">Link SKHUN Terupload</a> &nbsp;
+                                    <a href="<?= base_url('pendaftaran/delete_files/' . $id_calon_siswa."/skhun");?>" class="text-danger" >Hapus SKHUN</a>
+                                <?php else :?>
+                                    <a href="#">Belum Ada SKHUN</a>
+                                <?php endif;?>
+                        </div>
+                        <div class="form-group <?php if (form_error('pasfoto'))
+                            echo 'has-error' ?> ">
+                                <label for="pasfoto">PasFoto Berwarna * ( jpeg, jpg, png, pdf | Max 5MB )</label>
+                                <input type="file" class="form-control" name="pasfoto" id="pasfoto"/>
+                            <?php echo form_error('pasfoto', '<small style="color:red">', '</small>') ?>
+                            <?php if ($pasfoto != "") :?>
+                                    <a href="<?= base_url('assets/berkas_daftar/' . $pasfoto);?>" target="_blank">Link Foto Terupload</a> &nbsp;
+                                    <a href="<?= base_url('pendaftaran/delete_files/' . $id_calon_siswa."/pasfoto");?>" class="text-danger" >Hapus Foto</a>
+                                <?php else :?>
+                                    <a href="#">Belum Ada Foto</a>
+                                <?php endif;?>
+                        </div>
                         <div class="form-group <?php if (form_error('berkas_persyaratan'))
-                                echo 'has-error' ?> ">
-                                    <label for="berkas_persyaratan">Berkas Persyaratan (zip / rar)</label>
-                                    <input type="file" class="form-control" name="berkas_persyaratan" id="berkas_persyaratan"/>
-                                <?php echo form_error('berkas_persyaratan', '<small style="color:red">', '</small>') ?>
-                                <?php if ($berkas != "") :?>
-                                        <a href="<?= base_url('assets/berkas_daftar/' . $berkas);?>" target="_blank">Link Berkas Terdahulu</a> &nbsp;
-                                        <a href="<?= base_url('pendaftaran/delete_files/' . $id_calon_siswa);?>" class="text-danger" >Hapus Berkas</a>
-                                    <?php else :?>
-                                        <a href="#">Belum Ada Berkas</a>
-                                    <?php endif;?>
-                            </div>
+                            echo 'has-error' ?> ">
+                                <label for="berkas_persyaratan">Berkas Persyaratan Lainnya ( zip / rar | Max 10MB )</label>
+                                <input type="file" class="form-control" name="berkas_persyaratan" id="berkas_persyaratan"/>
+                            <?php echo form_error('berkas_persyaratan', '<small style="color:red">', '</small>') ?>
+                            <?php if ($berkas != "") :?>
+                                    <a href="<?= base_url('assets/berkas_daftar/' . $berkas);?>" target="_blank">Link Berkas Terdahulu</a> &nbsp;
+                                    <a href="<?= base_url('pendaftaran/delete_files/' . $id_calon_siswa."/lainnya");?>" class="text-danger" >Hapus Berkas</a>
+                                <?php else :?>
+                                    <a href="#">Belum Ada Berkas</a>
+                                <?php endif;?>
+                        </div>
                             <!-- Modal for nilai ijazah -->
                             <div class="modal fade" id="nilaiIjazahModal" tabindex="-1" role="dialog"
                                 aria-hidden="true">

@@ -93,6 +93,9 @@ class Pendaftaran extends CI_Controller
 				'keterangan' => $nilai_ijazah->keterangan,
 				'tahun_ajaran' => $tahun_ajaran,
 				'berkas' => $row->berkas,
+				'scan_ijazah' => $row->scan_ijazah,
+				'scan_skhun' => $row->scan_skhun,
+				'pasfoto' => $row->pasfoto,
 				// 'berat_badan' => $row->berat_badan,
 				// 'tinggi_badan' => $row->tinggi_badan,
 				// 'gol_darah' => $row->gol_darah,
@@ -141,6 +144,9 @@ class Pendaftaran extends CI_Controller
 				'status_lolos' => $row->status_lolos,
 				'nisn' => $row->nisn,
 				'berkas' => $row->berkas,
+				'scan_ijazah' => $row->scan_ijazah,
+				'scan_skhun' => $row->scan_skhun,
+				'pasfoto' => $row->pasfoto,
 
 				'nilai_bhs_indo' => $nilai_ijazah->nilai_bhs_indo,
 				'nilai_bhs_inggris' => $nilai_ijazah->nilai_bhs_inggris,
@@ -266,6 +272,7 @@ class Pendaftaran extends CI_Controller
 		);
 
 		$data['this_pengumuman'] = $this->Pengumuman_pendaftaran_model->get_by_id($id);
+		$data['this_pengumuman']->id_pengumuman = $id;
 		$data['judul'] = 'Pendaftaran Calon Siswa Baru';
 		$data['user'] = $this->session->userdata('user');
 		$this->load->view('templates/header', $data);
@@ -290,7 +297,53 @@ class Pendaftaran extends CI_Controller
 			}
 		} else {
 			// upload berkas kelengkapan
-			$nama_file = $this->do_upload();
+			$nama_file = $this->do_upload("berkas_lainnya");
+			$nama_file_ijazah = $this->do_upload("scan_ijazah");
+			$nama_file_skhun = $this->do_upload("scan_skhun");
+			$nama_file_pasfoto = $this->do_upload("pasfoto");
+
+			var_dump($nama_file);
+			var_dump($nama_file);
+			echo "<br>";
+			echo "<br>";
+			var_dump($nama_file_ijazah);
+			echo "<br>";
+			echo "<br>";
+			var_dump($nama_file_skhun);
+			echo "<br>";
+			echo "<br>";
+			var_dump($nama_file_pasfoto);
+
+			$err_upload = array();
+			if (gettype($nama_file) != "string") {
+				array_push($err_upload, array('berkas_lainnya'=> $nama_file["error"]));
+			}
+			if (gettype($nama_file_ijazah) != "string") {
+				array_push($err_upload, array('scan_ijazah'=> $nama_file_ijazah["error"]));
+			}
+			if (gettype($nama_file_skhun) != "string") {
+				array_push($err_upload, array('scan_skhun'=> $nama_file_skhun["error"]));
+			}
+			if (gettype($nama_file_pasfoto) != "string") {
+				array_push($err_upload, array('pasfoto'=> $nama_file_pasfoto["error"]));
+			}
+
+			if (count($err_upload) > 0) {
+				$msg_ = "";
+				foreach($err_upload as $key => $value) {
+					$msg_ .= " ".$key. " Error : ". $value. "<br>";
+				}
+				$msg_ = 'Gagal Upload file '.$msg_;
+				$this->session->set_flashdata('error', $msg_);
+				if ($from_req == "admin") {
+					$this->create();
+					// redirect(site_url('pendaftaran/create'));
+				} else {
+					$id_pengumuman = $this->input->post('id_pengumuman', TRUE);
+					$this->apply($id_pengumuman);
+					// redirect(site_url('pendaftaran/apply/' . $id_pengumuman));
+				}
+			}
 
 			// prepare data calon siswa
 			$data = array(
@@ -314,6 +367,9 @@ class Pendaftaran extends CI_Controller
 				'status_lolos' => 0,
 				'nisn' => $this->input->post('nisn', TRUE),
 				'berkas' => $nama_file,
+				'scan_ijazah' => $nama_file_ijazah,
+				'scan_skhun' => $nama_file_skhun,
+				'pasfoto' => $nama_file_pasfoto,
 				// 'berat_badan' => $this->input->post('berat_badan',TRUE),
 				// 'tinggi_badan' => $this->input->post('tinggi_badan',TRUE),
 				// 'gol_darah' => $this->input->post('gol_darah',TRUE),
@@ -383,7 +439,10 @@ class Pendaftaran extends CI_Controller
 				'id_user' => set_value('id_user', $row->id_user),
 				'status_lolos' => set_value('status_lolos', $row->status_lolos),
 				'nisn' => set_value('nisn', $row->nisn),
-				'berkas' => set_value('erkas', $row->berkas),
+				'berkas' => set_value('berkas', $row->berkas),
+				'berkas_ijazah' => $row->scan_ijazah,
+				'berkas_skhun' => $row->scan_skhun,
+				'pasfoto' => $row->pasfoto,
 
 				'nilai_bhs_indo' => $nilai_ijazah->nilai_bhs_indo,
 				'nilai_bhs_inggris' => $nilai_ijazah->nilai_bhs_inggris,
@@ -414,11 +473,25 @@ class Pendaftaran extends CI_Controller
 		}
 	}
 
-	public function delete_files($id){
+	public function delete_files($id, $berkas){
         $row = $this->Calon_siswa_model->get_by_id($id);
-        unlink('./assets/berkas_daftar/' . $row->berkas);
-
-        $data = array( 'berkas' => '' );
+		$data;
+		if ($berkas == "ijazah") {
+			unlink('./assets/berkas_daftar/' . $row->scan_ijazah);
+			$data = array( 'scan_ijazah' => '' );
+		}
+		if ($berkas == "skhun") {
+			unlink('./assets/berkas_daftar/' . $row->scan_skhun);
+			$data = array( 'scan_skhun' => '' );
+		}
+		if ($berkas == "pasfoto") {
+			unlink('./assets/berkas_daftar/' . $row->pasfoto);
+			$data = array( 'pasfoto' => '' );
+		}
+		if ($berkas == "lainnya") {
+			unlink('./assets/berkas_daftar/' . $row->berkas);
+			$data = array( 'berkas' => '' );
+		}
 
         $this->Calon_siswa_model->update($id, $data);
         $this->session->set_flashdata('success', 'dihapus');
@@ -435,13 +508,49 @@ class Pendaftaran extends CI_Controller
 		if ($this->form_validation->run() == FALSE) {
 			$this->update($this->input->post('id_calon_siswa', TRUE));
 		} else {
-			$nama_file = $this->do_upload();
-			if ($nama_file != "") {
-				// delete old files
-				unlink('./assets/berkas_daftar/' . $row['berkas']);
-			} else {
-				$nama_file = $row->berkas;
+			// re upload berkas kelengkapan
+			$nama_file = $this->do_upload("berkas_lainnya");
+			$nama_file_ijazah = $this->do_upload("scan_ijazah");
+			$nama_file_skhun = $this->do_upload("scan_skhun");
+			$nama_file_pasfoto = $this->do_upload("pasfoto");
+
+			$err_upload = array();
+			if (gettype($nama_file) != "string") {
+				array_push($err_upload, array('berkas_lainnya'=> $nama_file["error"]));
 			}
+			if (gettype($nama_file_ijazah) != "string") {
+				array_push($err_upload, array('scan_ijazah'=> $nama_file_ijazah["error"]));
+			}
+			if (gettype($nama_file_skhun) != "string") {
+				array_push($err_upload, array('scan_skhun'=> $nama_file_skhun["error"]));
+			}
+			if (gettype($nama_file_pasfoto) != "string") {
+				array_push($err_upload, array('pasfoto'=> $nama_file_pasfoto["error"]));
+			}
+
+			if (count($err_upload) > 0) {
+				$msg_ = "";
+				foreach($err_upload as $key => $value) {
+					$msg_ .= " ".$key. " Error : ". $value. "<br>";
+				}
+				$msg_ = 'Gagal Upload file '.$msg_;
+				$this->session->set_flashdata('error', $msg_);
+				if ($from_req == "admin") {
+					$this->create();
+					// redirect(site_url('pendaftaran/create'));
+				} else {
+					$id_pengumuman = $this->input->post('id_pengumuman', TRUE);
+					$this->apply($id_pengumuman);
+					// redirect(site_url('pendaftaran/apply/' . $id_pengumuman));
+				}
+			} else {
+				if ($nama_file != "") { unlink('./assets/berkas_daftar/' . $row->berkas); } else { $nama_file = $row->berkas; }
+				if ($nama_file_ijazah != "") { unlink('./assets/berkas_daftar/' . $row->scan_ijazah); } else { $nama_file_ijazah = $row->scan_ijazah; }
+				if ($nama_file_skhun != "") { unlink('./assets/berkas_daftar/' . $row->scan_skhun); } else { $nama_file_skhun = $row->scan_skhun; }
+				if ($nama_file_pasfoto != "") { unlink('./assets/berkas_daftar/' . $row->pasfoto); } else { $nama_file_pasfoto = $row->pasfoto; }
+			}
+
+
 			$data = array(
 				'nama' => $this->input->post('nama', TRUE),
 				'tempat_lahir' => $this->input->post('tempat_lahir', TRUE),
@@ -463,6 +572,10 @@ class Pendaftaran extends CI_Controller
 				'status_lolos' => $this->input->post('status_lolos', TRUE),
 				'nisn' => $this->input->post('nisn', TRUE),
 				'berkas' => $nama_file,
+				'scan_ijazah' => $nama_file_ijazah,
+				'scan_skhun' => $nama_file_skhun,
+				'pasfoto' => $nama_file_pasfoto,
+
 				// 'tinggi_badan' => $this->input->post('tinggi_badan',TRUE),
 				// 'gol_darah' => $this->input->post('gol_darah',TRUE),
 				// 'penghasilan_orang_tua' => $this->input->post('penghasilan_orang_tua',TRUE),
@@ -700,37 +813,123 @@ class Pendaftaran extends CI_Controller
 		exit();
 	}
 
-	public function do_upload()
+	public function do_upload($berkas_up)
     {
-		if ($_FILES['berkas_persyaratan']['size'] > 0) {
-			$this->load->library('upload');
-			$path = $_FILES['berkas_persyaratan']['name'];
-			$ext = pathinfo($path, PATHINFO_EXTENSION);
-			$files = $_FILES['berkas_persyaratan'];
-			// var_dump($files);
-			// echo "<br><br><br>";
-			// var_dump($ext);
-			// die;
-			$config = $this->set_upload_options();
-			$config['file_name'] = time() . '-' . date("Y-m-d-his") . '.'. $ext;
-			$this->upload->initialize($config);
-			$res = $this->upload->do_upload('berkas_persyaratan');
-			echo $res . "Berkas sukses diupload<br><br>";
-			echo $config['file_name'];
-			// die;
-			return $config['file_name'];
-		} else {
-			return "";
+		if ($berkas_up == "berkas_lainnya"){
+			if ($_FILES['berkas_persyaratan']['size'] > 0) {
+				$this->load->library('upload');
+				$path = $_FILES['berkas_persyaratan']['name'];
+				$ext = pathinfo($path, PATHINFO_EXTENSION);
+				$files = $_FILES['berkas_persyaratan'];
+				// var_dump($files);
+				// echo "<br><br><br>";
+				var_dump($ext);
+				// die;
+				$config = $this->set_upload_options_other();
+				$config['file_name'] = time() . '-' . date("Y-m-d-his") . '.'. $ext;
+				$this->upload->initialize($config);
+				$res = $this->upload->do_upload('berkas_persyaratan');
+				if(!$res){
+					$err = array('error' => $this->upload->display_errors());
+					return $err;
+				} else {
+					return $config['file_name'];
+				}
+			} else {
+				return "";
+			}
+		} else if ($berkas_up == "scan_ijazah"){
+			if ($_FILES['scan_ijazah']['size'] > 0) {
+				$this->load->library('upload');
+				$path = $_FILES['scan_ijazah']['name'];
+				$ext = pathinfo($path, PATHINFO_EXTENSION);
+				$files = $_FILES['scan_ijazah'];
+				// var_dump($files);
+				// echo "<br><br><br>";
+				// var_dump($ext);
+				// die;
+				$config = $this->set_upload_options_three_main();
+				$config['file_name'] = time() . '-' . date("Y-m-d-his") . '.'. $ext;
+				$this->upload->initialize($config);
+				$res = $this->upload->do_upload('scan_ijazah');
+
+				if(!$res){
+					$err = array('error' => $this->upload->display_errors());
+					return $err;
+				} else {
+					return $config['file_name'];
+				}
+			} else {
+				return "";
+			}
+		} else if ($berkas_up == "scan_skhun"){
+			if ($_FILES['scan_skhun']['size'] > 0) {
+				$this->load->library('upload');
+				$path = $_FILES['scan_skhun']['name'];
+				$ext = pathinfo($path, PATHINFO_EXTENSION);
+				$files = $_FILES['scan_skhun'];
+				// var_dump($files);
+				// echo "<br><br><br>";
+				// var_dump($ext);
+				// die;
+				$config = $this->set_upload_options_three_main();
+				$config['file_name'] = time() . '-' . date("Y-m-d-his") . '.'. $ext;
+				$this->upload->initialize($config);
+				$res = $this->upload->do_upload('scan_skhun');
+
+				if(!$res){
+					$err = array('error' => $this->upload->display_errors());
+					return $err;
+				} else {
+					return $config['file_name'];
+				}
+			} else {
+				return "";
+			}
+		} else if ($berkas_up == "pasfoto"){
+			if ($_FILES['pasfoto']['size'] > 0) {
+				$this->load->library('upload');
+				$path = $_FILES['pasfoto']['name'];
+				$ext = pathinfo($path, PATHINFO_EXTENSION);
+				$files = $_FILES['pasfoto'];
+				// var_dump($files);
+				// echo "<br><br><br>";
+				// var_dump($ext);
+				// die;
+				$config = $this->set_upload_options_three_main();
+				$config['file_name'] = time() . '-' . date("Y-m-d-his") . '.'. $ext;
+				$this->upload->initialize($config);
+				$res = $this->upload->do_upload('pasfoto');
+
+				if(!$res){
+					$err = array('error' => $this->upload->display_errors());
+					return $err;
+				} else {
+					return $config['file_name'];
+				}
+			} else {
+				return "";
+			}
 		}
     }
 
-    private function set_upload_options()
+    private function set_upload_options_three_main()
     {
         //upload an image options
         $config = array();
         $config['upload_path'] = './assets/berkas_daftar/';
-        $config['allowed_types'] = 'zip|7z|rar|tar|gz';
-        $config['max_size'] = '1200000';
+        $config['allowed_types'] = ['jpeg','jpg','png','pdf'];
+        $config['max_size'] = '5120'; //10MB
+        $config['overwrite'] = FALSE;
+        return $config;
+    }
+	private function set_upload_options_other()
+    {
+        //upload an image options
+        $config = array();
+        $config['upload_path'] = './assets/berkas_daftar/';
+        $config['allowed_types'] = ['application/zip','zip','rar','tar','gz', "application/x-zip-compressed","application/octet-stream","application/x-compress","application/x-compressed","multipart/x-zip"];
+        $config['max_size'] = '10240'; //10MB
         $config['overwrite'] = FALSE;
         return $config;
     }

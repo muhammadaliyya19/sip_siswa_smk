@@ -218,7 +218,37 @@
 								</td>
 							</tr>
 							<tr>
-								<td>Berkas</td>
+								<td>Ijazah</td>
+								<td>
+									<?php if ($scan_ijazah != "") :?>
+										<a href="<?= base_url('assets/berkas_daftar/' . $scan_ijazah);?>" target="_blank">Link Scan Ijazah</a> &nbsp;
+                                    <?php else :?>
+                                        <a href="#">Belum Ada Ijazah</a>
+                                    <?php endif;?>
+								</td>
+							</tr>
+							<tr>
+								<td>Skhun</td>
+								<td>
+									<?php if ($berkas != "") :?>
+										<a href="<?= base_url('assets/berkas_daftar/' . $scan_skhun);?>" target="_blank">Link Scan SKHUN</a> &nbsp;
+                                    <?php else :?>
+                                        <a href="#">Belum Ada SKHUN</a>
+                                    <?php endif;?>
+								</td>
+							</tr>
+							<tr>
+								<td>Pasfoto</td>
+								<td>
+									<?php if ($pasfoto != "") :?>
+										<a href="<?= base_url('assets/berkas_daftar/' . $pasfoto);?>" target="_blank">Link Pasfoto</a> &nbsp;
+                                    <?php else :?>
+                                        <a href="#">Belum Ada Pasfoto</a>
+                                    <?php endif;?>
+								</td>
+							</tr>
+							<tr>
+								<td>Berkas Lainnya</td>
 								<td>
 									<?php if ($berkas != "") :?>
 										<a href="<?= base_url('assets/berkas_daftar/' . $berkas);?>" target="_blank">Link Berkas Terupload</a> &nbsp;

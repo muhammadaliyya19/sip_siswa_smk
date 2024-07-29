@@ -25,7 +25,7 @@ class Calon_siswa_model extends CI_Model
             calon_siswa.jumlah_saudara, calon_siswa.no_hp_siswa, calon_siswa.alamat_siswa, 
             calon_siswa.asal_sekolah, calon_siswa.alamat_sekolah, calon_siswa.nama_ayah, 
             calon_siswa.nama_ibu, calon_siswa.alamat_orang_tua, calon_siswa.no_hp_orang_tua, calon_siswa.id_tahun_ajaran, tahun_ajaran.tahun_ajaran, 
-            calon_siswa. id_user, calon_siswa.status_lolos, calon_siswa.nisn,calon_siswa.berkas' 
+            calon_siswa. id_user, calon_siswa.status_lolos, calon_siswa.nisn,calon_siswa.berkas,calon_siswa.scan_ijazah,calon_siswa.scan_skhun,calon_siswa.pasfoto' 
             // berat_badan,
             // tinggi_badan,
             // gol_darah,
@@ -54,7 +54,7 @@ class Calon_siswa_model extends CI_Model
             calon_siswa.jumlah_saudara, calon_siswa.no_hp_siswa, calon_siswa.alamat_siswa, 
             calon_siswa.asal_sekolah, calon_siswa.alamat_sekolah, calon_siswa.nama_ayah, 
             calon_siswa.nama_ibu, calon_siswa.alamat_orang_tua, calon_siswa.no_hp_orang_tua, calon_siswa.id_tahun_ajaran, tahun_ajaran.tahun_ajaran, 
-            calon_siswa. id_user, calon_siswa.status_lolos, calon_siswa.nisn,calon_siswa.berkas' 
+            calon_siswa. id_user, calon_siswa.status_lolos, calon_siswa.nisn,calon_siswa.berkas,calon_siswa.scan_ijazah,calon_siswa.scan_skhun,calon_siswa.pasfoto' 
             // berat_badan,
             // tinggi_badan,
             // gol_darah,

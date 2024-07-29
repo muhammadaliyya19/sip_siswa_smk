@@ -117,12 +117,21 @@
                     { "data": "nisn" },
                     { 
                         "data": "berkas",
-                        "render": function (data) {
-                            if (data == "") {
-
-                            } else {
-                                return `<a href="<?=base_url('assets/berkas_daftar/');?>` + data + ` " target="_blank">Link Berkas Terupload</a>`;
-                            }
+                        "render": function (data, type, row) {
+                            let button = "";
+                            if (row.scan_ijazah != "") {
+                                button += `<a href="<?=base_url('assets/berkas_daftar/');?>` + row.scan_ijazah + ` " target="_blank"> Ijazah</a><br><br>`
+                            } else { button += `Belum Ada Ijazah<br><br>` }
+                            if (row.scan_skhun != "") {
+                                button += `<a href="<?=base_url('assets/berkas_daftar/');?>` + row.scan_skhun + ` " target="_blank">Skhun</a><br><br>`
+                            } else { button += `Belum Ada SKHUN<br><br>` }
+                            if (row.pasfoto != "") {
+                                button += `<a href="<?=base_url('assets/berkas_daftar/');?>` + row.pasfoto + ` " target="_blank">Pasfoto</a><br><br>`
+                            } else { button += `Belum Ada Pasfoto<br><br>` }
+                            if (row.berkas != "") {
+                                button += `<a href="<?=base_url('assets/berkas_daftar/');?>` + row.berkas + ` " target="_blank">Berkas Lainnya</a><br><br>`
+                            } else { button += `Belum Ada Berkas Lainnya<br><br>` }
+                            return button;
                         } 
                     },
                     // { "data": "id_user" }, 
