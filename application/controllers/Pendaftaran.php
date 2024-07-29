@@ -735,6 +735,37 @@ class Pendaftaran extends CI_Controller
         return $config;
     }
 
+	// get info lolos
+	public function getInfoLolos($id)
+    {
+        $row = $this->Pengumuman_pendaftaran_model->get_by_id($id);
+        $data = null;
+        if ($row) {
+			// var_dump($row); die;
+            $res_calon_siswa = $this->Calon_siswa_model->jsonFiltersByTahunAjar($row->id_tahun_ajaran);
+            if ($res_calon_siswa) {
+				// var_dump($res_calon_siswa); die;
+				$data = array(
+                    'results' => $res_calon_siswa,
+                    'data_pengumuman' => $row,
+                    'status' => 200,
+                    'message' => "Data found",
+                );
+            } else {
+                $data = array(
+                    'status' => 500,
+                    'message' => "Data kelolosan calon siswa not found",
+                );
+            }
+        } else {
+            $data = array(
+                'status' => 500,
+                'message' => "Data kelolosan calon siswa not found",
+            );
+        }
+        echo json_encode($data);
+    }
+
 }
 
 /* End of file Calon_siswa.php */

@@ -107,6 +107,9 @@
 </div>
 <!-- End Go Top Area -->
 
+<script src="<?php echo base_url() ?>assets/node_modules/@fortawesome/fontawesome-free/js/all.min.js"></script>
+<!-- Bootstrap 3.3.7 -->
+<script src="<?php echo base_url('assets/vendor/lte/') ?>bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 
 <!-- Jquery-3.5.1.Slim.Min.JS -->
 <script src="<?= base_url(''); ?>assets/front_pages/js/jquery-3.5.1.slim.min.js"></script>

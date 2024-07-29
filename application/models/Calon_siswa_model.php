@@ -197,6 +197,28 @@ class Calon_siswa_model extends CI_Model
         $this->db->delete($this->table);
     }
 
+    function jsonFiltersByTahunAjar($tahun_ajarID)
+    {
+        $this->db->select(
+            'calon_siswa.id_calon_siswa, calon_siswa.nama, calon_siswa.tempat_lahir, calon_siswa.tanggal_lahir, calon_siswa.jenis_kelamin, calon_siswa.agama, calon_siswa.anak_ke, 
+            calon_siswa.jumlah_saudara, calon_siswa.no_hp_siswa, calon_siswa.alamat_siswa, 
+            calon_siswa.asal_sekolah, calon_siswa.alamat_sekolah, calon_siswa.nama_ayah, 
+            calon_siswa.nama_ibu, calon_siswa.alamat_orang_tua, calon_siswa.no_hp_orang_tua, calon_siswa.id_tahun_ajaran, tahun_ajaran.tahun_ajaran, 
+            calon_siswa. id_user, calon_siswa.status_lolos, calon_siswa.nisn,calon_siswa.berkas' 
+        );
+        $this->db->join('tahun_ajaran', 'calon_siswa.id_tahun_ajaran = tahun_ajaran.id_tahun_ajaran');
+        // $this->db->get('calon_siswa');
+        $this->db->where('calon_siswa.id_tahun_ajaran', $tahun_ajarID);
+        $this->db->where('calon_siswa.status_lolos = 0');
+        // $this->datatables->add_column('action',
+        //     '<a href="#" class="btn btn-success info-user" data-idsiswa = "$1"><i class="fa fa-info-circle"></i></a> 
+        //     <a href="' . site_url('pendaftaran/read/$1') . '" class="btn btn-info"><i class="fa fa-eye"></i></a> 
+        //     <a href="' . site_url('pendaftaran/cetak/$1') . '" target="_blank" class="btn btn-success"><i class="fa fa-print"></i></a> 
+        //     <a href="' . site_url('pendaftaran/update/$1') . '" class="btn btn-warning"><i class="fa fa-edit"></i></a> 
+        //     <a data-href="' . site_url('pendaftaran/delete/$1') . '" class="btn btn-danger hapus-data"><i class="fa fa-trash"></i></a>', 'id_calon_siswa');
+        return $this->db->get('calon_siswa')->result();
+    }
+
 }
 
 /* End of file Calon_siswa_model.php */
