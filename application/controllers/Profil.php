@@ -17,6 +17,10 @@ class Profil extends CI_Controller
 		$data['user'] = $this->session->userdata('user');
 		$data['profil'] = $this->db->get_where('users', ['id_users' => $this->session->userdata('id_user')])->row_array();
 
+		if ($data['profil']['gambar'] == '') {
+			$data['profil']['gambar'] = $data['profil']['level'] == 0 ? 'man.png' : 'student.png';						
+		}
+
 		$this->load->view('templates/header', $data, FALSE);
 		$this->load->view('profil/index', $data, FALSE);
 		$this->load->view('templates/footer', $data, FALSE);
@@ -32,6 +36,11 @@ class Profil extends CI_Controller
 
 		if ($valid->run()) {
 			$this->Users_model->ubah_profil($this->input->post("id_users", true), $this->input->post());
+			$session = $this->session->userdata();
+			$session['nama_user'] 	= $this->input->post('nama');
+
+			$this->session->set_userdata($session);
+			$this->session->set_userdata('user', $session);
 			$this->session->set_flashdata('success', 'diubah');
 			redirect('profil', 'refresh');
 		} else {
@@ -41,10 +50,18 @@ class Profil extends CI_Controller
 
 	public function ubah_gambar_action()
 	{
-		delImage('user', $this->session->userdata('id_user'));
-		$this->db->set('gambar', _upload('gambar', 'profil', 'user'));
-		$this->db->where('id_user', $this->session->userdata('id_user'));
-		$this->db->update('user');
+		$this->delImage('users', $this->session->userdata('id_user'));
+		$filename = $this->_upload('gambar', 'profil', 'user');
+		$this->db->set('gambar', $filename);
+		$this->db->where('id_users', $this->session->userdata('id_user'));
+		$this->db->update('users');
+
+		$session = $this->session->userdata();
+		$session['gbr_user'] 	= $filename;
+		$session['gambar'] 		= $filename;
+
+		$this->session->set_userdata($session);
+		$this->session->set_userdata('user', $session);
 
 		$this->session->set_flashdata('success', 'diubah');
 		redirect('profil', 'refresh');
@@ -83,6 +100,32 @@ class Profil extends CI_Controller
 		} else {
 			$this->index();
 		}
+	}
+
+	function delImage($table, $id, $column = 'gambar')
+	{
+		$gambar_lama = $this->db->get_where($table, ['id_'.$table => $id])->row_array()[$column];
+		$path = 'assets/img/' . $table . '/' . $gambar_lama;
+		if($gambar_lama != ''){
+			if (file_exists(FCPATH . $path)) {
+				unlink(FCPATH . $path);
+			}
+		}
+	}
+
+	function _upload($name, $url, $path)
+	{
+		$config['upload_path'] = './assets/img/' . $path . '/';
+		$config['allowed_types'] = 'pdf|jpg|png|jpeg';
+		$config['max_size']  = '4048';
+
+		$this->load->library('upload', $config);
+
+		if ( ! $this->upload->do_upload($name)){
+			$this->session->set_flashdata('error', $this->upload->display_errors());
+			redirect($url,'refresh');
+		}
+		return $this->upload->data('file_name');
 	}
 
 }

@@ -14,7 +14,7 @@
                       <div class="nav-tabs-custom">
                         <ul class="nav nav-tabs">
                           <li class="active"><a href="#activity" data-toggle="tab" aria-expanded="false">Ubah Profil</a></li>
-                          <!-- <li class=""><a href="#timeline" data-toggle="tab" aria-expanded="true">Ubah Gambar</a></li> -->
+                          <li class=""><a href="#timeline" data-toggle="tab" aria-expanded="false">Ubah Gambar</a></li>
                           <li class=""><a href="#settings" data-toggle="tab" aria-expanded="false">Ubah Password</a></li>
                       </ul>
                       <div class="tab-content">
@@ -44,13 +44,6 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- <div class="tab-pane" id="timeline">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    
-                                </div>
-                            </div>
-                        </div> -->
                         <div class="tab-pane" id="settings">
                             <div class="row">
                                 <div class="col-md-6">
@@ -69,6 +62,23 @@
                                             <label for="pw2">Konfirmasi Password Baru</label>
                                             <input type="password" id="pw2" name="pw2" class="form-control pw2 " placeholder="Konfirmasi Password Baru" value="<?php echo set_value('pw2') ?>">
                                             <?php echo form_error('pw2', '<small style="color:red">','</small>') ?>
+                                        </div>
+                                        <div class="form-group">
+                                            <button type="submit" class="btn btn-primary btn-block">Submit</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="timeline">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <form method="POST" action="<?php echo base_url('profil/ubah_gambar_action') ?>" enctype="multipart/form-data">
+                                        <img src="<?php echo base_url('assets/img/user/') . $profil['gambar'] ?>" alt="" class="img-responsive" width="200">
+                                        <div class="form-group <?php if(form_error('gambar')) echo 'has-error'?>">
+                                            <label for="gambar">Gambar</label>
+                                            <input required="" type="file" id="gambar" name="gambar" class="form-control gambar " placeholder="Gambar" value="<?php echo set_value('gambar') ?>">
+                                            <?php echo form_error('gambar', '<small style="color:red">','</small>') ?>
                                         </div>
                                         <div class="form-group">
                                             <button type="submit" class="btn btn-primary btn-block">Submit</button>

@@ -40,12 +40,18 @@ class Auth extends CI_Controller
 
 				// if (password_verify($post['password'], $user['password'])) {
 				if ($post['password'] == $user['password']) {
-					$gambar = $user['level'] == 0 ? 'man.png' : 'student.png';
+					$gambar = "";
+					if ($user['gambar'] == '') {
+						$gambar = $user['level'] == 0 ? 'man.png' : 'student.png';						
+					} else {
+						$gambar = $user['gambar'];
+					}
 					$session = [
 						'login' => true,
 						'id_user' => $user['id_users'],
 						'nama_user' => $user['nama'],
 						'gbr_user' => $gambar,
+						'gambar' => $gambar,
 						'level' => $user['level'] == 0 ? 'Administrator' : 'Calon Siswa'
 					];
 
